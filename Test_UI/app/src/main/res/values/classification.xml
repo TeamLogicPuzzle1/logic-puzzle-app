@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="classification">
+        <item>미분류</item>
+        <item>고기</item>
+        <item>해산물</item>
+        <item>유제품</item>
+        <item>야채</item>
+        <item>음료</item>
+        <item>과일</item>
+        <item>기타</item>
+    </string-array>
+</resources>

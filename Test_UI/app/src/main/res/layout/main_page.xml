@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#7CB342">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Family 냉장고"
+        android:textColor="#ffffff"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="60dp"
+        android:backgroundTint="#7cb342"
+        android:src="@drawable/ic_settings"
+        android:tint="#666a73"
+        tools:layout_editor_absoluteX="367dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:background="#dfdfdf"
+        android:gravity="center"
+        android:text="소비기한 임박상품  0"
+        android:textSize="17dp"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="58dp" />
+    <TextView
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:background="#dfdfdf"
+        android:gravity="center"
+        android:text="소비기한 만료상품  0"
+        android:textSize="17dp"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="58dp" />
+
+    <EditText
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:background="@drawable/rectangle_search"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="109dp"
+        android:drawableStart="@drawable/ic_menu_search_mtrl_alpha"
+        android:drawableTint="#666a73"
+        android:hint="요리, 재료 검색"/>
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:backgroundTint="#7cb342"
+        android:src="@drawable/ic_sysbar_quicksettings"
+        android:tint="#666a73"
+        tools:layout_editor_absoluteX="367dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rectangle_circle_layout_background_gray"
+        android:layout_marginTop="160dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:id="@android:id/tabcontent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </FrameLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/store_fragment_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="520dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="tab1" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="tab2" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="tab3" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/circle_shape"
+            android:src="@drawable/ic_input_add"
+            android:tint="#eeeeee"
+            tools:layout_editor_absoluteX="325dp"
+            tools:layout_editor_absoluteY="427dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
