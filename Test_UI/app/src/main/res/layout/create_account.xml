@@ -18,6 +18,7 @@
             android:layout_height="40dp"
             android:background="@drawable/memo_border"
             android:drawableStart="@drawable/id_png"
+            android:drawableTint="@color/black"
             android:hint="아이디"
             android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
