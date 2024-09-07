@@ -17,8 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:background="@drawable/memo_border"
-            android:drawableStart="@drawable/id_png"
-            android:drawableTint="@color/black"
+            android:drawableStart="@drawable/supervisor_account"
             android:hint="아이디"
             android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
@@ -39,8 +38,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아이디 결과 문구"
+            android:text="사용 가능한 아이디입니다."
             android:textColor="#7cb342"
+            tools:layout_editor_absoluteX="150dp"
+            tools:layout_editor_absoluteY="66dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이미 사용중인 아이디입니다."
+            android:textColor="#FF0000"
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="66dp" />
 
@@ -48,7 +55,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:textSize="15dp"
-            android:drawableStart="@drawable/pw_png"
+            android:drawableStart="@drawable/lock"
             android:background="@drawable/memo_border"
             android:hint="비밀번호"
             tools:layout_editor_absoluteX="35dp"
@@ -57,7 +64,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:textSize="15dp"
-            android:drawableStart="@drawable/pw_png"
+            android:drawableStart="@drawable/lock"
             android:background="@drawable/memo_border"
             android:hint="비밀번호 확인"
             tools:layout_editor_absoluteX="35dp"

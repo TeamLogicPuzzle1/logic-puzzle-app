@@ -148,22 +148,7 @@
         android:drawablePadding="10dp"
         tools:layout_editor_absoluteX="0dp"
         android:text="비밀번호 변경"
-        android:drawableStart="@drawable/lock_1"
-        android:textSize="20dp"
-        android:gravity="left|center"
-        android:backgroundTint="#eeeeee"
-        android:textColor="#000000"
-        tools:layout_editor_absoluteY="426dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:background="@drawable/rectangle"
-        android:drawablePadding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:text="비밀번호 변경"
-        android:drawableStart="@drawable/lock_1"
+        android:drawableStart="@drawable/lock"
         android:textSize="20dp"
         android:gravity="left|center"
         android:backgroundTint="#eeeeee"
