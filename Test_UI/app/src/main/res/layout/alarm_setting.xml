@@ -9,10 +9,10 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_back"
-        android:scaleType="centerCrop"
-        android:background="#eeeeee"
-        android:tint="#000000" />
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="11dp" />
 
     <TextView
         android:layout_width="wrap_content"
