@@ -10,7 +10,7 @@ public class FilterCheck extends AppCompatActivity {
     Button btnLoc1, btnLoc2, btnLoc3, btnFit1, btnFit2, btnFit3, btnFit4, btnFit5, btnFit6, btnFit7, btnFit8;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.filter);
+        setContentView(R.layout.refrigerator_food_filter);
 
         btnLoc1 = (Button) findViewById(R.id.BtnLoc1);
         btnLoc2 = (Button) findViewById(R.id.BtnLoc2);
