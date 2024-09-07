@@ -6,16 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#7CB342">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Family 냉장고"
-        android:textColor="#ffffff"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:src="@drawable/logo_name"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
