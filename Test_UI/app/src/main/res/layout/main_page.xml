@@ -53,14 +53,14 @@
         tools:layout_editor_absoluteY="109dp"
         android:drawableStart="@drawable/search"
         android:hint="요리, 재료 검색"/>
+
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#7cb342"
-        android:src="@drawable/ic_sysbar_quicksettings"
-        android:tint="#666a73"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/tune"
         tools:layout_editor_absoluteX="367dp"
-        tools:layout_editor_absoluteY="100dp" />
+        tools:layout_editor_absoluteY="109dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
