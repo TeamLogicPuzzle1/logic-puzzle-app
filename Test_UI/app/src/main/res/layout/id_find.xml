@@ -28,7 +28,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:textSize="15dp"
-            android:drawableStart="@drawable/email_png"
+            android:drawableStart="@drawable/email"
             android:drawableTint="@color/cardview_dark_background"
             android:background="@drawable/memo_border"
             android:hint="이메일"
