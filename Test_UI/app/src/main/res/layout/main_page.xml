@@ -51,8 +51,7 @@
         android:background="@drawable/rectangle_search"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="109dp"
-        android:drawableStart="@drawable/ic_menu_search_mtrl_alpha"
-        android:drawableTint="#666a73"
+        android:drawableStart="@drawable/search"
         android:hint="요리, 재료 검색"/>
     <ImageButton
         android:layout_width="40dp"
