@@ -57,21 +57,23 @@
         tools:layout_editor_absoluteX="367dp"
         tools:layout_editor_absoluteY="109dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rectangle_circle_layout_background_gray"
         android:layout_marginTop="160dp">
 
-        <ScrollView
-            android:layout_width="369dp"
-            android:layout_height="97dp"
-            android:background="@drawable/rectangle_circle_layout"
-            tools:layout_editor_absoluteX="21dp"
-            tools:layout_editor_absoluteY="16dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="369dp"
+                android:layout_height="97dp"
+                android:background="@drawable/rectangle_circle_layout"
+                tools:layout_editor_absoluteX="21dp"
+                tools:layout_editor_absoluteY="16dp">
+
 
                 <ImageView
                     android:layout_width="77dp"
@@ -145,56 +147,56 @@
                     tools:layout_editor_absoluteX="284dp"
                     tools:layout_editor_absoluteY="2dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
 
-        <FrameLayout
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/circle_shape"
+        android:src="@drawable/ic_input_add"
+        android:tint="#eeeeee"
+        tools:layout_editor_absoluteX="325dp"
+        tools:layout_editor_absoluteY="590dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@android:id/tabcontent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </FrameLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/store_fragment_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="680dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
-            android:id="@android:id/tabcontent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:text="tab1">
 
-        </FrameLayout>
+        </com.google.android.material.tabs.TabItem>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/store_fragment_tablayout"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="520dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:text="tab2">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="tab1">
+        </com.google.android.material.tabs.TabItem>
 
-            </com.google.android.material.tabs.TabItem>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="tab3">
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="tab2">
+        </com.google.android.material.tabs.TabItem>
 
-            </com.google.android.material.tabs.TabItem>
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="tab3">
-
-            </com.google.android.material.tabs.TabItem>
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/circle_shape"
-            android:src="@drawable/ic_input_add"
-            android:tint="#eeeeee"
-            tools:layout_editor_absoluteX="325dp"
-            tools:layout_editor_absoluteY="427dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
