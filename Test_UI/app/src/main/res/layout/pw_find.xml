@@ -27,7 +27,7 @@
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:background="@drawable/memo_border"
-            android:drawableStart="@drawable/id_png"
+            android:drawableStart="@drawable/supervisor_account"
             android:hint="아이디"
             android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
