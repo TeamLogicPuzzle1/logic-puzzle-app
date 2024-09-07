@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#ffffff">
+    android:background="#f5f5f5">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,14 +12,13 @@
         android:textStyle="bold" />
 
     <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:backgroundTint="#ffffff"
-        android:src="@drawable/ic_menu_back"
-        android:tint="@color/black"
-        android:scaleType="centerCrop"
-        tools:layout_editor_absoluteX="360dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back"
+        tools:layout_editor_absoluteX="373dp"
+        tools:layout_editor_absoluteY="16dp" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
