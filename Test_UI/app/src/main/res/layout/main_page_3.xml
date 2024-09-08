@@ -213,23 +213,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="tab1">
-
-        </com.google.android.material.tabs.TabItem>
+            android:icon="@drawable/home" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="tab2">
-
-        </com.google.android.material.tabs.TabItem>
+            android:icon="@drawable/recipe" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="tab3">
-
-        </com.google.android.material.tabs.TabItem>
+            android:icon="@drawable/trash" />
 
     </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
