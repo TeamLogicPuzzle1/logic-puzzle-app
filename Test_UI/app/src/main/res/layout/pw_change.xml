@@ -95,5 +95,13 @@
             android:textColor="#7cb342"
             tools:layout_editor_absoluteX="35dp"
             tools:layout_editor_absoluteY="295dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호가 일치하지 않습니다."
+            android:textColor="#ff0000"
+            tools:layout_editor_absoluteX="35dp"
+            tools:layout_editor_absoluteY="295dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
