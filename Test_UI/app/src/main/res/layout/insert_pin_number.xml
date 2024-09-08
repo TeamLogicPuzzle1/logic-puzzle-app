@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/arrow_back"
-            android:tint="@color/black"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="60dp" />
 
