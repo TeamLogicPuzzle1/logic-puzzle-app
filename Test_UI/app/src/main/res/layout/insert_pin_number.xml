@@ -21,14 +21,13 @@
         android:layout_marginBottom="330dp">
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:backgroundTint="#ffffff"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_menu_back"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="53dp"
-            android:tint="@color/black" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_back"
+            android:tint="@color/black"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="60dp" />
 
         <TextView
             android:layout_width="wrap_content"
