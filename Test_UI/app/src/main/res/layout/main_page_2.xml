@@ -21,24 +21,8 @@
         tools:layout_editor_absoluteX="367dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:layout_width="205dp"
-        android:layout_height="43dp"
-        android:background="#dfdfdf"
-        android:gravity="center"
-        android:text="소비기한 임박상품  0"
-        android:textSize="17dp"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="58dp" />
-    <TextView
-        android:layout_width="205dp"
-        android:layout_height="43dp"
-        android:background="#dfdfdf"
-        android:gravity="center"
-        android:text="소비기한 만료상품  0"
-        android:textSize="17dp"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="58dp" />
+
+
 
     <EditText
         android:layout_width="match_parent"
@@ -75,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="19dp"
                     android:textColor="#8e24aa"
-                    android:text="■Ai 추천요리"/>
+                    android:text=" ■Ai 추천요리"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="369dp"
