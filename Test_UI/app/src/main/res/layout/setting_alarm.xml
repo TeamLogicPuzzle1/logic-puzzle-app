@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#eeeeee">
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/arrow_back"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알림 설정"
+        android:textSize="30dp"
+        android:textStyle="bold|normal"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   소비기한 임박알림"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="55dp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="365dp"
+        tools:layout_editor_absoluteY="60dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#d9d9d9"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="95dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   시간 선택"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="100dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="오전 1:00    "
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:gravity="right"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="110dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#d9d9d9"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="140dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   요일 선택"
+        android:textSize="25dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="145dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="일"
+        android:textColor="#ff0000"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="월"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="화"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="수"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="목"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="금"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="266dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/circle_shape_color_gray"
+        android:backgroundTint="@android:color/transparent"
+        android:gravity="center"
+        android:text="토"
+        android:textColor="#0000ff"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="320dp"
+        tools:layout_editor_absoluteY="188dp" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/store_fragment_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="684dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:icon="@drawable/home" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:icon="@drawable/recipe" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:icon="@drawable/trash" />
+
+    </com.google.android.material.tabs.TabLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
