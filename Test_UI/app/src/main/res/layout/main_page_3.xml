@@ -30,19 +30,57 @@
         tools:layout_editor_absoluteY="59dp" />
 
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/rectangle_circle_layout_background_gray"
         android:layout_marginTop="100dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="306dp"
+            android:layout_height="340dp"
+            android:background="@drawable/rectangle_circle_layout"
+            android:backgroundTint="#ffffff"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="16dp">
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월별 배출한 음식물 쓰레기 양"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="21dp"
+                tools:layout_editor_absoluteY="10dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="306dp"
+            android:layout_height="146dp"
+            android:background="@drawable/rectangle_circle_layout"
+            android:backgroundTint="#ffffff"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="372dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이번달에 배출한 음식물 쓰레기 양"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="21dp"
+                tools:layout_editor_absoluteY="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지난달보다 10L 덜 버렸어요"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="43dp"
+                tools:layout_editor_absoluteY="102dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:layout_width="wrap_content"
