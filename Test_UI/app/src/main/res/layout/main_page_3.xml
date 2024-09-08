@@ -52,6 +52,113 @@
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="21dp"
                 tools:layout_editor_absoluteY="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20L"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="83dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10L"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="163dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5L"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="27dp"
+                tools:layout_editor_absoluteY="243dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b1b1b1"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="95.5dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b1b1b1"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="175dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#b1b1b1"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="256dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="95dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="133.5dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="172dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="210.5dp"
+                tools:layout_editor_absoluteY="269dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="#797979"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="249dp"
+                tools:layout_editor_absoluteY="269dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,16 +187,11 @@
                 tools:layout_editor_absoluteX="43dp"
                 tools:layout_editor_absoluteY="102dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/add_circle_green"
-        android:tint="#7cb342"
-        tools:layout_editor_absoluteX="355dp"
-        tools:layout_editor_absoluteY="620dp" />
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@android:id/tabcontent"
