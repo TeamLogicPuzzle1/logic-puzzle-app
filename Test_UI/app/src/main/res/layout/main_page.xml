@@ -21,19 +21,22 @@
         tools:layout_editor_absoluteX="367dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="205dp"
         android:layout_height="43dp"
-        android:background="#dfdfdf"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#dfdfdf"
         android:gravity="center"
         android:text="소비기한 임박상품  0"
         android:textSize="17dp"
         tools:layout_editor_absoluteX="3dp"
         tools:layout_editor_absoluteY="58dp" />
-    <TextView
+
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="205dp"
         android:layout_height="43dp"
-        android:background="#dfdfdf"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#dfdfdf"
         android:gravity="center"
         android:text="소비기한 만료상품  0"
         android:textSize="17dp"
