@@ -47,13 +47,15 @@
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="490dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@android:color/transparent"
         android:text="회원가입"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="539dp" />
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="525dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,13 +65,15 @@
         tools:layout_editor_absoluteX="139dp"
         tools:layout_editor_absoluteY="539dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아이디 찾기"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@android:color/transparent"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="539dp" />
+        tools:layout_editor_absoluteX="142dp"
+        tools:layout_editor_absoluteY="525dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -79,12 +83,14 @@
         tools:layout_editor_absoluteX="228dp"
         tools:layout_editor_absoluteY="539dp" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호 찾기"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@android:color/transparent"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="539dp" />
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="525dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
