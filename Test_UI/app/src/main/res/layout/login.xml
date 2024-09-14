@@ -5,96 +5,131 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#7CB342"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="159dp"
         android:src="@drawable/logo_name"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="159dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:layout_width="270dp"
+        android:id="@+id/editText"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="71dp"
+        android:background="#ffffff"
         android:drawableStart="@drawable/supervisor_account"
-        android:background="#ffffff"
         android:hint="아이디"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="331dp" />
+        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:layout_width="270dp"
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:drawableStart="@drawable/lock"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="48dp"
         android:background="#ffffff"
+        android:drawableStart="@drawable/lock"
         android:hint="비밀번호"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="402dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/checkBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <CheckBox
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="241dp"
         android:buttonTint="#ffffff"
         android:text="자동로그인"
         android:textColor="#ffffff"
-        tools:layout_editor_absoluteX="242dp"
-        tools:layout_editor_absoluteY="442dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editText2" />
 
     <Button
-        android:layout_width="270dp"
+        android:id="@+id/button"
+        android:layout_width="0dp"
         android:layout_height="40dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="43dp"
         android:backgroundTint="#109554"
         android:text="로그인"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="490dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="81dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="@android:color/transparent"
         android:text="회원가입"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/appCompatButton2"
+        app:layout_constraintEnd_toEndOf="@+id/appCompatButton2" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="|"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="539dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/appCompatButton2"
+        app:layout_constraintEnd_toStartOf="@+id/appCompatButton2"
+        app:layout_constraintStart_toStartOf="@+id/appCompatButton2" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="@android:color/transparent"
         android:text="아이디 찾기"
-        android:background="@drawable/rectangle"
-        android:backgroundTint="@android:color/transparent"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="142dp"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintEnd_toStartOf="@+id/appCompatButton3"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="|"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="539dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/appCompatButton2"
+        app:layout_constraintEnd_toEndOf="@+id/appCompatButton2"
+        app:layout_constraintStart_toEndOf="@+id/appCompatButton2" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호 찾기"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="@android:color/transparent"
+        android:text="비밀번호 찾기"
         android:textColor="#BEDEDE"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="525dp" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/appCompatButton2"
+        app:layout_constraintEnd_toEndOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
