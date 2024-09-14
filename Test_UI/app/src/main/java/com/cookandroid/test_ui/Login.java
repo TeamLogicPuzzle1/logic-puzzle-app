@@ -1,7 +1,7 @@
 /*
  * 간략: 로그인 창
  * 최초 작성자: 홍진기
- * 작성일: 2024-09-14
+ * 최초 작성일: 2024-09-14
  * 버전: 0.0.1
  * */
 package com.cookandroid.test_ui;
@@ -18,6 +18,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Login extends AppCompatActivity {
+    /*
+    * 변수명 singUpBtn(회원가입 버튼)
+    * */
     AppCompatButton signUpBtn;
     Intent intent;
     @Override
@@ -35,6 +38,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), CreateAccount.class);
+                startActivity(intent);
             }
         });
     }

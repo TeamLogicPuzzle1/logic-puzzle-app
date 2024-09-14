@@ -15,18 +15,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CreateAccount extends AppCompatActivity {
-
-    Button returnSingInBtn;
+    /*
+    * 변수명 returnSignInBtn(회원가입 버튼)
+    */
+    Button returnSignInBtn;
     Intent intent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
-        returnSingInBtn = (Button) findViewById(R.id.Return_SignIn_Btn);
-        returnSingInBtn.setOnClickListener(new View.OnClickListener() {
+        returnSignInBtn = (Button) findViewById(R.id.Return_SignIn_Btn);
+        returnSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent);
             }
         });
     }
