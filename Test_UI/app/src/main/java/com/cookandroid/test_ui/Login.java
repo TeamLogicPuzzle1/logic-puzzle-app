@@ -21,7 +21,7 @@ public class Login extends AppCompatActivity {
     /*
     * 변수명 singUpBtn(회원가입 버튼)
     * */
-    AppCompatButton signUpBtn;
+    AppCompatButton signUpBtn, idFindBtn;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,14 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), CreateAccount.class);
+                startActivity(intent);
+            }
+        });
+        idFindBtn= (AppCompatButton) findViewById(R.id.IdFindBtn);
+        idFindBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getApplicationContext(), IdFind.class);
                 startActivity(intent);
             }
         });

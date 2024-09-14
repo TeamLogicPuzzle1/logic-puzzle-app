@@ -24,6 +24,7 @@
         <activity android:name=".CreateAccount" android:label="createAccount"/>
         <activity android:name=".AddItem" android:label="Add Item"/>
         <activity android:name=".FilterCheck" />
+        <activity android:name=".IdFind" android:label="idFind"/>
     </application>
 
 </manifest>
