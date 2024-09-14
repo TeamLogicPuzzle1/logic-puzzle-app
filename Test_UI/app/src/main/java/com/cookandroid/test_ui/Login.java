@@ -1,5 +1,12 @@
+/*
+ * 간략: 로그인 창
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-09-14
+ * 버전: 0.0.1
+ * */
 package com.cookandroid.test_ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,13 +18,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Login extends AppCompatActivity {
-    /*
-    * 간략: 로그인 창
-    * 최초 작성자: 홍진기
-    * 작성일: 2024-09-14
-    * 버전: 0.0.1
-    * */
     AppCompatButton signUpBtn;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class Login extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                intent = new Intent(getApplicationContext(), CreateAccount.class);
             }
         });
     }

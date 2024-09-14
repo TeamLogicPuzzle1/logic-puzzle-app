@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CreateAccount" android:label="createAccount"/>
         <activity android:name=".AddItem" android:label="Add Item"/>
         <activity android:name=".FilterCheck" />
     </application>

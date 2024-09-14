@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#7CB342">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
-        android:layout_width="match_parent"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="190dp"
         android:background="@drawable/rectangle_circle_layout"
-        android:layout_marginBottom="180dp"
-        android:layout_height="match_parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
+            android:id="@+id/editText8"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:background="@drawable/memo_border"
@@ -24,6 +32,7 @@
             tools:layout_editor_absoluteY="16dp" />
 
         <Button
+            android:id="@+id/button7"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#7CB342"
@@ -35,6 +44,7 @@
             tools:layout_editor_absoluteY="56dp" />
 
         <TextView
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사용 가능한 아이디입니다."
@@ -43,6 +53,7 @@
             tools:layout_editor_absoluteY="66dp" />
 
         <TextView
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="이미 사용중인 아이디입니다."
@@ -51,25 +62,29 @@
             tools:layout_editor_absoluteY="66dp" />
 
         <EditText
+            android:id="@+id/editText9"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/lock"
             android:background="@drawable/memo_border"
+            android:drawableStart="@drawable/lock"
             android:hint="비밀번호"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
             tools:layout_editor_absoluteY="110dp" />
+
         <EditText
+            android:id="@+id/editText10"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/lock"
             android:background="@drawable/memo_border"
+            android:drawableStart="@drawable/lock"
             android:hint="비밀번호 확인"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
             tools:layout_editor_absoluteY="160dp" />
 
         <TextView
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="비밀번호가 일치합니다."
@@ -78,6 +93,7 @@
             tools:layout_editor_absoluteY="199dp" />
 
         <TextView
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="비밀번호가 일치하지 않습니다."
@@ -86,16 +102,18 @@
             tools:layout_editor_absoluteY="199dp" />
 
         <EditText
+            android:id="@+id/editText11"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/email"
             android:background="@drawable/memo_border"
+            android:drawableStart="@drawable/email"
             android:hint="이메일"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
             tools:layout_editor_absoluteY="230dp" />
 
         <Button
+            android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#7CB342"
@@ -107,15 +125,17 @@
             tools:layout_editor_absoluteY="270dp" />
 
         <EditText
+            android:id="@+id/editText12"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
             android:background="@drawable/memo_border"
             android:hint="인증번호"
+            android:textSize="15dp"
             tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="310dp"/>
+            tools:layout_editor_absoluteY="310dp" />
 
         <Button
+            android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#7CB342"
@@ -127,6 +147,7 @@
             tools:layout_editor_absoluteY="350dp" />
 
         <Button
+            android:id="@+id/Return_SignIn_Btn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#d9d9d9"
@@ -138,6 +159,7 @@
             tools:layout_editor_absoluteY="415dp" />
 
         <Button
+            android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:backgroundTint="#7CB342"
@@ -149,6 +171,7 @@
             tools:layout_editor_absoluteY="415dp" />
 
         <TextView
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="인증번호 결과 문구"
