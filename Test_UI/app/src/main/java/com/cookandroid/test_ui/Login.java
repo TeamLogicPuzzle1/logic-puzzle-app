@@ -1,15 +1,23 @@
 package com.cookandroid.test_ui;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
-
+public class Login extends AppCompatActivity {
+    /*
+    * 간략: 로그인 창
+    * 최초 작성자: 홍진기
+    * 작성일: 2024-09-14
+    * 버전: 0.0.1
+    * */
+    AppCompatButton signUpBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        signUpBtn = (AppCompatButton) findViewById(R.id.SignUpBtn);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 }
