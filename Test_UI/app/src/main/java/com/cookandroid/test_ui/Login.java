@@ -2,7 +2,8 @@
  * 간략: 로그인 창
  * 최초 작성자: 홍진기
  * 최초 작성일: 2024-09-14
- * 버전: 0.0.1
+ * 수정일: 2024-09-18
+ * 버전: 0.0.2
  * */
 package com.cookandroid.test_ui;
 
@@ -19,9 +20,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Login extends AppCompatActivity {
     /*
-    * 변수명 singUpBtn(회원가입 버튼)
+    * 변수명
+    * singUpBtn(회원가입 버튼)
+    * idFindBtn(아이디 찾기 버튼)
+    * pwFindBtn(비밀번호 찾기 버튼)
     * */
-    AppCompatButton signUpBtn, idFindBtn;
+    AppCompatButton signUpBtn, idFindBtn, pwFindBtn;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +45,19 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        idFindBtn= (AppCompatButton) findViewById(R.id.IdFindBtn);
+        idFindBtn = (AppCompatButton) findViewById(R.id.IdFindBtn);
         idFindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), IdFind.class);
+                startActivity(intent);
+            }
+        });
+        pwFindBtn = (AppCompatButton) findViewById(R.id.PwFindBtn);
+        pwFindBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getApplicationContext(), PwFind.class);
                 startActivity(intent);
             }
         });
