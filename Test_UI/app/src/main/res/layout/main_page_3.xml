@@ -178,6 +178,12 @@
                 tools:layout_editor_absoluteX="21dp"
                 tools:layout_editor_absoluteY="10dp" />
 
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="64dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
