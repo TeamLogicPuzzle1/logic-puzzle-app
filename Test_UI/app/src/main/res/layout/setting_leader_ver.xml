@@ -9,131 +9,167 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
         android:text="설정"
         android:textColor="#000000"
         android:textSize="25dp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:layout_marginTop="36dp"
         android:background="#d9d9d9"
         android:scaleType="centerCrop"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="38dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:text="프로필 이름"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="59dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.317"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="#d9d9d9"
         android:text="   관리   "
         android:textColor="#757575"
         android:textSize="15dp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="296dp"
-        tools:layout_editor_absoluteY="49dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="123dp"
         android:background="#d9d9d9"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="123dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/AlarmSettingBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="124dp"
         android:background="@drawable/rectangle"
-        android:drawablePadding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:text="알림 설정"
+        android:backgroundTint="#eeeeee"
         android:drawableStart="@drawable/alarm"
-        android:textSize="20dp"
+        android:drawablePadding="10dp"
         android:gravity="left|center"
-        android:backgroundTint="#eeeeee"
+        android:text="알림 설정"
         android:textColor="#000000"
-        tools:layout_editor_absoluteY="124dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="173dp"
         android:background="#d9d9d9"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="173dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="173dp"
         android:background="@drawable/rectangle"
+        android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
         android:text="공지사항"
-        android:textSize="20dp"
-        android:gravity="left|center"
-        android:backgroundTint="#eeeeee"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="175dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="225dp"
         android:background="@drawable/rectangle"
-        android:text="문의하기"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
+        android:text="문의하기"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="225dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="275dp"
         android:background="@drawable/rectangle"
-        android:text="친구에게 앱 추천하기"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
+        android:text="친구에게 앱 추천하기"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="275dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="325dp"
         android:background="#d9d9d9"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="325dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="328dp"
         android:background="@drawable/rectangle"
+        android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
         android:text="개인정보 처리방침"
-        android:textSize="20dp"
-        android:gravity="left|center"
-        android:backgroundTint="#eeeeee"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="328dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="378dp"
         android:background="@drawable/rectangle"
-        android:text="오픈소스 라이브러리"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
+        android:text="오픈소스 라이브러리"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="378dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -145,65 +181,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="426dp"
         android:background="@drawable/rectangle"
-        android:drawablePadding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:text="비밀번호 변경"
-        android:drawableStart="@drawable/lock"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:drawableStart="@drawable/lock"
+        android:drawablePadding="10dp"
+        android:gravity="left|center"
+        android:text="비밀번호 변경"
         android:textColor="#000000"
-        tools:layout_editor_absoluteY="426dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="476dp"
         android:background="@drawable/rectangle"
-        android:drawablePadding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:text="회원 탈퇴"
-        android:drawableStart="@drawable/run_1"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:drawableStart="@drawable/run_1"
+        android:drawablePadding="10dp"
+        android:gravity="left|center"
+        android:text="회원 탈퇴"
         android:textColor="#000000"
-        tools:layout_editor_absoluteY="476dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="526dp"
         android:background="@drawable/rectangle"
-        android:text="리더 변경"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:gravity="left|center"
+        android:text="리더 변경"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="526dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:layout_marginTop="575dp"
         android:background="#d9d9d9"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="575dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="579dp"
         android:background="@drawable/rectangle"
-        android:drawablePadding="10dp"
-        tools:layout_editor_absoluteX="0dp"
-        android:text="버전 정보"
-        android:drawableStart="@drawable/info_1"
-        android:textSize="20dp"
-        android:gravity="left|center"
         android:backgroundTint="#eeeeee"
+        android:drawableStart="@drawable/info_1"
+        android:drawablePadding="10dp"
+        android:gravity="left|center"
+        android:text="버전 정보"
         android:textColor="#000000"
-        tools:layout_editor_absoluteY="579dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/store_fragment_tablayout"
