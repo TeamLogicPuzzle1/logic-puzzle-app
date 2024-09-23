@@ -8,36 +8,50 @@
 
 
     <ImageButton
+        android:id="@+id/ReturnSettingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="11dp"
         android:background="@android:color/transparent"
         android:src="@drawable/arrow_back"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="11dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
         android:text="공지사항"
         android:textSize="30dp"
         android:textStyle="bold|normal"
-        tools:layout_editor_absoluteX="48dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="369dp"
         android:layout_height="97dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/rectangle_circle_layout"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="44dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이 공지사항은 Test용입니다."/>
+                android:text="이 공지사항은 Test용입니다." />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

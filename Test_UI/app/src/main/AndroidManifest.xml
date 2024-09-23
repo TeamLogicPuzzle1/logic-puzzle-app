@@ -28,6 +28,7 @@
         <activity android:name=".PwFind" android:label="pwFind"/>
         <activity android:name=".SettingLeaderVer" android:label="SettingLeader" />
         <activity android:name=".SettingAlarm" android:label="settingAlarm" />
+        <activity android:name=".SettingAnnounce" />
     </application>
 
 </manifest>

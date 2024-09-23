@@ -2,7 +2,10 @@
  * 간략: 리더 환경 설정 창
  * 최초 작성자: 홍진기
  * 작성일: 2024-09-22
- * 버전: 0.0.1
+ * 수정일: 2024-09-23
+ * 수정자: 안승민
+ * 버전: 0.0.3
+ *
  * */
 package com.cookandroid.test_ui;
 
@@ -24,12 +27,21 @@ public class SettingLeaderVer extends AppCompatActivity {
         * alarmSettingBtn (알람 설정으로 들어가는 버튼)*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_leader_ver);
-        AppCompatButton alarmSettingBtn;
+        AppCompatButton alarmSettingBtn, announceBtn;
         alarmSettingBtn = (AppCompatButton) findViewById(R.id.AlarmSettingBtn);
         alarmSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getApplicationContext(), SettingAlarm.class);
+                startActivity(intent);
+            }
+        });
+
+        announceBtn = (AppCompatButton) findViewById(R.id.AnnounceBtn);
+        announceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getApplicationContext(), SettingAnnounce.class);
                 startActivity(intent);
             }
         });

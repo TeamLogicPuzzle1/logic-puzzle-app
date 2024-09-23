@@ -68,59 +68,81 @@
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.140"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.270"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.53"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="379dp"
         android:background="#dbdbdb"
         android:textSize="25dp"
-        tools:layout_editor_absoluteX="300dp"
-        tools:layout_editor_absoluteY="379dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginStart="251dp"
+        android:layout_marginTop="460dp"
         android:backgroundTint="#7CB342"
         android:text="확인"
         android:textColor="#1B5E20"
         android:textSize="15dp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="461dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
