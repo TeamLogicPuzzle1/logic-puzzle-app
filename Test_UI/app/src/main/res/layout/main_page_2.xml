@@ -9,30 +9,36 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/logo_name"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/setting"
-        tools:layout_editor_absoluteX="367dp"
-        tools:layout_editor_absoluteY="0dp" />
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/rectangle_search"
         android:layout_marginHorizontal="10dp"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="109dp"
+        android:layout_marginTop="109dp"
+        android:background="@drawable/rectangle_search"
         android:drawableStart="@drawable/search"
-        android:hint="  요리, 재료 검색"/>
+        android:hint="  요리, 재료 검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -49,100 +55,137 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="389dp"
                 android:layout_height="343dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/rectangle_circle_layout"
                 android:backgroundTint="#d9d9d9"
-                tools:layout_editor_absoluteX="11dp"
-                tools:layout_editor_absoluteY="16dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="19dp"
+                    android:text=" ■Ai 추천요리"
                     android:textColor="#8e24aa"
-                    android:text=" ■Ai 추천요리"/>
+                    android:textSize="19dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="369dp"
                     android:layout_height="97dp"
+                    android:layout_marginTop="28dp"
                     android:background="@drawable/rectangle_circle_layout"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:layout_editor_absoluteY="28dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <ImageView
                         android:layout_width="77dp"
                         android:layout_height="77dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/rectangle_circle_shape_greenline"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="10dp" />
-
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginLeft="105dp"
+                        android:layout_marginTop="45dp"
                         android:layout_marginRight="20dp"
                         android:background="#7cb342"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="45dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="105dp"
+                        android:layout_marginTop="20dp"
                         android:text="삼겹살"
                         android:textSize="19dp"
-                        tools:layout_editor_absoluteX="105dp"
-                        tools:layout_editor_absoluteY="20dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="재료: 앞다리살, 다진마늘, 고추장, 설탕, 양파, 대파"
-                        tools:layout_editor_absoluteX="105dp"
-                        tools:layout_editor_absoluteY="45dp" />
+                        android:layout_marginStart="105dp"
+                        android:layout_marginTop="45dp"
+                        android:text="재료: 앞다리살, 다진마늘, 고추장,\n설탕, 양파, 대파"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="369dp"
                     android:layout_height="97dp"
+                    android:layout_marginTop="141dp"
                     android:background="@drawable/rectangle_circle_layout"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:layout_editor_absoluteY="141dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <ImageView
                         android:layout_width="77dp"
                         android:layout_height="77dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/rectangle_circle_shape_greenline"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="10dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginLeft="105dp"
+                        android:layout_marginTop="45dp"
                         android:layout_marginRight="20dp"
                         android:background="#7cb342"
-                        tools:layout_editor_absoluteX="0dp"
-                        tools:layout_editor_absoluteY="45dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="105dp"
+                        android:layout_marginTop="20dp"
                         android:text="삼겹살"
                         android:textSize="19dp"
-                        tools:layout_editor_absoluteX="105dp"
-                        tools:layout_editor_absoluteY="20dp" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:layout_width="200dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="재료: 앞다리살, 다진마늘, 고추장, 설탕, 양파, 대파"
-                        tools:layout_editor_absoluteX="105dp"
-                        tools:layout_editor_absoluteY="45dp" />
+                        android:layout_marginStart="105dp"
+                        android:layout_marginTop="45dp"
+                        android:text="재료: 앞다리살, 다진마늘, 고추장,\n설탕, 양파, 대파"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,16 +196,22 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="620dp"
+        android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         android:src="@drawable/add_circle_green"
-        android:tint="#7cb342"
-        tools:layout_editor_absoluteX="355dp"
-        tools:layout_editor_absoluteY="620dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@android:id/tabcontent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
