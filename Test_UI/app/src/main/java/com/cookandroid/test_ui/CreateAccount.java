@@ -2,7 +2,8 @@
  * 간략: 회원가입 창
  * 최초 작성자: 홍진기
  * 작성일: 2024-09-14
- * 버전: 0.0.1
+ * 수정일: 2024-09-28
+ * 버전: 0.0.2
  * */
 package com.cookandroid.test_ui;
 
@@ -20,10 +21,12 @@ public class CreateAccount extends AppCompatActivity {
     /*
     * 변수명 returnSignInBtn(회원가입 버튼)
     */
-    TextView certification_Timer;
+    // TextView certification_Timer;
     Button careturnSignInBtn, certificationNumberSendBtn;
+    CountDownTimer countDownTimer;
     Intent intent;
-    boolean isTimerRunning = false;
+    // boolean isTimerRunning = false;
+    // long timeLeftInMillis = 180000;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,30 +44,43 @@ public class CreateAccount extends AppCompatActivity {
             public void onClick(View view) {
                 if(!isTimerRunning) {
                     startTimer();
+                }else {
+
                 }
             }
-        }); */
+        });*/
     }
 
-    /* protected void startTimer() {
-        CountDownTimer countDownTimer;
-        countDownTimer = new CountDownTimer(180000, 1000) {
+    /* private void startTimer() {
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
-            public void onTick(long l) {
-                int minutes = (int) (l / 1000) / 60;
-                int seconds = (int) (l / 1000) % 60;
-                String timeFormatted = String.format("%02d:%02d", minutes , seconds);
-                certification_Timer.setText(timeFormatted);
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
             }
 
             @Override
             public void onFinish() {
-                certification_Timer.setText("00:00");
                  isTimerRunning = false;
+                 certificationNumberSendBtn.setEnabled(true);
+                certification_Timer.setText("00:00");
             }
+
         };
         countDownTimer.start();
         isTimerRunning = true;
         certificationNumberSendBtn.setEnabled(false);
+    }
+    private void updateTimer() {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+        String timeFormatted = String.format("%02d:%02d", minutes, seconds);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
     } */
 }
