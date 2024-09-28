@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/LoginBtn"
         android:layout_width="270dp"
         android:layout_height="40dp"
         android:layout_marginTop="492dp"
@@ -128,6 +128,6 @@
         android:text="비밀번호 찾기"
         android:textColor="#BEDEDE"
         app:layout_constraintBaseline_toBaselineOf="@+id/IdFindBtn"
-        app:layout_constraintEnd_toEndOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/LoginBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

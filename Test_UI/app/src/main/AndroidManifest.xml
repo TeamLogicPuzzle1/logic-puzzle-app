@@ -29,6 +29,7 @@
         <activity android:name=".SettingLeaderVer" android:label="SettingLeader" />
         <activity android:name=".SettingAlarm" android:label="settingAlarm" />
         <activity android:name=".SettingAnnounce" />
+        <activity android:name=".MainPage" android:label="mainPage" />
     </application>
 
 </manifest>
