@@ -30,6 +30,10 @@
         <activity android:name=".SettingAlarm" android:label="settingAlarm" />
         <activity android:name=".SettingAnnounce" />
         <activity android:name=".MainPage" android:label="mainPage" />
+        <activity android:name=".main_page_tab" />
+        <activity android:name=".main_page_frag" />
+        <activity android:name=".main_page_frag2" />
+        <activity android:name=".main_page_frag3" />
     </application>
 
 </manifest>

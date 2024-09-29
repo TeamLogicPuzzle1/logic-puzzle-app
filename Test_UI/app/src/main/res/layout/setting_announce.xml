@@ -74,12 +74,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:icon="@drawable/recipe" />
+            android:icon="@drawable/recipe2" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:icon="@drawable/trash" />
+            android:icon="@drawable/trash2" />
 
     </com.google.android.material.tabs.TabLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

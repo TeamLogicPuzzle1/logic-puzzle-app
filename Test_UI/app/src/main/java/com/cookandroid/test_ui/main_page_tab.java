@@ -22,11 +22,17 @@ public class main_page_tab extends AppCompatActivity {
 
         storeFragmentTablayout.setupWithViewPager(viewPager);
 
+
         VPadapter vpAdapter = new VPadapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new main_page_frag(), "상품등록창");
-        vpAdapter.addFragment(new main_page_frag2(), "레시피추천창");
-        vpAdapter.addFragment(new main_page_frag3(), "음식물쓰레기 조사창");
+        vpAdapter.addFragment(new main_page_frag(), null);
+        vpAdapter.addFragment(new main_page_frag2(), null);
+        vpAdapter.addFragment(new main_page_frag3(), null);
         viewPager.setAdapter(vpAdapter);
+
+        storeFragmentTablayout.getTabAt(0).setIcon(R.drawable.home2);
+        storeFragmentTablayout.getTabAt(1).setIcon(R.drawable.recipe);
+        storeFragmentTablayout.getTabAt(2).setIcon(R.drawable.trash);
+
 
 
     }
