@@ -15,12 +15,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 
 public class main_page_frag extends Fragment {
     Intent intent;
+    private AddItemDialog addItemDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +32,26 @@ public class main_page_frag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
+
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getActivity().getWindow().setAttributes(layoutParams);
+
         ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 intent = new Intent(getActivity(), SettingLeaderVer.class);
                 startActivity(intent);
+            }
+        });
+
+        ImageButton addItem = v.findViewById(R.id.AddItem);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // addItemDialog = new AddItemDialog()
             }
         });
         return v;
