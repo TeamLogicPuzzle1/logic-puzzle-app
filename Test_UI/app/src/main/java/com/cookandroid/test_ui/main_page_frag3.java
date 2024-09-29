@@ -1,3 +1,10 @@
+/*
+ * 간략: 음식물 쓰레기 통계 창
+ * 최초 작성자: 홍진기
+ * 최초 작성일: 2024-09-28
+ * 수정일: 2024-09-29
+ * 버전: 0.0.2
+ * */
 package com.cookandroid.test_ui;
 
 import android.os.Bundle;
