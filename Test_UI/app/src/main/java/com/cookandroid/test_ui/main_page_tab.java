@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-
+@SuppressWarnings("deprecation")
 public class main_page_tab extends AppCompatActivity {
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;

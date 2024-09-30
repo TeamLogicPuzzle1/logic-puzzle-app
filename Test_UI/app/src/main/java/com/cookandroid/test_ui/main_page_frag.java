@@ -7,10 +7,12 @@
  * */
 package com.cookandroid.test_ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,6 @@ import android.widget.ImageButton;
 
 public class main_page_frag extends Fragment {
     Intent intent;
-    private AddItemDialog addItemDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +34,10 @@ public class main_page_frag extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
 
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        /* WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.8f;
-        getActivity().getWindow().setAttributes(layoutParams);
+        getActivity().getWindow().setAttributes(layoutParams); */
 
         ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +52,9 @@ public class main_page_frag extends Fragment {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // addItemDialog = new AddItemDialog()
+                FragmentManager fragmentManager = getParentFragmentManager();
+                AddItemDialog addItemDialog = new AddItemDialog();
+                addItemDialog.show(fragmentManager, null);
             }
         });
         return v;

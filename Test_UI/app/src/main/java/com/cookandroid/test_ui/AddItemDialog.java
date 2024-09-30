@@ -20,16 +20,33 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     public static final String TAG_EVENT_DIALOG = "dialog_event";
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
-        AddItemDialog a = new AddItemDialog();
-        return a;
+        AddItemDialog addItemDialog = new AddItemDialog();
+        return addItemDialog;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.add_item, container);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.add_item, container, false);
+        Spinner spinClassification = v.findViewById(R.id.SpinClassification);
+        ArrayAdapter spin_adapter_class = ArrayAdapter.createFromResource(v.getContext(), R.array.classification,
+                android.R.layout.simple_spinner_item);
+        spinClassification.setAdapter(spin_adapter_class);
 
+        Spinner spinStorage = v.findViewById(R.id.SpinStorage);
+        ArrayAdapter spin_adapter_stor = ArrayAdapter.createFromResource(v.getContext(), R.array.storage_location,
+                android.R.layout.simple_spinner_item);
+        spin_adapter_stor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinStorage.setAdapter(spin_adapter_stor);
+
+        ImageButton backIvBtn = v.findViewById(R.id.BackIvBtn);
+        backIvBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+        return v;
     }
 
     @Override
