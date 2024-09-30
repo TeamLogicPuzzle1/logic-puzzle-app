@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
 
-    public static final String TAG_EVENT_DIALOG = "dialog_event";
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();

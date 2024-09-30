@@ -2,8 +2,8 @@
  * 간략: 상품 등록 창
  * 최초 작성자: 홍진기
  * 최초 작성일: 2024-09-28
- * 수정일: 2024-09-29
- * 버전: 0.0.3
+ * 수정일: 2024-09-30
+ * 버전: 0.0.5
  * */
 package com.cookandroid.test_ui;
 
@@ -39,6 +39,8 @@ public class main_page_frag extends Fragment {
         layoutParams.dimAmount = 0.8f;
         getActivity().getWindow().setAttributes(layoutParams); */
 
+        // 환경 설정 버튼을 눌렀을때 설정페이지로 들어가는 ㅋ모드
+        // settingBtn(설정)
         ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +49,8 @@ public class main_page_frag extends Fragment {
                 startActivity(intent);
             }
         });
-
+        // 추가 버튼을 눌렀을 때 상품등록 팝업창을 구현하는 코드
+        // addItem(더하기 버튼)
         ImageButton addItem = v.findViewById(R.id.AddItem);
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +60,18 @@ public class main_page_frag extends Fragment {
                 addItemDialog.show(fragmentManager, null);
             }
         });
+        // 필터버튼을 눌렀을때 냉장고 필터 팝업창이 뜨는 코드
+        // 변수 설명 refrigeratorFoodFilterCheck(냉장고 필터 버튼)
+        ImageButton refrigeratorFoodFilterCheck = (ImageButton) v.findViewById(R.id.RefrigeratorFoodFilterCheck);
+        refrigeratorFoodFilterCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
+                refrigeratorFoodFilterDialog.show(fragmentManager, null);
+            }
+        });
+
         return v;
 
     }

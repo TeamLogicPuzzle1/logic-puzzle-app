@@ -1,3 +1,10 @@
+/*
+ * 간략: tabLayout으로 메인페이지 구성
+ * 최초 작성자: 홍진기
+ * 최초 작성일: 2024-09-28
+ * 수정일: 2024-09-30
+ * 버전: 0.0.3
+ * */
 package com.cookandroid.test_ui;
 
 import android.os.Bundle;

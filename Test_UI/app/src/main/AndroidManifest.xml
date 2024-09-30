@@ -34,6 +34,7 @@
         <activity android:name=".main_page_frag" />
         <activity android:name=".main_page_frag2" />
         <activity android:name=".main_page_frag3" />
+        <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog"/>
     </application>
 
 </manifest>
