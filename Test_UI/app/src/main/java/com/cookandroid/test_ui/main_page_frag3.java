@@ -7,28 +7,45 @@
  * */
 package com.cookandroid.test_ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 
 public class main_page_frag3 extends Fragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
-    }
+    Intent intent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_page_frag3, container, false);
+        View v =  inflater.inflate(R.layout.fragment_main_page_frag3, container, false);
+        ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(getActivity(), SettingLeaderVer.class);
+                startActivity(intent);
+            }
+        });
+        ImageButton trashPlus = v.findViewById(R.id.TrashPlus);
+        trashPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                LiterFilter1 literFilter1 =  new LiterFilter1();
+                literFilter1.show(fragmentManager, null);
+
+            }
+        });
+
+        return v;
+
     }
 }
