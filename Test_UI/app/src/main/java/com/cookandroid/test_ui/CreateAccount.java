@@ -8,10 +8,14 @@
 package com.cookandroid.test_ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,8 +25,9 @@ public class CreateAccount extends AppCompatActivity {
     /*
     * 변수명 returnSignInBtn(회원가입 버튼)
     */
-    // TextView certification_Timer;
-    Button careturnSignInBtn, certificationNumberSendBtn;
+    TextView certification_Timer, duplicateMessage, pwMatchMessage, sendCodeCheckMessage;
+    EditText pwEdt, pwCheckEdt;
+    Button careturnSignInBtn, sendCodeBtn, duplicateCheckBtn, sendCodeCheckBtn;
     CountDownTimer countDownTimer;
     Intent intent;
     // boolean isTimerRunning = false;
@@ -31,6 +36,7 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
+        // 취소버튼
         careturnSignInBtn = (Button) findViewById(R.id.Ca_Return_SignIn_Btn);
         careturnSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,48 +45,94 @@ public class CreateAccount extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        /* certificationNumberSendBtn.setOnClickListener(new View.OnClickListener() {
+        // 인증번호 타이머
+        certification_Timer = (TextView) findViewById(R.id.Certification_Timer);
+        sendCodeBtn = (Button) findViewById(R.id.SendCodeBtn);
+        sendCodeBtn.setOnClickListener(v -> {
+            startTimer();
+            sendCodeBtn.setEnabled(false);
+        });
+        // 중복확인 버튼
+        duplicateCheckBtn = (Button) findViewById(R.id.DuplicateCheckBtn);
+        duplicateMessage = (TextView) findViewById(R.id.DuplicateMessage); // 중복확인 메시지
+        duplicateCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isTimerRunning) {
-                    startTimer();
-                }else {
-
-                }
+                duplicateMessage.setVisibility(View.VISIBLE);
             }
-        });*/
+        });
+        // 비밀번호와 비밀번호 확인
+        pwEdt = (EditText) findViewById(R.id.PwEdt); // 비밀번호 입력칸
+        pwCheckEdt = (EditText) findViewById(R.id.PwCheckEdt);  // 비밀번호 확인 입력칸
+        pwMatchMessage = (TextView) findViewById(R.id.PwMatchMessage);
+        pwCheckEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkPasswords();
+            }
+        });
+        // 인증번호 확인 버튼
+        sendCodeCheckBtn = (Button) findViewById(R.id.SendCodeCheckBtn);
+        // 인증번호 확인 메시지
+        sendCodeCheckMessage = (TextView) findViewById(R.id.SendCodeCheckMessage);
+        sendCodeCheckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendCodeCheckMessage.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 
-    /* private void startTimer() {
-        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(180000, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMillis = millisUntilFinished;
+            public void onTick(long l) {
+                long minutes = l / 60000;
+                long seconds =  (l % 60000) / 1000;
+                certification_Timer.setText(String.format("%02d:%02d", minutes, seconds));
+
             }
 
             @Override
             public void onFinish() {
-                 isTimerRunning = false;
-                 certificationNumberSendBtn.setEnabled(true);
                 certification_Timer.setText("00:00");
+                sendCodeBtn.setEnabled(true);
             }
-
-        };
-        countDownTimer.start();
-        isTimerRunning = true;
-        certificationNumberSendBtn.setEnabled(false);
+        }.start();
     }
-    private void updateTimer() {
-        int minutes = (int) (timeLeftInMillis / 1000) / 60;
-        int seconds = (int) (timeLeftInMillis / 1000) % 60;
-        String timeFormatted = String.format("%02d:%02d", minutes, seconds);
-    }
-
-    @Override
-    protected void onDestroy() {
+    private void Destory() {
         super.onDestroy();
-        if (countDownTimer != null) {
+        if(countDownTimer != null) {
             countDownTimer.cancel();
         }
-    } */
+    }
+
+    // 비밀번호가 일치하는지 확인하는 메서드
+    private void checkPasswords() {
+        String password = pwEdt.getText().toString();
+        String confirm = pwCheckEdt.getText().toString();
+
+        if (password.equals(confirm) && !password.isEmpty()) {
+            // 비밀번호가 일치하면 메시지를 보이게 설정
+            pwMatchMessage.setVisibility(TextView.VISIBLE);
+            pwMatchMessage.setText("비밀번호가 일치합니다.");
+            pwMatchMessage.setTextColor(Color.rgb(124, 179, 66)); // 초록색
+        } else {
+            // 일치하지 않으면 메시지를 숨김
+            pwMatchMessage.setVisibility(TextView.VISIBLE);
+            pwMatchMessage.setText("비밀번호가 일치하지 않습니다.");
+            pwMatchMessage.setTextColor(Color.RED);
+        }
+    }
 }

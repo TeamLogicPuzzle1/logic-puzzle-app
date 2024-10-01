@@ -1,3 +1,10 @@
+/*
+ * 간략: 음식물 쓰레기 조사 창1
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-09-29
+ * 수정일: 2024-09-30
+ * 버전: 0.0.2
+ * */
 package com.cookandroid.test_ui;
 
 import android.app.Dialog;
@@ -16,17 +23,24 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
-
+    // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();
         return addItemDialog;
     }
-
+    /*
+    * v(xml파일과 연결)
+    * spinClasssification(아이템분류를 선택하는 스피너)
+    * spinStorage(저장위치를 선택하는 스피너)
+    * backIvBtn(이전버튼)*/
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_item, container, false);
+        if(getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
         Spinner spinClassification = v.findViewById(R.id.SpinClassification);
         ArrayAdapter spin_adapter_class = ArrayAdapter.createFromResource(v.getContext(), R.array.classification,
                 android.R.layout.simple_spinner_item);

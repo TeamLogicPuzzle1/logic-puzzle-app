@@ -8,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="380dp"
+        android:layout_height="460dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="180dp"
@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button17"
+            android:id="@+id/DuplicateCheckBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="56dp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/DuplicateMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText17"
+            android:id="@+id/PwEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="108dp"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText18"
+            android:id="@+id/PwCheckEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="156dp"
@@ -108,7 +108,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/PwMatchMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="196dp"
@@ -150,7 +150,7 @@
 
 
         <Button
-            android:id="@+id/CertificationNumber_SendBtn"
+            android:id="@+id/SendCodeBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="268dp"
@@ -179,7 +179,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button19"
+            android:id="@+id/SendCodeCheckBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="348dp"
@@ -236,15 +236,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/SendCodeCheckMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="360dp"
-            android:text="인증번호 결과 문구"
-            android:visibility="invisible"
+            android:layout_marginTop="356dp"
+            android:text="인증번호가 확인되었습니다."
             android:textColor="#7cb342"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.704"
+            app:layout_constraintHorizontal_bias="0.811"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

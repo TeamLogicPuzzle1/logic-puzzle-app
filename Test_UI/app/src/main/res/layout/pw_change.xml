@@ -6,12 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#7cb342">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="370dp"
+        android:layout_height="380dp"
         android:background="@drawable/rectangle_circle_layout"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="180dp">
+        android:layout_marginBottom="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <EditText
             android:layout_width="300dp"
@@ -42,6 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <EditText
             android:layout_width="300dp"
             android:layout_height="40dp"
@@ -61,13 +66,13 @@
             android:layout_marginTop="164dp"
             android:text="인증번호가 확인되었습니다."
             android:textColor="#7cb342"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.168"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/NewPwEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="204dp"
@@ -82,6 +87,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/NewPwCheckEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_marginTop="252dp"
@@ -96,33 +102,36 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/PwChangeBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="316dp"
+            android:layout_marginTop="328dp"
             android:backgroundTint="#7cb342"
             android:text="비밀번호 변경"
             android:textColor="#1B5E20"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.85"
+            app:layout_constraintHorizontal_bias="0.933"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/ReturnPwFind"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="412dp"
+            android:layout_marginTop="328dp"
             android:backgroundTint="#d9d9d9"
             android:text="취소"
             android:textColor="#757575"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.943"
+            app:layout_constraintHorizontal_bias="0.446"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/NewPwMatchMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="292dp"
@@ -134,16 +143,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="292dp"
-            android:text="비밀번호가 일치하지 않습니다."
-            android:textColor="#ff0000"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.182"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

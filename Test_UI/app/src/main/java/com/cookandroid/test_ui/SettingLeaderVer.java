@@ -31,7 +31,7 @@ public class SettingLeaderVer extends AppCompatActivity {
         * */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_leader_ver);
-        AppCompatButton alarmSettingBtn, announceBtn;
+        AppCompatButton alarmSettingBtn, announceBtn, settingPwChangeBtn;
         ImageButton settingBackHomeBtn;
         alarmSettingBtn = (AppCompatButton) findViewById(R.id.AlarmSettingBtn);
         alarmSettingBtn.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,13 @@ public class SettingLeaderVer extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        settingPwChangeBtn = (AppCompatButton) findViewById(R.id.SettingPwChagneBtn);
+        settingPwChangeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
     }
 }

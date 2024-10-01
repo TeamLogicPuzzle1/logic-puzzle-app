@@ -7,6 +7,7 @@
  * */
 package com.cookandroid.test_ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -42,6 +43,15 @@ public class main_page_frag3 extends Fragment {
                 LiterFilter1 literFilter1 =  new LiterFilter1();
                 literFilter1.show(fragmentManager, null);
 
+            }
+        });
+        ImageButton trashMinus = v.findViewById(R.id.TrashMinus);
+        trashMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                LiterFilter2 literFilter2 = new LiterFilter2();
+                literFilter2.show(fragmentManager, null);
             }
         });
 

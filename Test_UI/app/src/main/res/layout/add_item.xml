@@ -5,11 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddItemDialog"
-    android:background="@android:color/transparent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+    android:background="@drawable/rectangle_circle_layout">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/rectangle_circle_layout"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -243,6 +239,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
