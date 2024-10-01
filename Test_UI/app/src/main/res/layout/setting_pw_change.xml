@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff">
+    android:background="@drawable/rectangle_circle_layout">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:backgroundTint="#ffffff"
+        android:background="@drawable/rectangle_circle_layout"
         android:layout_width="344dp"
         android:layout_height="330dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,6 +111,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/ReturnSettingBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="265dp"

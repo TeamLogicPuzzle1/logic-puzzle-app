@@ -9,11 +9,15 @@
  * */
 package com.cookandroid.test_ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -59,13 +63,35 @@ public class SettingLeaderVer extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         settingPwChangeBtn = (AppCompatButton) findViewById(R.id.SettingPwChagneBtn);
         settingPwChangeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                SettingPwChange();
             }
         });
 
+    }
+
+    private void SettingPwChange() {
+        Dialog settingPwChangeDialog = new Dialog(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View v = inflater.inflate(R.layout.setting_pw_change, null);
+        settingPwChangeDialog.setContentView(v);
+        if(settingPwChangeDialog != null && settingPwChangeDialog.getWindow() != null) {
+            settingPwChangeDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        Button settingBtnReturn = v.findViewById(R.id.ReturnSettingBtn);
+        settingBtnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settingPwChangeDialog.dismiss();
+            }
+        });
+
+        settingPwChangeDialog.show();
     }
 }
