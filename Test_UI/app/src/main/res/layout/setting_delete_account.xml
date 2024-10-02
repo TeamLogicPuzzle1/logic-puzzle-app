@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#ffffff">
+    android:background="@drawable/rectangle_circle_layout">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,8 @@
         android:layout_width="344dp"
         android:layout_height="250dp"
         tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="49dp">
+        tools:layout_editor_absoluteY="49dp"
+        android:background="@drawable/rectangle_circle_layout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
 
 
         <Button
+            android:id="@+id/DeleteAccount"
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:layout_marginTop="113dp"
@@ -48,6 +50,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/ReturnDeleteCheckBtn"
             android:layout_width="230dp"
             android:layout_height="40dp"
             android:layout_marginTop="160dp"
