@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     * spinClasssification(아이템분류를 선택하는 스피너)
     * spinStorage(저장위치를 선택하는 스피너)
     * backIvBtn(이전버튼)*/
+    private int counter = 0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,6 +54,22 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         spin_adapter_stor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinStorage.setAdapter(spin_adapter_stor);
 
+
+        TextView counterTextViwe = v.findViewById(R.id.CounterTextView);
+        ImageButton counterPlusBtn = v.findViewById(R.id.CounterPlusBtn);
+        counterPlusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counterTextViwe.setText(String.valueOf(counter++));
+            }
+        });
+        ImageButton counterMinusBtn = v.findViewById(R.id.CounterMinusBtn);
+        counterMinusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                counterTextViwe.setText(String.valueOf(counter--));
+            }
+        });
         ImageButton backIvBtn = v.findViewById(R.id.BackIvBtn);
         backIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override

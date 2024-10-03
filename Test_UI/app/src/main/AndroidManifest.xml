@@ -36,6 +36,7 @@
         <activity android:name=".main_page_frag3" />
         <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog"/>
         <activity android:name=".PwChange" />
+        <activity android:name=".ProfileSelect" />
     </application>
 
 </manifest>

@@ -70,8 +70,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 // 아이디와 비밀번호에 관련된 데이터를 가져오지 못했기 때문에
                 // if문 제외하고 바로 연결하는 방식으로 처리 추후 수정 예정
+                // 그리고 바로 프로필 선택창으로 연결하는 작업이 필요
+
                 intent = new Intent(getApplicationContext(), main_page_tab.class);
                 startActivity(intent);
+                // intent = new Intent(getApplicationContext(), ProfileSelect.class );
+
+
             }
         });
     }
