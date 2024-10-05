@@ -3,59 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#000000">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="35dp"
-        android:textColor="#ffffff"
+        android:layout_marginTop="35dp"
         android:gravity="center"
-        android:text="화면 앵글 안에 바코드를 스캔해주세요."/>
+        android:text="화면 앵글 안에 유통기한을 스캔해주세요."
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="413dp"
+        android:layout_height="300dp"
         android:background="#d9d9d9"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="320dp">
+        android:layout_marginBottom="320dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="468dp"
+        android:autoLink="none"
         android:background="@drawable/rectangle"
         android:backgroundTint="#000000"
         android:text="유통기한"
-        android:textColor="#ffffff"
-        android:textSize="35dp"
-        android:autoLink="none"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
         android:textIsSelectable="true"
-        tools:layout_editor_absoluteX="51dp"
-        tools:layout_editor_absoluteY="468dp" />
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="468dp"
+        android:layout_marginEnd="51dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="#000000"
         android:text="직접입력"
         android:textColor="#ffffff"
         android:textSize="35dp"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="468dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="307dp"
+        android:layout_marginTop="655dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="#000000"
         android:text="취소"
         android:textColor="#ffffff"
         android:textSize="35dp"
-        tools:layout_editor_absoluteX="307dp"
-        tools:layout_editor_absoluteY="655dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

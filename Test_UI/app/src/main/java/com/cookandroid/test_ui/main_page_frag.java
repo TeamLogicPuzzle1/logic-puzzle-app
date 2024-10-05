@@ -69,6 +69,8 @@ public class main_page_frag extends Fragment {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
                 refrigeratorFoodFilterDialog.show(fragmentManager, null);
+                //intent = new Intent(getActivity(), CamBarcode.class);
+                // startActivity(intent);
             }
         });
 
