@@ -55,9 +55,11 @@ public class main_page_frag extends Fragment {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fragmentManager = getParentFragmentManager();
-                AddItemDialog addItemDialog = new AddItemDialog();
-                addItemDialog.show(fragmentManager, null);
+                // FragmentManager fragmentManager = getParentFragmentManager();
+                // AddItemDialog addItemDialog = new AddItemDialog();
+                // addItemDialog.show(fragmentManager, null);
+                intent = new Intent(getActivity(), CamBarcode.class);
+                startActivity(intent);
             }
         });
         // 필터버튼을 눌렀을때 냉장고 필터 팝업창이 뜨는 코드
@@ -69,8 +71,7 @@ public class main_page_frag extends Fragment {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
                 refrigeratorFoodFilterDialog.show(fragmentManager, null);
-                //intent = new Intent(getActivity(), CamBarcode.class);
-                // startActivity(intent);
+
             }
         });
 

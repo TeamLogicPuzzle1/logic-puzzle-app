@@ -39,6 +39,8 @@
         <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog"/>
         <activity android:name=".PwChange" />
         <activity android:name=".ProfileSelect" />
+        <activity android:name=".CamBarcode" />
+        <activity android:name=".CamExpirationdate" />
     </application>
 
 </manifest>

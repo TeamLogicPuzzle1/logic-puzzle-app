@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -36,14 +37,23 @@ import java.io.IOException;
 import java.util.Calendar;
 @SuppressWarnings("deprecation")
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
+    Bundle args;
+    private ImageButton resourceImage;
+    private int counter = 0;
+    private String inputText;
+    private String selectedDate;
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();
         return addItemDialog;
     }
-    private ImageButton resourceImage;
-    private int counter = 0;
+
+    public void setInputData(String inputText, String selectedDate) {
+        this.inputText = inputText;
+        this.selectedDate = selectedDate;
+    }
+
     // ActivityResultLauncher를 통해 결과를 받아올 수 있음
     private final ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -73,6 +83,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         if(getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
+
         Spinner spinClassification = v.findViewById(R.id.SpinClassification);
         ArrayAdapter spin_adapter_class = ArrayAdapter.createFromResource(v.getContext(), R.array.classification,
                 android.R.layout.simple_spinner_item);
@@ -107,7 +118,24 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                 dismiss();
             }
         });
+        EditText textNameEdt = v.findViewById(R.id.TextNameEdt);
         Button dateTimePickerBtn = v.findViewById(R.id.DateTimePickerBtn);
+
+        args = getArguments();
+        if (args != null) {
+            // selectedDate 가져오기
+            selectedDate = args.getString("selectedDate");
+            if (selectedDate != null) {
+                dateTimePickerBtn.setText(selectedDate);
+            }
+
+            // inputText 가져오기
+            inputText = args.getString("inputText");
+            if (inputText != null) {
+                textNameEdt.setText(inputText);
+            }
+        }
+
         dateTimePickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,28 +177,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     public void onClick(View view) {
 
     }
-    /* super(context);
-        setContentView(R.layout.add_item);
 
-        spinClassification = (Spinner) findViewById(R.id.SpinClassification);
-        ArrayAdapter spin_adapter_class = ArrayAdapter.createFromResource(getContext(), R.array.classification,
-                android.R.layout.simple_spinner_item);
-        spin_adapter_class.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinClassification.setAdapter(spin_adapter_class);
-
-        spinStorage = (Spinner) findViewById(R.id.SpinStorage);
-        ArrayAdapter spin_adapter_stor = ArrayAdapter.createFromResource(getContext(), R.array.storage_location,
-                android.R.layout.simple_spinner_item);
-        spin_adapter_stor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinStorage.setAdapter(spin_adapter_stor);
-
-        backIvBtn = (ImageButton) findViewById(R.id.BackIvBtn);
-        backIvBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    dismiss();
-            }
-        }); */
 
 }
 
