@@ -120,17 +120,16 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         });
         EditText textNameEdt = v.findViewById(R.id.TextNameEdt);
         Button dateTimePickerBtn = v.findViewById(R.id.DateTimePickerBtn);
-
-        args = getArguments();
-        if (args != null) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
             // selectedDate 가져오기
-            selectedDate = args.getString("selectedDate");
+            selectedDate = bundle.getString("selectedDate");
             if (selectedDate != null) {
                 dateTimePickerBtn.setText(selectedDate);
             }
 
             // inputText 가져오기
-            inputText = args.getString("inputText");
+            inputText = bundle.getString("inputText");
             if (inputText != null) {
                 textNameEdt.setText(inputText);
             }

@@ -62,8 +62,33 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/ExpirationdateView"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginRight="229dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/ExpirationdateInputTextView"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginLeft="232dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginRight="51dp"
+        android:background="#bdbdbd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ReturnCamBarcodeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="307dp"

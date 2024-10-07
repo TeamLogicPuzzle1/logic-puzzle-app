@@ -18,16 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="413dp"
+    <androidx.camera.view.PreviewView
+        android:id="@+id/CameraBarcodePreviewView"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="#d9d9d9"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="320dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="320dp" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
@@ -44,6 +44,32 @@
         android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/BarCodeView"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginLeft="51dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginRight="263dp"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/BarCodeInputTextView"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginLeft="232dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginRight="51dp"
+        android:background="#bdbdbd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,6 +90,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ReturnMenuBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="307dp"

@@ -3,7 +3,9 @@
     <style name="Base.Theme.Test_UI" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/your_color</item>
+        <!-- 상태바 아이콘 색상(밝은 색상 상태바에서 검정 아이콘 사용) -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
-
     <style name="Theme.Test_UI" parent="Base.Theme.Test_UI" />
 </resources>
