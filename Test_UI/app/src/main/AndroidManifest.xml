@@ -9,6 +9,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/cold_guard"
         android:label="@string/app_name"
+        android:hardwareAccelerated="true"
         android:roundIcon="@mipmap/cold_guard_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test_UI"

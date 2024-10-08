@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.camera.lifecycle)
+    implementation(libs.play.services.mlkit.barcode.scanning)
 
 
     testImplementation(libs.junit)
@@ -47,4 +48,5 @@ dependencies {
     implementation("androidx.camera:camera-core:1.2.0")
     implementation("androidx.camera:camera-camera2:1.2.0")
     implementation("androidx.camera:camera-view:1.2.0")
+    implementation("com.google.mlkit:barcode-scanning:17.3.0")
 }
