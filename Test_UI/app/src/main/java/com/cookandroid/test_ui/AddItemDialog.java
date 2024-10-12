@@ -38,10 +38,11 @@ import java.util.Calendar;
 @SuppressWarnings("deprecation")
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
     Bundle args;
-    private ImageButton resourceImage;
+    private ImageView resourceImage;
     private int counter = 0;
     private String inputText;
     private String selectedDate;
+    private String productName;
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
@@ -70,6 +71,31 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                 }
             }
     );
+    public interface OnDataPassListener{
+        void onDataPass(String name, String classification, String storage, String date, int quantity);
+    }
+
+    private OnDataPassListener dataPassListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            // 현재 컨텍스트가 프래그먼트인지 먼저 체크
+            if (getParentFragment() instanceof OnDataPassListener) {
+                dataPassListener = (OnDataPassListener) getParentFragment();
+            }
+            // 부모가 프래그먼트가 아닌 액티비티인 경우
+            else if (context instanceof OnDataPassListener) {
+                dataPassListener = (OnDataPassListener) context;
+            } else {
+                throw new ClassCastException(context.toString() + " must implement OnDataPassListener");
+            }
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnDataPassListener");
+        }
+    }
+
     /*
     * v(xml파일과 연결)
     * spinClasssification(아이템분류를 선택하는 스피너)
@@ -160,6 +186,24 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                 openGallery();
             }
         });
+
+        Button addItemBtn = v.findViewById(R.id.AddItemBtn);
+        addItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = textNameEdt.getText().toString();
+                String classification = spinClassification.getSelectedItem().toString();
+                String storage = spinStorage.getSelectedItem().toString();
+                int quantity = Integer.parseInt(counterTextViwe.getText().toString());
+                String date = selectedDate;
+
+                dataPassListener.onDataPass(name, classification, storage, date, quantity);
+                dismiss();
+
+
+            }
+        });
+
         return v;
     }
     private void openGallery() {

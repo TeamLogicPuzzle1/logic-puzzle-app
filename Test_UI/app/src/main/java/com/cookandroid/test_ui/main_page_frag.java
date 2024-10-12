@@ -7,6 +7,7 @@
  * */
 package com.cookandroid.test_ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +15,39 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 
-public class main_page_frag extends Fragment {
+public class main_page_frag extends Fragment implements AddItemDialog.OnDataPassListener{
+    private ViewGroup parentLayout;
+
+
+    private void createNewItemLayout(String name, String classification, String storage, String date, int quantity) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View newItemView = inflater.inflate(R.layout.product_item_layout, parentLayout, false);
+
+        // 아이템 뷰에서 텍스트 업데이트
+        TextView nameTextView = newItemView.findViewById(R.id.NameTextView);
+        TextView classificationTextView = newItemView.findViewById(R.id.ClassificationTextView);
+        TextView storageTextView = newItemView.findViewById(R.id.StorageTextView);
+        TextView dateTextView = newItemView.findViewById(R.id.DateTextView);
+        TextView quantityTextView = newItemView.findViewById(R.id.QuantityTextView);
+
+        nameTextView.setText(name);
+        classificationTextView.setText("분류: " + classification);
+        storageTextView.setText("위치: " + storage);
+        dateTextView.setText(date);
+        quantityTextView.setText("수량: " + quantity);
+
+        parentLayout.addView(newItemView);
+    }
+
     Intent intent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,11 +55,15 @@ public class main_page_frag extends Fragment {
 
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
-
+        parentLayout = v.findViewById(R.id.AddItemLayout);
+        if (parentLayout == null) {
+            Log.e("main_page_frag", "parentLayout is null. Check your layout XML.");
+        }
         /* WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.8f;
@@ -77,5 +107,10 @@ public class main_page_frag extends Fragment {
 
         return v;
 
+    }
+
+    @Override
+    public void onDataPass(String name, String classification, String storage, String date, int quantity) {
+       createNewItemLayout(name, classification, storage, date, quantity);
     }
 }

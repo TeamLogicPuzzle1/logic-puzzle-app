@@ -13,7 +13,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 @SuppressWarnings("deprecation")
-public class main_page_tab extends AppCompatActivity {
+public class main_page_tab extends AppCompatActivity implements AddItemDialog.OnDataPassListener{
+    @Override
+    public void onDataPass(String name, String classification, String storage, String date, int quantity) {
+        // 전달된 데이터를 처리하는 코드
+        Log.d("DataPass", "Data received: " + name + ", " + classification + ", " + storage + ", " + date + ", " + quantity);
+    }
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
     Intent intent;
