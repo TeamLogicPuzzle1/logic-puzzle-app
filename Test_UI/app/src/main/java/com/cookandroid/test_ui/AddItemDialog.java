@@ -7,6 +7,8 @@
  * */
 package com.cookandroid.test_ui;
 
+import static com.cookandroid.test_ui.R.*;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -197,12 +201,18 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                 int quantity = Integer.parseInt(counterTextViwe.getText().toString());
                 String date = selectedDate;
 
-                dataPassListener.onDataPass(name, classification, storage, date, quantity);
-                dismiss();
+                // 데이터를 전달
+                if (dataPassListener != null) {
+                    dataPassListener.onDataPass(name, classification, storage, date, quantity);
+                }
+
+                dismiss();  // 팝업 닫기
 
 
             }
         });
+
+
 
         return v;
     }
@@ -213,7 +223,29 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     }
 
 
+    private void addItemToLayout(ViewGroup parentLayout, String name, String classification, String storage, int quantity, String date) {
+        // LayoutInflater를 사용해 XML 레이아웃을 inflate
 
+
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            View addItemView = inflater.inflate(layout.product_item_layout, parentLayout, false);
+
+            TextView nameTextView = addItemView.findViewById(R.id.NameTextView);
+            TextView classificationTextView = addItemView.findViewById(R.id.ClassificationTextView);
+            TextView storageTextView = addItemView.findViewById(R.id.StorageTextView);
+            TextView quantityTextView = addItemView.findViewById(R.id.QuantityTextView);
+            TextView dateTextView = addItemView.findViewById(R.id.DateTextView);
+
+            nameTextView.setText(name);
+            classificationTextView.setText("분류: " + classification);
+            storageTextView.setText("위치: " + storage);
+            quantityTextView.setText("수량: " + quantity);
+            dateTextView.setText(date);
+
+            parentLayout.addView(addItemView);
+            Log.d("AddItemDialog", "Item added to layout successfully.");
+
+    }
 
 
     @Override

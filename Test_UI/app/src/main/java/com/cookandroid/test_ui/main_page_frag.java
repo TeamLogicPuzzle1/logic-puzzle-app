@@ -8,12 +8,15 @@
 package com.cookandroid.test_ui;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +25,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import java.util.ArrayList;
+import com.cookandroid.test_ui.ItemAdapter;
+import java.util.List;
 
 
 public class main_page_frag extends Fragment implements AddItemDialog.OnDataPassListener{
-    private ViewGroup parentLayout;
+    List<Item> itemList = new ArrayList<>();  // com.cookandroid.test_ui.Item을 사용
+    private ConstraintLayout parentLayout;
 
 
     private void createNewItemLayout(String name, String classification, String storage, String date, int quantity) {
@@ -109,8 +116,15 @@ public class main_page_frag extends Fragment implements AddItemDialog.OnDataPass
 
     }
 
+
     @Override
     public void onDataPass(String name, String classification, String storage, String date, int quantity) {
-       createNewItemLayout(name, classification, storage, date, quantity);
+        if (parentLayout != null) {
+            createNewItemLayout(name, classification, storage, date, quantity);
+        } else {
+            Log.e("main_page_frag", "parentLayout is null. Cannot add new item.");
+        }
     }
+
+
 }
