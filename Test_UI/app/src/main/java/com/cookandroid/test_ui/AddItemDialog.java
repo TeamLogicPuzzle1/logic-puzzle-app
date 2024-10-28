@@ -9,6 +9,7 @@ package com.cookandroid.test_ui;
 
 import static com.cookandroid.test_ui.R.*;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +26,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -84,19 +87,10 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        try {
-            // 현재 컨텍스트가 프래그먼트인지 먼저 체크
-            if (getParentFragment() instanceof OnDataPassListener) {
-                dataPassListener = (OnDataPassListener) getParentFragment();
-            }
-            // 부모가 프래그먼트가 아닌 액티비티인 경우
-            else if (context instanceof OnDataPassListener) {
-                dataPassListener = (OnDataPassListener) context;
-            } else {
-                throw new ClassCastException(context.toString() + " must implement OnDataPassListener");
-            }
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnDataPassListener");
+        if (context instanceof OnDataPassListener) {
+            dataPassListener = (OnDataPassListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnDataPassListener");
         }
     }
 
@@ -195,22 +189,52 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = textNameEdt.getText().toString();
-                String classification = spinClassification.getSelectedItem().toString();
-                String storage = spinStorage.getSelectedItem().toString();
-                int quantity = Integer.parseInt(counterTextViwe.getText().toString());
-                String date = selectedDate;
+                // 이름 입력 유효성 검사
+                String name = textNameEdt.getText().toString().trim();
+                if (name.isEmpty()) {
+                    textNameEdt.setError("이름을 입력하세요");
+                    return;
+                }
 
-                // 데이터를 전달
+                // 분류 및 저장 위치 선택 유효성 검사
+                String classification = spinClassification.getSelectedItem().toString();
+                if (classification.equals("선택")) { // 기본 값이 '선택'일 경우
+                    // 분류를 선택하지 않았을 때 안내
+                    Toast.makeText(getContext(), "분류를 선택하세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String storage = spinStorage.getSelectedItem().toString();
+                if (storage.equals("선택")) { // 기본 값이 '선택'일 경우
+                    Toast.makeText(getContext(), "저장 위치를 선택하세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 수량 유효성 검사
+                String quantityText = counterTextViwe.getText().toString().trim();
+                int quantity;
+                try {
+                    quantity = Integer.parseInt(quantityText);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "유효한 수량을 입력하세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 유효한 소비기한 설정
+                String date = selectedDate;
+                if (date == null || date.isEmpty()) {
+                    date = "날짜 없음"; // 기본 날짜로 설정
+                }
+
+                // 데이터 전달
                 if (dataPassListener != null) {
                     dataPassListener.onDataPass(name, classification, storage, date, quantity);
                 }
 
                 dismiss();  // 팝업 닫기
-
-
             }
         });
+
 
 
 
@@ -246,6 +270,22 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             Log.d("AddItemDialog", "Item added to layout successfully.");
 
     }
+
+    private void addCardView(ViewGroup parentLayout, String name, String Classification, String storage, int quantity, String date) {
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View addItemView = inflater.inflate(layout.product_item_layout, parentLayout, false);
+
+        TextView nameTextView = addItemView.findViewById(R.id.NameTextView);
+        TextView classificationTextView = addItemView.findViewById(R.id.ClassificationTextView);
+        TextView storageTextView = addItemView.findViewById(R.id.StorageTextView);
+        TextView quantityTextView = addItemView.findViewById(R.id.QuantityTextView);
+        TextView dateTextView = addItemView.findViewById(R.id.DateTextView);
+
+
+
+    }
+
 
 
     @Override

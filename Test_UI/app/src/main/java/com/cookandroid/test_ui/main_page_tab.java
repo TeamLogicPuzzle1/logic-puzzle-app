@@ -50,7 +50,7 @@ public class main_page_tab extends AppCompatActivity implements AddItemDialog.On
         Log.d("MainPageTab", "selectedDate: " + selectedDate);
         Log.d("MainPageTab", "inputText: " + inputText);
 
-        if (selectedDate != null) {
+         if (selectedDate != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             AddItemDialog addItemDialog = AddItemDialog.getInstance(this);
@@ -60,8 +60,10 @@ public class main_page_tab extends AppCompatActivity implements AddItemDialog.On
             bundle.putString("inputText", inputText); // 입력한 텍스트를 전달
             bundle.putString("selectedDate", selectedDate); // 선택한 날짜 전달
             addItemDialog.setArguments(bundle); // 다이얼로그에 번들 전달
-
             addItemDialog.show(fragmentManager, "AddItemDialog");
         }
+
+
+
     }
 }
