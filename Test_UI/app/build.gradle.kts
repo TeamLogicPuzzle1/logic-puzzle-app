@@ -52,4 +52,8 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0") // or latest version
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0") // ViewModel 사용을 위한 기본 의존성
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0") // LiveData 사용을 위한 의존성
 }

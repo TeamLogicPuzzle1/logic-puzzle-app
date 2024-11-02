@@ -14,26 +14,34 @@ import com.google.android.material.tabs.TabLayout;
 
 @SuppressWarnings("deprecation")
 public class main_page_tab extends AppCompatActivity implements AddItemDialog.OnDataPassListener{
-    @Override
-    public void onDataPass(String name, String classification, String storage, String date, int quantity) {
-        // 전달된 데이터를 처리하는 코드
-        Log.d("DataPass", "Data received: " + name + ", " + classification + ", " + storage + ", " + date + ", " + quantity);
-    }
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
+    private VPadapter vpAdapter;
+    private main_page_frag mainPageFrag;
+
     Intent intent;
+
+    @Override
+    public void onDataPass(String name, String classification, String storage, String date, int quantity) {
+        // 전달된 데이터를 main_page_frag에 전달
+        if (mainPageFrag != null) {
+            mainPageFrag.onDataPass(name, classification, storage, date, quantity);
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page_tab_layout);
 
-        storeFragmentTablayout = (TabLayout) findViewById(R.id.store_fragment_tablayout);
-        viewPager = (ViewPager) findViewById(R.id.ViewPager);
-
+        storeFragmentTablayout = findViewById(R.id.store_fragment_tablayout);
+        viewPager = findViewById(R.id.ViewPager);
         storeFragmentTablayout.setupWithViewPager(viewPager);
 
-        VPadapter vpAdapter = new VPadapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new main_page_frag(), null);
+        vpAdapter = new VPadapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+        mainPageFrag = new main_page_frag(); // main_page_frag 인스턴스 생성
+        vpAdapter.addFragment(mainPageFrag, null);
         vpAdapter.addFragment(new main_page_frag2(), null);
         vpAdapter.addFragment(new main_page_frag3(), null);
         viewPager.setAdapter(vpAdapter);
@@ -50,20 +58,26 @@ public class main_page_tab extends AppCompatActivity implements AddItemDialog.On
         Log.d("MainPageTab", "selectedDate: " + selectedDate);
         Log.d("MainPageTab", "inputText: " + inputText);
 
-         if (selectedDate != null) {
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            AddItemDialog addItemDialog = AddItemDialog.getInstance(this);
-
-            // 날짜와 입력 텍스트를 AddItemDialog에 전달하기 위해 Bundle 사용
-            Bundle bundle = new Bundle();
-            bundle.putString("inputText", inputText); // 입력한 텍스트를 전달
-            bundle.putString("selectedDate", selectedDate); // 선택한 날짜 전달
-            addItemDialog.setArguments(bundle); // 다이얼로그에 번들 전달
-            addItemDialog.show(fragmentManager, "AddItemDialog");
+        if (selectedDate != null) {
+            showAddItemDialog(selectedDate, inputText);
         }
 
 
 
+    }
+
+    private void showAddItemDialog(String selectedDate, String inputText) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        AddItemDialog addItemDialog = AddItemDialog.getInstance(this);
+        // Bundle을 사용하여 AddItemDialog에 데이터 전달
+        Bundle bundle = new Bundle();
+        bundle.putString("inputText", inputText);
+        bundle.putString("selectedDate", selectedDate);
+        addItemDialog.setArguments(bundle);
+
+        // 다이얼로그가 이미 열려 있는지 확인 후 표시
+        if (fragmentManager.findFragmentByTag("AddItemDialog") == null) {
+            addItemDialog.show(fragmentManager, "AddItemDialog");
+        }
     }
 }

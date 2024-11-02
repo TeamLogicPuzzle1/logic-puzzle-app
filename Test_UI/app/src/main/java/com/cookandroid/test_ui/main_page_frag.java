@@ -13,9 +13,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.SavedStateViewModelFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,22 +35,19 @@ import java.util.ArrayList;
 import com.cookandroid.test_ui.ItemAdapter;
 import java.util.List;
 
-
+@SuppressWarnings("deprecation")
 public class main_page_frag extends Fragment implements AddItemDialog.OnDataPassListener{
     // List<Item> itemList = new ArrayList<>();  // com.cookandroid.test_ui.Item을 사용
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
-    private List<Product> productList;
-
-    String nameText, classificartionText, storageText, dateText, quantityText;
+    private ProductViewModel productViewModel;
 
 
-
-    Intent intent;
+    private Intent intent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        productList = new ArrayList<>();  // 초기화하여 NullPointerException 방지
+
     }
 
     @SuppressLint("MissingInflatedId")
@@ -55,19 +56,23 @@ public class main_page_frag extends Fragment implements AddItemDialog.OnDataPass
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
 
+        productViewModel = new ViewModelProvider(this, new SavedStateViewModelFactory(requireActivity().getApplication(), this)).get(ProductViewModel.class);
+
         // RecyclerView 초기화
         recyclerView = v.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // ProductAdapter 생성 및 RecyclerView에 설정
-        productAdapter = new ProductAdapter(productList);
+        productAdapter = new ProductAdapter(new ArrayList<>());
         recyclerView.setAdapter(productAdapter);
 
-        // mainItemLayout = v.findViewById(R.id.MainItemLayout);
-        /* WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        layoutParams.dimAmount = 0.8f;
-        getActivity().getWindow().setAttributes(layoutParams); */
+        // 이전에 저장된 데이터가 있다면 복원
+        productViewModel.getProductList().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                productAdapter.updateProducts(products);
+            }
+        });
 
         // 환경 설정 버튼을 눌렀을때 설정페이지로 들어가는 모드
         // settingBtn(설정)
@@ -106,38 +111,22 @@ public class main_page_frag extends Fragment implements AddItemDialog.OnDataPass
         return v;
 
     }
-
-
-    // AddItemDialog에서 데이터를 받아와 CardView를 생성
+    public void onSaveInstanceState(@NonNull Bundle outstate) {
+        super.onSaveInstanceState(outstate);
+    }
     @Override
     public void onDataPass(String name, String classification, String storage, String date, int quantity) {
+        // 새로운 Product 객체 생성
         Product product = new Product(name, classification, storage, quantity, date);
-        productAdapter.addProduct(product);  // 어댑터에 새로운 제품 추가 및 RecyclerView 업데이트
+        if (productViewModel != null) {
+            productViewModel.addProduct(product); // ViewModel에 추가
+        } else {
+            Log.e("main_page_frag", "ProductViewModel is not initialized.");
+        }
     }
 
-    /*private void createNewItemLayout(String name, String classification, String storage, String date, int quantity) {
-        Log.d("main_page_frag", "Adding new item to layout");
 
-        // 레이아웃을 product_item_layout으로 인플레이트하여 CardView 추가
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View newItemView = inflater.inflate(R.layout.product_item_layout, recyclerView, false);
 
-        // product_item_layout에서 텍스트 업데이트
-        TextView nameTextView = newItemView.findViewById(R.id.NameTextView);
-        TextView classificationTextView = newItemView.findViewById(R.id.ClassificationTextView);
-        TextView storageTextView = newItemView.findViewById(R.id.StorageTextView);
-        TextView quantityTextView = newItemView.findViewById(R.id.QuantityTextView);
-        TextView dateTextView = newItemView.findViewById(R.id.DateTextView);
-
-        nameTextView.setText(name);
-        classificationTextView.setText("분류: " + classification);
-        storageTextView.setText("위치: " + storage);
-        quantityTextView.setText("수량: " + quantity);
-        dateTextView.setText(date);
-
-        // mainItemLayout에 새로 생성한 CardView 추가
-        recyclerView.addView(newItemView);
-    } */
 
 
 }

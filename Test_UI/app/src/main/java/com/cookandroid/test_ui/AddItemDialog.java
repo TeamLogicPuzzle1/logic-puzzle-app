@@ -191,42 +191,11 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             public void onClick(View view) {
                 // 이름 입력 유효성 검사
                 String name = textNameEdt.getText().toString().trim();
-                if (name.isEmpty()) {
-                    textNameEdt.setError("이름을 입력하세요");
-                    return;
-                }
-
-                // 분류 및 저장 위치 선택 유효성 검사
                 String classification = spinClassification.getSelectedItem().toString();
-                if (classification.equals("선택")) { // 기본 값이 '선택'일 경우
-                    // 분류를 선택하지 않았을 때 안내
-                    Toast.makeText(getContext(), "분류를 선택하세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 String storage = spinStorage.getSelectedItem().toString();
-                if (storage.equals("선택")) { // 기본 값이 '선택'일 경우
-                    Toast.makeText(getContext(), "저장 위치를 선택하세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // 수량 유효성 검사
-                String quantityText = counterTextViwe.getText().toString().trim();
-                int quantity;
-                try {
-                    quantity = Integer.parseInt(quantityText);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(getContext(), "유효한 수량을 입력하세요", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // 유효한 소비기한 설정
+                int quantity = Integer.parseInt(counterTextViwe.getText().toString().trim());
                 String date = selectedDate;
-                if (date == null || date.isEmpty()) {
-                    date = "날짜 없음"; // 기본 날짜로 설정
-                }
 
-                // 데이터 전달
                 if (dataPassListener != null) {
                     dataPassListener.onDataPass(name, classification, storage, date, quantity);
                 }

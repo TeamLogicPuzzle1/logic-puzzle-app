@@ -11,16 +11,26 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<Product> productList;
+    private List<Product> productList; // 빈 리스트로 초기화
 
-    // 기본 생성자에서 리스트를 초기화
-    public ProductAdapter(List<Product> productList) {
-        this.productList = (productList != null) ? productList : new ArrayList<>();
+    // 생성자
+    public ProductAdapter(List<Product> initialProductList) {
+        this.productList = productList != null ? productList : new ArrayList<>(); // Null 검사 추가
     }
 
+    // 전체 리스트 설정
+    /* public void setProductList(List<Product> newProductList) {
+        this.productList.clear();
+        if (newProductList != null) {
+            this.productList.addAll(newProductList);
+        }
+        notifyDataSetChanged();
+    } */
+
+    // 새 상품 추가
     public void addProduct(Product product) {
         productList.add(product);
-        notifyItemInserted(productList.size() - 1);
+        notifyItemInserted(productList.size() - 1); // 리스트에 새 항목 추가
     }
 
     @NonNull
@@ -32,17 +42,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
-        holder.nameTextView.setText(product.getName());
-        holder.classificationTextView.setText("분류: " + product.getClassification());
-        holder.storageTextView.setText("위치: " + product.getStorageLocation());
-        holder.quantityTextView.setText("수량: " + product.getQuantity());
-        holder.dateTextView.setText("소비기한: " + product.getExpirationDate());
+        holder.bind(productList.get(position)); // bind 메서드를 통해 데이터 설정
     }
 
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    public void updateProducts(List<Product> products) {
+        if (productList == null) { // Null 검사 추가
+            productList = new ArrayList<>();
+        }
+        productList.clear();
+        productList.addAll(products);
+        notifyDataSetChanged();
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -55,6 +69,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             storageTextView = itemView.findViewById(R.id.StorageTextView);
             quantityTextView = itemView.findViewById(R.id.QuantityTextView);
             dateTextView = itemView.findViewById(R.id.DateTextView);
+        }
+
+        // 데이터 바인딩을 위한 메서드
+        public void bind(Product product) {
+            nameTextView.setText(product.getName());
+            classificationTextView.setText("분류: " + product.getClassification());
+            storageTextView.setText("위치: " + product.getStorageLocation());
+            quantityTextView.setText("수량: " + product.getQuantity());
+            dateTextView.setText("소비기한: " + product.getExpirationDate());
         }
     }
 }
