@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
+        android:screenOrientation="portrait"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +18,7 @@
         android:theme="@style/Theme.Test_UI"
         tools:targetApi="31">
         <activity
+            android:screenOrientation="portrait"
             android:name=".Login"
             android:exported="true">
             <intent-filter>
@@ -23,25 +27,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateAccount" android:label="createAccount"/>
-        <activity android:name=".AddItemDialog" android:label="Add Item">
+        <activity android:name=".CreateAccount" android:label="createAccount" android:screenOrientation="portrait"/>
+        <activity android:name=".AddItemDialog" android:label="Add Item" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".FilterCheck" />
-        <activity android:name=".IdFind" android:label="idFind"/>
-        <activity android:name=".PwFind" android:label="pwFind"/>
-        <activity android:name=".SettingLeaderVer" android:label="SettingLeader" />
-        <activity android:name=".SettingAlarm" android:label="settingAlarm" />
-        <activity android:name=".SettingAnnounce" />
+        <activity android:name=".FilterCheck" android:screenOrientation="portrait"/>
+        <activity android:name=".IdFind" android:label="idFind" android:screenOrientation="portrait"/>
+        <activity android:name=".PwFind" android:label="pwFind" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingLeaderVer" android:label="SettingLeader" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingAlarm" android:label="settingAlarm" android:screenOrientation="portrait"/>
+        <activity android:name=".SettingAnnounce" android:screenOrientation="portrait"/>
         <activity android:name=".MainPage" android:label="mainPage" />
-        <activity android:name=".main_page_tab" />
-        <activity android:name=".main_page_frag" />
-        <activity android:name=".main_page_frag2" />
-        <activity android:name=".main_page_frag3" />
-        <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog"/>
-        <activity android:name=".PwChange" />
-        <activity android:name=".ProfileSelect" />
-        <activity android:name=".CamBarcode" />
-        <activity android:name=".CamExpirationdate" />
+        <activity android:name=".main_page_tab" android:screenOrientation="portrait"/>
+        <activity android:name=".main_page_frag" android:screenOrientation="portrait"/>
+        <activity android:name=".main_page_frag2" android:screenOrientation="portrait"/>
+        <activity android:name=".main_page_frag3" android:screenOrientation="portrait"/>
+        <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog" android:screenOrientation="portrait"/>
+        <activity android:name=".PwChange" android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileSelect" android:screenOrientation="portrait"/>
+        <activity android:name=".CamBarcode" android:screenOrientation="portrait"/>
+        <activity android:name=".CamExpirationdate" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

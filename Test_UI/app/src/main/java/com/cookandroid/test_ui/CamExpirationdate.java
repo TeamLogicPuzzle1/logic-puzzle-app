@@ -36,6 +36,7 @@ public class CamExpirationdate extends AppCompatActivity {
     private PreviewView cameraExpirationdatePreviewView;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private String inputText;
+    private static final int REQUEST_CODE_PAGE_2 = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,9 +89,11 @@ public class CamExpirationdate extends AppCompatActivity {
                 String selectedDate = year + "." + (month + 1) + "." + day;
 
                 // main_page_tab으로 이동하고 AddItem 팝업창 띄우기
-                intent = new Intent(CamExpirationdate.this, main_page_tab.class);
+                intent = new Intent(getApplicationContext(), main_page_tab.class);
                 intent.putExtra("selectedDate", selectedDate);  // 선택한 날짜 전달
-                intent.putExtra("inputText", inputText); // 선택한 날짜 전달
+                intent.putExtra("inputText", inputText);
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         }, year, month, day);
@@ -139,4 +142,5 @@ public class CamExpirationdate extends AppCompatActivity {
             }
         }
     }
+
 }

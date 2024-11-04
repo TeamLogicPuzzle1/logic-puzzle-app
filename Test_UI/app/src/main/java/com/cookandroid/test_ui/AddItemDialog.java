@@ -200,7 +200,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                     dataPassListener.onDataPass(name, classification, storage, date, quantity);
                 }
 
-                dismiss();  // 팝업 닫기
+                dismiss();// 팝업 닫기
             }
         });
 

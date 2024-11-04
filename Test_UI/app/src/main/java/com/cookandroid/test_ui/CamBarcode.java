@@ -105,7 +105,8 @@ public class CamBarcode extends AppCompatActivity {
         returnMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), main_page_tab.class);
+                Intent intent = new Intent(getApplicationContext(), main_page_tab.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

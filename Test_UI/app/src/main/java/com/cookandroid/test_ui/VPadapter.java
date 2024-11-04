@@ -15,12 +15,21 @@ public class VPadapter extends FragmentPagerAdapter {
     private final ArrayList<String> fragementTitle = new ArrayList<>();
 
     public VPadapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT); // 여기에서 BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT 사
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentArrayList.get(position);
+        switch (position) {
+            case 0:
+                return new main_page_frag();
+            case 1:
+                return new main_page_frag2();
+            case 2:
+                return new main_page_frag3();
+            default:
+                return null;
+        }
     }
 
     @Override

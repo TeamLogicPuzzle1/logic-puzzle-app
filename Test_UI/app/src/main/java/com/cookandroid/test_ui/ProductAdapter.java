@@ -11,21 +11,12 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private List<Product> productList; // 빈 리스트로 초기화
+    private ArrayList<Product> productList;
 
     // 생성자
-    public ProductAdapter(List<Product> initialProductList) {
-        this.productList = productList != null ? productList : new ArrayList<>(); // Null 검사 추가
+    public ProductAdapter(ArrayList<Product> initialProductList) {
+        this.productList = initialProductList != null ? initialProductList : new ArrayList<>(); // 전달된 리스트가 null이 아닐 때만 사용
     }
-
-    // 전체 리스트 설정
-    /* public void setProductList(List<Product> newProductList) {
-        this.productList.clear();
-        if (newProductList != null) {
-            this.productList.addAll(newProductList);
-        }
-        notifyDataSetChanged();
-    } */
 
     // 새 상품 추가
     public void addProduct(Product product) {
@@ -51,12 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public void updateProducts(List<Product> products) {
-        if (productList == null) { // Null 검사 추가
-            productList = new ArrayList<>();
-        }
         productList.clear();
         productList.addAll(products);
-        notifyDataSetChanged();
+        notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +59,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             dateTextView = itemView.findViewById(R.id.DateTextView);
         }
 
-        // 데이터 바인딩을 위한 메서드
         public void bind(Product product) {
             nameTextView.setText(product.getName());
             classificationTextView.setText("분류: " + product.getClassification());

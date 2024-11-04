@@ -56,4 +56,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0") // or latest version
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0") // ViewModel 사용을 위한 기본 의존성
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0") // LiveData 사용을 위한 의존성
+    implementation("com.google.code.gson:gson:2.8.8")
 }
