@@ -4,22 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".main_page_frag"
+    tools:context=".MainPageFrag"
     android:background="#7cb342">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/logo_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/logo_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/SettingBtn"
@@ -100,132 +101,35 @@
         android:layout_marginTop="160dp"
         android:layout_marginBottom="40dp"/>
 
-            <!--
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="369dp"
-                android:layout_height="97dp"
-                android:layout_marginTop="21dp"
-                android:background="@drawable/rectangle_circle_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="center">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="205dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="650dp"
+            android:backgroundTint="#dfdfdf"
+            android:textColor="#000000"
+            android:drawableStart="@drawable/recipe2"
+            android:text="선택 상품 추천 레시피"
+            android:visibility="invisible"
+            android:background="@drawable/rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-                <ImageView
-                    android:layout_width="77dp"
-                    android:layout_height="77dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rectangle_circle_shape_greenline"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="2dp"
-                    android:textColor="#000000"
-                    android:text="2024/11/08"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="45dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="#7cb342"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="20dp"
-                    android:textColor="#000000"
-                    android:text="삼겹살"
-                    android:textSize="19dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="45dp"
-                    android:text="위치: 냉장고"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="290dp"
-                    android:layout_marginTop="27dp"
-                    android:text="분류: 고기"
-                    android:textColor="#000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="290dp"
-                    android:layout_marginTop="45dp"
-                    android:text="수량: 1"
-                    android:textColor="#000000"
-                    android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="105dp"
-                    android:layout_marginTop="75dp"
-                    android:text="메모 없음"
-                    android:textColor="#bdbdbd"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="69dp"
-                    android:layout_height="23dp"
-                    android:layout_marginStart="284dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/rectangle_search"
-                    android:backgroundTint="#4caf50"
-                    android:gravity="center"
-                    android:textColor="#000000"
-                    android:text="D - 8"
-                    android:textSize="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            -->
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="205dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="650dp"
+            android:background="@drawable/rectangle"
+            android:textColor="#000000"
+            android:drawableStart="@drawable/trash_delete"
+            android:text="선택 상품 삭제"
+            android:visibility="invisible"
+            android:backgroundTint="#dfdfdf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/AddItem"

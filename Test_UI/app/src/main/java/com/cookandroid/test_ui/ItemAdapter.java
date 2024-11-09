@@ -24,15 +24,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         private String date;
         private int quantity;
         private String imageUrl;
+        private String memo;
 
         // 생성자
-        public Item(String name, String classification, String storage, String date, int quantity, String imageUrl) {
+        public Item(String name, String classification, String storage, String date, int quantity, String imageUrl, String memo) {
             this.name = name;
             this.classification = classification;
             this.storage = storage;
             this.date = date;
             this.quantity = quantity;
             this.imageUrl = imageUrl;
+            this.memo = memo;
         }
 
         // 각 필드에 대한 getter 메서드
@@ -59,6 +61,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public String getImageUrl() {
             return imageUrl;
         }
+
+        public String getMemo() {
+             return memo;
+        }
     }
     private List<Item> itemList;
     public ItemAdapter(List<Item> itemList) {
@@ -82,7 +88,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.storageTextView.setText("위치: " + item.getStorage());
         holder.dateTextView.setText(item.getDate());
         holder.quantityTextView.setText("수량: " + item.getQuantity());
-
+        holder.memoTextView.setText(item.getMemo());
         // Glide 또는 Picasso를 사용하여 이미지를 로드할 수 있습니다.
         Glide.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.imageView);
     }
@@ -92,7 +98,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return itemList.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView, classificationTextView, storageTextView, dateTextView, quantityTextView;
+        TextView nameTextView, classificationTextView, storageTextView, dateTextView, quantityTextView, memoTextView;
         ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -104,6 +110,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             dateTextView = itemView.findViewById(R.id.DateTextView);
             quantityTextView = itemView.findViewById(R.id.QuantityTextView);
             imageView = itemView.findViewById(R.id.ItemImageView);
+            memoTextView = itemView.findViewById(R.id.MemoTextView);
         }
     }
 

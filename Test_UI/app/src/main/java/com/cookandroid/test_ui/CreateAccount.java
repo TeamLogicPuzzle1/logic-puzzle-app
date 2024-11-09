@@ -13,29 +13,48 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.cookandroid.test_ui.DTO.UserCheckDto;
+import com.cookandroid.test_ui.util.ApiInterface;
+import com.cookandroid.test_ui.util.LogMsgOutput;
+import com.cookandroid.test_ui.util.RetrofitClient;
+import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateAccount extends AppCompatActivity {
     /*
     * 변수명 returnSignInBtn(회원가입 버튼)
     */
+    ApiInterface api;
+    RetrofitClient RetrofitClient;
     TextView certification_Timer, duplicateMessage, pwMatchMessage, sendCodeCheckMessage;
-    EditText pwEdt, pwCheckEdt;
+    EditText pwEdt, pwCheckEdt, userId;
     Button careturnSignInBtn, sendCodeBtn, duplicateCheckBtn, sendCodeCheckBtn;
     CountDownTimer countDownTimer;
     Intent intent;
+
     // boolean isTimerRunning = false;
     // long timeLeftInMillis = 180000;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
+
+
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+
         // 취소버튼
         careturnSignInBtn = (Button) findViewById(R.id.Ca_Return_SignIn_Btn);
         careturnSignInBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,12 +72,45 @@ public class CreateAccount extends AppCompatActivity {
             sendCodeBtn.setEnabled(false);
         });
         // 중복확인 버튼
+        userId = (EditText) findViewById(R.id.UserId); // 아이디
         duplicateCheckBtn = (Button) findViewById(R.id.DuplicateCheckBtn);
         duplicateMessage = (TextView) findViewById(R.id.DuplicateMessage); // 중복확인 메시지
         duplicateCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                duplicateMessage.setVisibility(View.VISIBLE);
+                UserCheckDto userCheckDto = new UserCheckDto();
+                String checkId = userId.getText().toString();
+                userCheckDto.setUserId(userId.getText().toString());
+
+                // duplicateMessage.setVisibility(View.VISIBLE);
+                api.userCheckDto(checkId).enqueue(new Callback<UserCheckDto>() {
+                    @Override
+                    public void onResponse(Call<UserCheckDto> call, Response<UserCheckDto> response) {
+                        if(response.isSuccessful()){
+                            UserCheckDto responseData = response.body();
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공");
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData));
+                            Log.v("@@@@@@@@@@@@@@@@@@","@@@@@@@@@@@@@@@@@@" + response.body().getData());
+                            duplicateMessage.setVisibility(View.VISIBLE);
+                            duplicateMessage.setText("사용가능한 아이디입니다.");
+                            duplicateMessage.setTextColor(Color.rgb(124, 179, 66)); // 초록색
+
+
+                        } else {
+                            duplicateMessage.setVisibility(View.VISIBLE);
+                            duplicateMessage.setText("이미 사용중인 아이디입니다.");
+                            duplicateMessage.setTextColor(Color.RED);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserCheckDto> call, Throwable t) {
+                        LogMsgOutput.logPrintOut(getApplicationContext(), "통신실패");
+                        LogMsgOutput.logPrintOut(getApplicationContext(), "Throwable : " + t.getMessage());
+                        call.cancel();
+                    }
+                });
             }
         });
         // 비밀번호와 비밀번호 확인

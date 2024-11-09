@@ -5,7 +5,9 @@
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:usesCleartextTraffic="true"
         android:screenOrientation="portrait"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,10 +39,10 @@
         <activity android:name=".SettingAlarm" android:label="settingAlarm" android:screenOrientation="portrait"/>
         <activity android:name=".SettingAnnounce" android:screenOrientation="portrait"/>
         <activity android:name=".MainPage" android:label="mainPage" />
-        <activity android:name=".main_page_tab" android:screenOrientation="portrait"/>
-        <activity android:name=".main_page_frag" android:screenOrientation="portrait"/>
-        <activity android:name=".main_page_frag2" android:screenOrientation="portrait"/>
-        <activity android:name=".main_page_frag3" android:screenOrientation="portrait"/>
+        <activity android:name=".MainPageTab" android:screenOrientation="portrait"/>
+        <activity android:name=".MainPageFrag" android:screenOrientation="portrait"/>
+        <activity android:name=".MainPageFrag2" android:screenOrientation="portrait"/>
+        <activity android:name=".MainPageFrag3" android:screenOrientation="portrait"/>
         <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog" android:screenOrientation="portrait"/>
         <activity android:name=".PwChange" android:screenOrientation="portrait"/>
         <activity android:name=".ProfileSelect" android:screenOrientation="portrait"/>

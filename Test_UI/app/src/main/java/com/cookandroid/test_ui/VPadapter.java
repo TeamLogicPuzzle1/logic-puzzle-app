@@ -22,11 +22,11 @@ public class VPadapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new main_page_frag();
+                return new MainPageFrag();
             case 1:
-                return new main_page_frag2();
+                return new MainPageFrag2();
             case 2:
-                return new main_page_frag3();
+                return new MainPageFrag3();
             default:
                 return null;
         }

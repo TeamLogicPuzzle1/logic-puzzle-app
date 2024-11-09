@@ -2,14 +2,12 @@ package com.cookandroid.test_ui;
 import android.Manifest;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -89,7 +86,7 @@ public class CamExpirationdate extends AppCompatActivity {
                 String selectedDate = year + "." + (month + 1) + "." + day;
 
                 // main_page_tab으로 이동하고 AddItem 팝업창 띄우기
-                intent = new Intent(getApplicationContext(), main_page_tab.class);
+                intent = new Intent(getApplicationContext(), MainPageTab.class);
                 intent.putExtra("selectedDate", selectedDate);  // 선택한 날짜 전달
                 intent.putExtra("inputText", inputText);
 

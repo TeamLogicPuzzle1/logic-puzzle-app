@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editText16"
+            android:id="@+id/UserId"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="35dp"
@@ -62,18 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
-            android:text="이미 사용중인 아이디입니다."
-            android:visibility="invisible"
-            android:textColor="#FF0000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.741"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <EditText
             android:id="@+id/PwEdt"

@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 
-public class main_page_frag2 extends Fragment {
+public class MainPageFrag2 extends Fragment {
     Intent intent;
 
     @Override

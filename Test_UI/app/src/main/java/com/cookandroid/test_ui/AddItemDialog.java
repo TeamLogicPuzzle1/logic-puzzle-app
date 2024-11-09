@@ -50,6 +50,8 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     private String inputText;
     private String selectedDate;
     private String productName;
+    private String memo;
+    private Uri imageUri;
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
@@ -67,7 +69,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if(result.getResultCode() == getActivity().RESULT_OK && result.getData() != null) {
-                    Uri imageUri = result.getData().getData();
+                    imageUri = result.getData().getData();
                     try {
                         // 선택한 이미지를 Bitmap으로 변환하여 ImageView에 표시
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
@@ -79,7 +81,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             }
     );
     public interface OnDataPassListener{
-        void onDataPass(String name, String classification, String storage, String date, int quantity);
+        void onDataPass(String name, String classification, String storage, String date, int quantity, Uri imageUri, String memo);
     }
 
     private OnDataPassListener dataPassListener;
@@ -93,7 +95,6 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             throw new RuntimeException(context.toString() + " must implement OnDataPassListener");
         }
     }
-
     /*
     * v(xml파일과 연결)
     * spinClasssification(아이템분류를 선택하는 스피너)
@@ -185,6 +186,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             }
         });
 
+        EditText memoEditText = v.findViewById(R.id.MemoEditText);
         Button addItemBtn = v.findViewById(R.id.AddItemBtn);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,10 +196,11 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
                 String classification = spinClassification.getSelectedItem().toString();
                 String storage = spinStorage.getSelectedItem().toString();
                 int quantity = Integer.parseInt(counterTextViwe.getText().toString().trim());
+                String memo = memoEditText.getText().toString().trim();
                 String date = selectedDate;
 
                 if (dataPassListener != null) {
-                    dataPassListener.onDataPass(name, classification, storage, date, quantity);
+                    dataPassListener.onDataPass(name, classification, storage, date, quantity, imageUri, memo);
                 }
 
                 dismiss();// 팝업 닫기
@@ -216,44 +219,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     }
 
 
-    private void addItemToLayout(ViewGroup parentLayout, String name, String classification, String storage, int quantity, String date) {
-        // LayoutInflater를 사용해 XML 레이아웃을 inflate
 
-
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            View addItemView = inflater.inflate(layout.product_item_layout, parentLayout, false);
-
-            TextView nameTextView = addItemView.findViewById(R.id.NameTextView);
-            TextView classificationTextView = addItemView.findViewById(R.id.ClassificationTextView);
-            TextView storageTextView = addItemView.findViewById(R.id.StorageTextView);
-            TextView quantityTextView = addItemView.findViewById(R.id.QuantityTextView);
-            TextView dateTextView = addItemView.findViewById(R.id.DateTextView);
-
-            nameTextView.setText(name);
-            classificationTextView.setText("분류: " + classification);
-            storageTextView.setText("위치: " + storage);
-            quantityTextView.setText("수량: " + quantity);
-            dateTextView.setText(date);
-
-            parentLayout.addView(addItemView);
-            Log.d("AddItemDialog", "Item added to layout successfully.");
-
-    }
-
-    private void addCardView(ViewGroup parentLayout, String name, String Classification, String storage, int quantity, String date) {
-
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View addItemView = inflater.inflate(layout.product_item_layout, parentLayout, false);
-
-        TextView nameTextView = addItemView.findViewById(R.id.NameTextView);
-        TextView classificationTextView = addItemView.findViewById(R.id.ClassificationTextView);
-        TextView storageTextView = addItemView.findViewById(R.id.StorageTextView);
-        TextView quantityTextView = addItemView.findViewById(R.id.QuantityTextView);
-        TextView dateTextView = addItemView.findViewById(R.id.DateTextView);
-
-
-
-    }
 
 
 

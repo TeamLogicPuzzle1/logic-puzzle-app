@@ -12,21 +12,17 @@ package com.cookandroid.test_ui;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -65,7 +61,7 @@ public class SettingLeaderVer extends AppCompatActivity {
         settingBackHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), main_page_tab.class);
+                intent = new Intent(getApplicationContext(), MainPageTab.class);
                 startActivity(intent);
             }
         });

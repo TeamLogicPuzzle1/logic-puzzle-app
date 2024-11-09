@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
                 // if문 제외하고 바로 연결하는 방식으로 처리 추후 수정 예정
                 // 그리고 바로 프로필 선택창으로 연결하는 작업이 필요
 
-                intent = new Intent(getApplicationContext(), main_page_tab.class);
+                intent = new Intent(getApplicationContext(), MainPageTab.class);
                 startActivity(intent);
                 // intent = new Intent(getApplicationContext(), ProfileSelect.class );
 

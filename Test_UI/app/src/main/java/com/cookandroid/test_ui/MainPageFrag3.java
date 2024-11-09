@@ -7,7 +7,6 @@
  * */
 package com.cookandroid.test_ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 
-public class main_page_frag3 extends Fragment {
+public class MainPageFrag3 extends Fragment {
     Intent intent;
 
     @Override

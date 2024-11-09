@@ -1,7 +1,10 @@
 package com.cookandroid.test_ui;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.net.URI;
 
 public class Product implements Parcelable {
     private String name;
@@ -9,13 +12,17 @@ public class Product implements Parcelable {
     private String storageLocation;
     private int quantity;
     private String expirationDate;
+    private Uri imageUri;
+    private String memo;
 
-    public Product(String name, String classification, String storageLocation, int quantity, String expirationDate) {
+    public Product(String name, String classification, String storageLocation, int quantity, String expirationDate, Uri imageUri, String memo) {
         this.name = name;
         this.classification = classification;
         this.storageLocation = storageLocation;
         this.quantity = quantity;
         this.expirationDate = expirationDate;
+        this.imageUri = imageUri;
+        this.memo = memo;
     }
 
     protected Product(Parcel in) {
@@ -24,6 +31,8 @@ public class Product implements Parcelable {
         storageLocation = in.readString();
         quantity = in.readInt();
         expirationDate = in.readString();
+        imageUri = in.readParcelable(Uri.class.getClassLoader());   // Uri 필드 읽기
+        memo = in.readString();
     }
 
     public static final Creator<Product> CREATOR = new Creator<Product>() {
@@ -50,6 +59,8 @@ public class Product implements Parcelable {
         parcel.writeString(storageLocation);
         parcel.writeInt(quantity);
         parcel.writeString(expirationDate);
+        parcel.writeParcelable(imageUri, flags); // Uri 필드를 Parcel에 씀
+        parcel.writeString(memo);
     }
     // Getter 메서드 추가
     public String getName() { return name; }
@@ -57,4 +68,6 @@ public class Product implements Parcelable {
     public String getStorageLocation() { return storageLocation; }
     public int getQuantity() { return quantity; }
     public String getExpirationDate() { return expirationDate; }
+    public Uri getImageUri() { return imageUri; }
+    public String getMemo() {return memo; }
 }

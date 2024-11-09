@@ -1,7 +1,7 @@
 package com.cookandroid.test_ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,27 +10,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class main_page_tab extends AppCompatActivity implements AddItemDialog.OnDataPassListener {
+public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener {
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
     private VPadapter vpAdapter;
-    private main_page_frag mainPageFrag;
+    private MainPageFrag mainPageFrag;
     private ProductAdapter productAdapter;
     Intent intent;
     private ProductViewModel productViewModel;
     @Override
-    public void onDataPass(String name, String classification, String storage, String date, int quantity) {
-        Product product = new Product(name, classification, storage, quantity, date);
+    public void onDataPass(String name, String classification, String storage, String date, int quantity,  Uri imageUri, String memo) {
+        Product product = new Product(name, classification, storage, quantity, date, imageUri, memo);
         productViewModel.addProduct(product); // ViewModel에 Product 추가
         if(mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
             mainPageFrag.getProductAdapter().addProduct(product);
@@ -65,10 +64,10 @@ public class main_page_tab extends AppCompatActivity implements AddItemDialog.On
 
         vpAdapter = new VPadapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 
-        mainPageFrag = new main_page_frag(); // main_page_frag 인스턴스 생성
+        mainPageFrag = new MainPageFrag(); // main_page_frag 인스턴스 생성
         vpAdapter.addFragment(mainPageFrag, null);
-        vpAdapter.addFragment(new main_page_frag2(), null);
-        vpAdapter.addFragment(new main_page_frag3(), null);
+        vpAdapter.addFragment(new MainPageFrag2(), null);
+        vpAdapter.addFragment(new MainPageFrag3(), null);
         viewPager.setAdapter(vpAdapter);
         viewPager.setOffscreenPageLimit(3); // ViewPager에 유지할 페이지 수 설정
 

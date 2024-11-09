@@ -57,4 +57,11 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0") // ViewModel 사용을 위한 기본 의존성
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0") // LiveData 사용을 위한 의존성
     implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // OKHttp 라이브러리 추가
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 }

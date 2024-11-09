@@ -1,9 +1,14 @@
+/*
+ * 간략: 상품등록 팝업창
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-09-29
+ * 수정일: 2024-10-02
+ * 버전: 0.0.4
+ * */
 package com.cookandroid.test_ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,9 +16,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Size;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +34,7 @@ import androidx.core.content.ContextCompat;
 
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
+
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
@@ -105,7 +109,7 @@ public class CamBarcode extends AppCompatActivity {
         returnMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), main_page_tab.class);
+                Intent intent = new Intent(getApplicationContext(), MainPageTab.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }

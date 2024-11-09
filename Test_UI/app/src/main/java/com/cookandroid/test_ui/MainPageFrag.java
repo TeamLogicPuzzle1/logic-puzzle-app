@@ -1,16 +1,12 @@
 package com.cookandroid.test_ui;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class main_page_frag extends Fragment {
+public class MainPageFrag extends Fragment {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
