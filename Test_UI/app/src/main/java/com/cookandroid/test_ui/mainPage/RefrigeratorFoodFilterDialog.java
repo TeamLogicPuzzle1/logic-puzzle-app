@@ -1,4 +1,4 @@
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.zip.Inflater;
+import com.cookandroid.test_ui.R;
 
 public class RefrigeratorFoodFilterDialog extends DialogFragment implements View.OnClickListener {
     public RefrigeratorFoodFilterDialog(){

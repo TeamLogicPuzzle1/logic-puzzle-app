@@ -19,6 +19,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.cookandroid.test_ui.mainPage.MainPageTab;
+
 public class Login extends AppCompatActivity {
     /*
     * 변수명

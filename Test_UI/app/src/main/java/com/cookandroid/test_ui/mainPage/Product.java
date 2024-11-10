@@ -1,10 +1,15 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 상품 클래스
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-10-28
+ * 수정일: 2024-11-02
+ * 버전: 0.0.4
+ * */
+package com.cookandroid.test_ui.mainPage;
 
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.net.URI;
 
 public class Product implements Parcelable {
     private String name;
@@ -14,6 +19,7 @@ public class Product implements Parcelable {
     private String expirationDate;
     private Uri imageUri;
     private String memo;
+    private boolean isSelected = false; // 체크 상태
 
     public Product(String name, String classification, String storageLocation, int quantity, String expirationDate, Uri imageUri, String memo) {
         this.name = name;
@@ -70,4 +76,12 @@ public class Product implements Parcelable {
     public String getExpirationDate() { return expirationDate; }
     public Uri getImageUri() { return imageUri; }
     public String getMemo() {return memo; }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void isSelected(boolean selected) {
+        isSelected = selected;
+    }
 }

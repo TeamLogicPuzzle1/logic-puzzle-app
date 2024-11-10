@@ -26,6 +26,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.cookandroid.test_ui.mainPage.MainPageTab;
+
 public class SettingLeaderVer extends AppCompatActivity {
     Intent intent;
     @Override

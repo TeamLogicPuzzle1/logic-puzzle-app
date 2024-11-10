@@ -1,9 +1,14 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 내부 저장소 파일 생성
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-11-04
+ * 버전: 0.0.1
+ * */
+package com.cookandroid.test_ui.mainPage;
 
 import static java.lang.Character.getType;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

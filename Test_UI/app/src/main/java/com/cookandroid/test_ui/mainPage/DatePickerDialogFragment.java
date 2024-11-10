@@ -1,4 +1,10 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 날짜 상자창 구현
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-10-03
+ * 버전: 0.0.1
+ * */
+package com.cookandroid.test_ui.mainPage;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

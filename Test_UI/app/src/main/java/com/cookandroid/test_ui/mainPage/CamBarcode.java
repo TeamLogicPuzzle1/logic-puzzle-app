@@ -1,11 +1,11 @@
 /*
- * 간략: 상품등록 팝업창
+ * 간략: 바코드 창
  * 최초 작성자: 홍진기
- * 작성일: 2024-09-29
- * 수정일: 2024-10-02
- * 버전: 0.0.4
+ * 작성일: 2024-10-05
+ * 수정일: 2024-11-09
+ * 버전: 0.0.5
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -35,6 +35,7 @@ import androidx.core.content.ContextCompat;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 
+import com.cookandroid.test_ui.R;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;

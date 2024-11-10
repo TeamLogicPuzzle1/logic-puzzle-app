@@ -1,4 +1,11 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 메인페이지의 탭 속성
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-09-29
+ * 수정일: 2024-10-02
+ * 버전: 0.2.2
+ * */
+package com.cookandroid.test_ui.mainPage;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,9 +19,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cookandroid.test_ui.R;
 import com.google.android.material.tabs.TabLayout;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 

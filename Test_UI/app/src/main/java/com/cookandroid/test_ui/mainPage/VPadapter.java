@@ -1,4 +1,4 @@
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

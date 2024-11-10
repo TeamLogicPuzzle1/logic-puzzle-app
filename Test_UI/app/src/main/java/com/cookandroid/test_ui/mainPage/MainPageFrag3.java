@@ -5,7 +5,7 @@
  * 수정일: 2024-09-29
  * 버전: 0.0.2
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import com.cookandroid.test_ui.R;
+import com.cookandroid.test_ui.SettingLeaderVer;
 
 
 public class MainPageFrag3 extends Fragment {

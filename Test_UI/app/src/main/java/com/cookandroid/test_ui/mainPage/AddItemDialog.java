@@ -5,19 +5,14 @@
  * 수정일: 2024-10-02
  * 버전: 0.0.4
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
-import static com.cookandroid.test_ui.R.*;
-
-import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,22 +21,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.cookandroid.test_ui.R;
+
 import java.io.IOException;
-import java.util.Calendar;
+
 @SuppressWarnings("deprecation")
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
     Bundle args;

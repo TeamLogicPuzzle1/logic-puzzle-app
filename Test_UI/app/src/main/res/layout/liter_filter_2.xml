@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".LiterFilter2"
+    tools:context=".mainPage.LiterFilter2"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/rectangle_circle_layout">
 

@@ -5,7 +5,7 @@
  * 수정일: 2024-10-01
  * 버전: 0.0.2
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.cookandroid.test_ui.R;
 
 public class LiterFilter1 extends DialogFragment implements View.OnClickListener {
     // 메소드명 작성

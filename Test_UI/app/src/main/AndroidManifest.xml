@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccount" android:label="createAccount" android:screenOrientation="portrait"/>
-        <activity android:name=".AddItemDialog" android:label="Add Item" android:screenOrientation="portrait">
+        <activity android:name=".mainPage.AddItemDialog" android:label="Add Item" android:screenOrientation="portrait">
         </activity>
         <activity android:name=".FilterCheck" android:screenOrientation="portrait"/>
         <activity android:name=".IdFind" android:label="idFind" android:screenOrientation="portrait"/>
@@ -39,15 +39,15 @@
         <activity android:name=".SettingAlarm" android:label="settingAlarm" android:screenOrientation="portrait"/>
         <activity android:name=".SettingAnnounce" android:screenOrientation="portrait"/>
         <activity android:name=".MainPage" android:label="mainPage" />
-        <activity android:name=".MainPageTab" android:screenOrientation="portrait"/>
-        <activity android:name=".MainPageFrag" android:screenOrientation="portrait"/>
-        <activity android:name=".MainPageFrag2" android:screenOrientation="portrait"/>
-        <activity android:name=".MainPageFrag3" android:screenOrientation="portrait"/>
-        <activity android:name=".RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.MainPageTab" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.MainPageFrag" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.MainPageFrag2" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.MainPageFrag3" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.RefrigeratorFoodFilterDialog" android:label="refrigeratorFoodFilterDialog" android:screenOrientation="portrait"/>
         <activity android:name=".PwChange" android:screenOrientation="portrait"/>
         <activity android:name=".ProfileSelect" android:screenOrientation="portrait"/>
-        <activity android:name=".CamBarcode" android:screenOrientation="portrait"/>
-        <activity android:name=".CamExpirationdate" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.CamBarcode" android:screenOrientation="portrait"/>
+        <activity android:name=".mainPage.CamExpirationdate" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

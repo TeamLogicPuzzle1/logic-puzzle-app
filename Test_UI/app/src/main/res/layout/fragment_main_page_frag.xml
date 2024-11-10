@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainPageFrag"
+    tools:context=".mainPage.MainPageFrag"
     android:background="#7cb342">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -102,30 +102,32 @@
         android:layout_marginBottom="40dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/RecipeProductButton"
             android:layout_width="205dp"
             android:layout_height="43dp"
-            android:layout_marginTop="650dp"
+            android:layout_marginTop="690dp"
+            android:background="@drawable/rectangle"
             android:backgroundTint="#dfdfdf"
-            android:textColor="#000000"
             android:drawableStart="@drawable/recipe2"
             android:text="선택 상품 추천 레시피"
+            android:textColor="#000000"
             android:visibility="invisible"
-            android:background="@drawable/rectangle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/DeleteProductButton"
             android:layout_width="205dp"
             android:layout_height="43dp"
-            android:layout_marginTop="650dp"
+            android:layout_marginTop="690dp"
             android:background="@drawable/rectangle"
-            android:textColor="#000000"
+            android:backgroundTint="#dfdfdf"
             android:drawableStart="@drawable/trash_delete"
             android:text="선택 상품 삭제"
+            android:textColor="#000000"
             android:visibility="invisible"
-            android:backgroundTint="#dfdfdf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"

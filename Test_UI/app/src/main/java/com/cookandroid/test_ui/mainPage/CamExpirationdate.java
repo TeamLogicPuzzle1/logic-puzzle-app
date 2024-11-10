@@ -1,4 +1,11 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 유통기한
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-10-06
+ * 수정일: 2024-11-04
+ * 버전: 0.0.4
+ * */
+package com.cookandroid.test_ui.mainPage;
 import android.Manifest;
 
 import android.app.DatePickerDialog;
@@ -22,6 +29,7 @@ import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.cookandroid.test_ui.R;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;

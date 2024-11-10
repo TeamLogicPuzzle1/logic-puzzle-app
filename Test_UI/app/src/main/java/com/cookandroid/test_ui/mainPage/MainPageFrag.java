@@ -1,13 +1,22 @@
-package com.cookandroid.test_ui;
+/*
+ * 간략: 메인페이지 1번 상품 등록 및 조회 창
+ * 최초 작성자: 홍진기
+ * 작성일: 2024-09-27
+ * 수정일: 2024-11-09
+ * 버전: 0.1.0
+ * */
+package com.cookandroid.test_ui.mainPage;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -16,11 +25,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.cookandroid.test_ui.R;
+import com.cookandroid.test_ui.SettingLeaderVer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class MainPageFrag extends Fragment {
+public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener{
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
@@ -30,6 +42,9 @@ public class MainPageFrag extends Fragment {
     private static final int REQUEST_CODE_PAGE_2 = 1;
 
     private Intent intent;
+
+    AppCompatButton recipeProductButton;
+    AppCompatButton deleteProductButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,8 +86,7 @@ public class MainPageFrag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // ProductAdapter 생성 및 RecyclerView에 설정
-        // productAdapter = new ProductAdapter(new ArrayList<>(productList));
-        productAdapter = new ProductAdapter(new ArrayList<>(productList));
+        productAdapter = new ProductAdapter(new ArrayList<>(productList), this, productViewModel);
         recyclerView.setAdapter(productAdapter);
 
         // ViewModel 옵저버 설정
@@ -103,7 +117,21 @@ public class MainPageFrag extends Fragment {
             RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
             refrigeratorFoodFilterDialog.show(fragmentManager, null);
         });
+        // 버튼 초기화
+        recipeProductButton = v.findViewById(R.id.RecipeProductButton);
+        deleteProductButton = v.findViewById(R.id.DeleteProductButton);
 
+        recipeProductButton.setVisibility(View.INVISIBLE);
+        deleteProductButton.setVisibility(View.INVISIBLE);
+
+        deleteProductButton.setOnClickListener(view -> {
+            List<Product> deletedProducts = productAdapter.removeSelectedItems(); // Adapter에서 삭제된 항목 가져오기
+            productViewModel.removeProducts(deletedProducts); // ViewModel에서 해당 항목 삭제
+            productFileManager.saveProductList(new ArrayList<>(productViewModel.getProductList().getValue())); // 파일에도 변경된 리스트 저장
+        });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(productAdapter, requireContext()));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
         return v;
     }
 
@@ -148,4 +176,20 @@ public class MainPageFrag extends Fragment {
             }
         }
     } */
+    @Override
+    public void onSelectionModeChanged(boolean isSelectionMode) {
+        // 선택 모드일 때만 버튼 표시
+        int visibility = isSelectionMode ? View.VISIBLE : View.INVISIBLE;
+        recipeProductButton.setVisibility(visibility);
+        deleteProductButton.setVisibility(visibility);
+
+        deleteProductButton.setVisibility(isSelectionMode ? View.VISIBLE : View.GONE);
+    }
+
+    // MainPageFrag 클래스 내부
+    @Override
+    public void onProductRemoved(int position) {
+        // 항목 삭제 후 추가 작업이 필요할 경우 이곳에 작성합니다.
+        Log.d("MainPageFrag", "Product removed at position: " + position);
+    }
 }
