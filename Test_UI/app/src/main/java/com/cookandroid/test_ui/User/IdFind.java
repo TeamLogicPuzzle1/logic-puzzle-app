@@ -5,18 +5,19 @@
  * 수정일: 2024-10-01
  * 버전: 0.0.2
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.User;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.cookandroid.test_ui.R;
 
 public class IdFind extends AppCompatActivity {
     // 변수명

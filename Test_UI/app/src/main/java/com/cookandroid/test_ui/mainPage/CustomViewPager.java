@@ -1,6 +1,6 @@
 /*
 * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.mainPage;
 
 import android.content.Context;
 import android.util.AttributeSet;

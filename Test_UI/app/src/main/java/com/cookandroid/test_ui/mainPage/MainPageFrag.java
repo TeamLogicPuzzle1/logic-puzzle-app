@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.cookandroid.test_ui.R;
-import com.cookandroid.test_ui.SettingLeaderVer;
+import com.cookandroid.test_ui.setting.SettingLeaderVer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@
  * 수정일: 2024-09-28
  * 버전: 0.0.2
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.User;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,12 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cookandroid.test_ui.DTO.UserCheckDto;
+import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.LogMsgOutput;
 import com.cookandroid.test_ui.util.RetrofitClient;

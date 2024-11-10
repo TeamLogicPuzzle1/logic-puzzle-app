@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cookandroid.test_ui.CustomViewPager
+    <com.cookandroid.test_ui.mainPage.CustomViewPager
         android:id="@+id/ViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

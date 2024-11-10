@@ -4,7 +4,7 @@
  * 작성일: 2024-09-18
  * 버전: 0.0.1
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.User;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.cookandroid.test_ui.R;
 
 public class PwFind extends AppCompatActivity {
     /*

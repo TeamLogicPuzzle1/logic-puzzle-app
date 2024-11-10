@@ -7,7 +7,7 @@
  * 버전: 0.0.4
  *
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.setting;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -26,6 +26,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.cookandroid.test_ui.User.Login;
+import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.mainPage.MainPageTab;
 
 public class SettingLeaderVer extends AppCompatActivity {

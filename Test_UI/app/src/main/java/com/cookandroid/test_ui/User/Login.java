@@ -5,7 +5,7 @@
  * 수정일: 2024-09-28
  * 버전: 0.0.2
  * */
-package com.cookandroid.test_ui;
+package com.cookandroid.test_ui.User;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.mainPage.MainPageTab;
 
 public class Login extends AppCompatActivity {
