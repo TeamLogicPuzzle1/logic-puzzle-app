@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mainPage.MainPageFrag"
+    android:background="#7cb342">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/logo_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/SettingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/setting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appCompatButton"
+            android:layout_width="205dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#dfdfdf"
+            android:gravity="center"
+            android:text="소비기한 임박상품  0"
+            android:textColor="#000000"
+            android:textSize="17dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#dfdfdf"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:text="소비기한 만료상품  0"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="109dp"
+        android:background="@drawable/rectangle_search"
+        android:drawableStart="@drawable/search"
+        android:hint="요리, 재료 검색"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/RefrigeratorFoodFilterCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="367dp"
+        android:layout_marginTop="109dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/tune"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@drawable/rectangle_circle_layout_background_gray"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="40dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/RecipeProductButton"
+            android:layout_width="205dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="690dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#dfdfdf"
+            android:drawableStart="@drawable/recipe2"
+            android:text="선택 상품 추천 레시피"
+            android:textColor="#000000"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/DeleteProductButton"
+            android:layout_width="205dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="690dp"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="#dfdfdf"
+            android:drawableStart="@drawable/trash_delete"
+            android:text="선택 상품 삭제"
+            android:textColor="#000000"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/AddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginRight="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/add_circle_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

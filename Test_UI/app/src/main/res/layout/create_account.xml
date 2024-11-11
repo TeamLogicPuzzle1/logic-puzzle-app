@@ -1,146 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#7CB342">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="380dp"
+        android:layout_height="460dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="80dp"
-        android:layout_width="match_parent"
-        android:background="@drawable/rectangle_circle_layout"
         android:layout_marginBottom="180dp"
-        android:layout_height="match_parent">
+        android:background="@drawable/rectangle_circle_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:layout_width="300dp"
+            android:id="@+id/UserId"
+            android:layout_width="0dp"
             android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:textColor="#000000"
             android:background="@drawable/memo_border"
-            android:drawableStart="@drawable/id_png"
+            android:drawableStart="@drawable/supervisor_account"
             android:hint="아이디"
             android:textSize="15dp"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/DuplicateCheckBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginTop="56dp"
             android:backgroundTint="#7CB342"
-            android:layout_marginVertical="200dp"
             android:text="중복확인"
             android:textColor="#1B5E20"
             android:textSize="15dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="56dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.131"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/DuplicateMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아이디 결과 문구"
+            android:layout_marginTop="68dp"
+            android:text="사용 가능한 아이디입니다."
+            android:visibility="invisible"
             android:textColor="#7cb342"
-            tools:layout_editor_absoluteX="150dp"
-            tools:layout_editor_absoluteY="66dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.697"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
 
         <EditText
+            android:id="@+id/PwEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/pw_png"
+            android:layout_marginTop="108dp"
             android:background="@drawable/memo_border"
+            android:drawableStart="@drawable/lock"
+            android:textColor="#000000"
+            android:inputType="textPassword"
             android:hint="비밀번호"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="110dp" />
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
+            android:id="@+id/PwCheckEdt"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/pw_png"
+            android:layout_marginTop="156dp"
             android:background="@drawable/memo_border"
+            android:textColor="#000000"
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/lock"
             android:hint="비밀번호 확인"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="160dp" />
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/PwMatchMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="비밀번호 결과 문구"
+            android:layout_marginTop="196dp"
+            android:text="비밀번호가 일치합니다."
+            android:visibility="invisible"
             android:textColor="#7cb342"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="199dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.149"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="196dp"
+            android:text="비밀번호가 일치하지 않습니다."
+            android:visibility="invisible"
+            android:textColor="#ff0000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.182"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/editText19"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
-            android:drawableStart="@drawable/email_png"
-            android:drawableTint="@color/cardview_dark_background"
+            android:layout_marginTop="228dp"
             android:background="@drawable/memo_border"
+            android:drawableStart="@drawable/email"
+            android:textColor="#000000"
             android:hint="이메일"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="230dp" />
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <Button
+            android:id="@+id/SendCodeBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginTop="268dp"
             android:backgroundTint="#7CB342"
             android:text="인증번호 발송"
             android:textColor="#1B5E20"
             android:textSize="15dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="270dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.148"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:id="@+id/editText20"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:textSize="15dp"
+            android:layout_marginTop="308dp"
             android:background="@drawable/memo_border"
             android:hint="인증번호"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="310dp"/>
+            android:textColor="#000000"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/SendCodeCheckBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginTop="348dp"
             android:backgroundTint="#7CB342"
             android:text="인증번호 확인"
             android:textColor="#1B5E20"
             android:textSize="15dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="35dp"
-            tools:layout_editor_absoluteY="350dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.148"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/Certification_Timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="294dp"
+            android:layout_marginTop="320dp"
+            android:text="03:00"
+            android:textColor="#ff0000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <Button
+            android:id="@+id/Ca_Return_SignIn_Btn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginTop="404dp"
             android:backgroundTint="#d9d9d9"
             android:text="취소"
             android:textColor="#757575"
             android:textSize="15dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="150dp"
-            tools:layout_editor_absoluteY="415dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.537"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/button20"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
+            android:layout_marginTop="404dp"
             android:backgroundTint="#7CB342"
             android:text="회원가입"
             android:textColor="#1B5E20"
             android:textSize="15dp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="251dp"
-            tools:layout_editor_absoluteY="415dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/SendCodeCheckMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="인증번호 결과 문구"
+            android:layout_marginTop="356dp"
+            android:text="인증번호가 확인되었습니다."
             android:textColor="#7cb342"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="361dp" />
-
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.811"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

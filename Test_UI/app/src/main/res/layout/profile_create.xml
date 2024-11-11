@@ -33,7 +33,7 @@
             android:layout_width="270dp"
             android:layout_height="40dp"
             android:background="@drawable/memo_border"
-            android:drawableStart="@drawable/id_png"
+            android:drawableStart="@drawable/supervisor_account"
             android:hint="프로필 이름"
             android:drawableTint="#adb5db"
             tools:layout_editor_absoluteX="50dp"
