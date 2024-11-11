@@ -132,6 +132,9 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(productAdapter, requireContext()));
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
+
         return v;
     }
 
@@ -192,4 +195,6 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         // 항목 삭제 후 추가 작업이 필요할 경우 이곳에 작성합니다.
         Log.d("MainPageFrag", "Product removed at position: " + position);
     }
+
+
 }

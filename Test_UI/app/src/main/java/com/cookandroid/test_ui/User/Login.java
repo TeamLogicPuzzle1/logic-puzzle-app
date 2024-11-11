@@ -19,8 +19,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.cookandroid.test_ui.DTO.UserCheckDto;
+import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
+import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.mainPage.MainPageTab;
+import com.cookandroid.test_ui.util.ApiInterface;
+import com.cookandroid.test_ui.util.LogMsgOutput;
+import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     /*
@@ -30,6 +40,8 @@ public class Login extends AppCompatActivity {
     * pwFindBtn(비밀번호 찾기 버튼)
     * loginBtn(로그인 버튼)
     * */
+    ApiInterface api;
+    com.cookandroid.test_ui.util.RetrofitClient RetrofitClient;
     AppCompatButton signUpBtn, idFindBtn, pwFindBtn;
     Button loginBtn;
     Intent intent;
@@ -38,6 +50,9 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login);
+
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -74,6 +89,25 @@ public class Login extends AppCompatActivity {
                 // 아이디와 비밀번호에 관련된 데이터를 가져오지 못했기 때문에
                 // if문 제외하고 바로 연결하는 방식으로 처리 추후 수정 예정
                 // 그리고 바로 프로필 선택창으로 연결하는 작업이 필요
+                AuthReqLoginDto authReqLoginDto = new AuthReqLoginDto();
+                authReqLoginDto.setMemberId(1);
+                authReqLoginDto.setPinNum(774900);
+
+                api.authLoginDto(authReqLoginDto).enqueue(new Callback<AuthResLoginDto>() {
+                      @Override
+                      public void onResponse(Call<AuthResLoginDto> call, Response<AuthResLoginDto> response) {
+                          if(response.isSuccessful()){
+                              AuthResLoginDto responseData = response.body();
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공");
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData));
+                          }
+                      }
+
+                      @Override
+                      public void onFailure(Call<AuthResLoginDto> call, Throwable t) {
+
+                      }
+                });
 
                 intent = new Intent(getApplicationContext(), MainPageTab.class);
                 startActivity(intent);
