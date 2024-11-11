@@ -22,7 +22,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cookandroid.test_ui.DTO.UserCheckDto;
+import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.LogMsgOutput;

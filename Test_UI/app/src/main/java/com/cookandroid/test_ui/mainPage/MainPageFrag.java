@@ -25,14 +25,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
+import com.cookandroid.test_ui.util.ApiInterface;
+import com.cookandroid.test_ui.util.LogMsgOutput;
+import com.cookandroid.test_ui.util.RetrofitClient;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 @SuppressWarnings("deprecation")
 public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener{
+    ApiInterface api;
+    com.cookandroid.test_ui.util.RetrofitClient RetrofitClient;
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
@@ -50,6 +61,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
         productFileManager = new ProductFileManager(requireContext());
 
         // ViewModel 초기화
@@ -74,6 +86,8 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
 
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+
         // 뒤로가기 버튼을 막는 코드 추가
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -96,6 +110,24 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         });
         adapterInitialized = true;
 
+        api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
+            @Override
+            public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
+                if (response.isSuccessful()) {
+                    List<ProductsResDto> responseData = response.body();
+                    if (responseData != null) {
+                        for (ProductsResDto product : responseData) {
+                            Log.v("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
+                call.cancel();
+            }
+        });
         // 설정 버튼
         ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
         settingBtn.setOnClickListener(view -> {
