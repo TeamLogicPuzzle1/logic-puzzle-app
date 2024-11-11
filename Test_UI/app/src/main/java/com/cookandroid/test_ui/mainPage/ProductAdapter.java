@@ -12,10 +12,13 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cookandroid.test_ui.R;
@@ -33,14 +36,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private boolean isSelectionMode = false;    // 선택 모드인지 여부
     private List<Integer> selectedItems = new ArrayList<>();   // 선택된 항목의 인덱스
     SelectionModeListener selectionModeListener;
-    ProductViewModel productViewModel;
-    ProductFileManager productFileManager;
+    private ProductViewModel productViewModel;
+    private ProductFileManager productFileManager;
+    private OnItemClickListener onItemClickListener;
+
     // ProductAdapter에 인터페이스 정의
     public interface SelectionModeListener {
         void onSelectionModeChanged(boolean isSelectionMode);
         void onProductRemoved(int position);
     }
 
+    public interface OnItemClickListener{
+        void onItemClick(Product product);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     // 생성자
     public ProductAdapter(ArrayList<Product> initialProductList, SelectionModeListener listener, ProductViewModel viewModel) {
         this.productList = initialProductList != null ? initialProductList : new ArrayList<>(); // 전달된 리스트가 null이 아닐 때만 사용
@@ -124,6 +136,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     selectionModeListener.onSelectionModeChanged(isSelectionMode); // Fragment에 알림
                 }
                 return true;
+            });
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if(onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+                    Product product = productList.get(position);
+                    onItemClickListener.onItemClick(product);  // 클릭 이벤트 전달
+                }
             });
         }
 

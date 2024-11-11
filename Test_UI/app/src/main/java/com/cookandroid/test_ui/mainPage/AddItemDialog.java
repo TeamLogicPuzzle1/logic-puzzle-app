@@ -45,11 +45,16 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     private String productName;
     private String memo;
     private Uri imageUri;
+    private boolean isEditMode = false; // 추가 모드(기본값)인지 수정 모드인지 구분
+
+
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();
         return addItemDialog;
+
+
     }
 
     public void setInputData(String inputText, String selectedDate) {
@@ -138,6 +143,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         });
         EditText textNameEdt = v.findViewById(R.id.TextNameEdt);
         Button dateTimePickerBtn = v.findViewById(R.id.DateTimePickerBtn);
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             // selectedDate 가져오기
