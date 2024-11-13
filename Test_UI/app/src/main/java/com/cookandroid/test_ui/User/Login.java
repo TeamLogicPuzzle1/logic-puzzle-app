@@ -101,12 +101,12 @@ public class Login extends AppCompatActivity {
                               LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공");
                               LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
 
-                              TokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
-                              TokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
+                              TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
 
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "access_token @@@@@@@@@@@@@ = " + TokenManger.getAccessToken());
+                              tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
+                              tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
 
-                              RetrofitClient.setAccessToken(responseData.getTokenDto().getRefresh().toString());
+                              RetrofitClient.setAccessToken(TokenManger.getAccessToken());
                           } else{
                               LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공 @@@@");
                               LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess()));

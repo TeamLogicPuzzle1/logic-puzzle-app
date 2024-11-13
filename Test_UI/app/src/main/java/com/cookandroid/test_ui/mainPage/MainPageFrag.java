@@ -10,6 +10,12 @@ package com.cookandroid.test_ui.mainPage;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -19,19 +25,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
 import com.cookandroid.test_ui.util.ApiInterface;
-import com.cookandroid.test_ui.util.LogMsgOutput;
-import com.cookandroid.test_ui.util.RetrofitClient;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
-public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener{
+public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener {
     ApiInterface api;
     com.cookandroid.test_ui.util.RetrofitClient RetrofitClient;
     private RecyclerView recyclerView;
@@ -80,7 +78,6 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     }
 
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,27 +104,31 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         productViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
             Log.d("MainPageFrag", "Observer triggered - Product count: " + products.size());
             productAdapter.updateProducts(products);
+
+            api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
+                @Override
+                public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
+                    if (response.isSuccessful()) {
+                        List<ProductsResDto> responseData = response.body();
+                        if (responseData != null) {
+                            for (ProductsResDto product : responseData) {
+                                Log.d("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
+                            }
+                        }
+                    } else {
+                        Log.d("@@@@@@@@@@@@@@@@@@ = ", "통신성공 @@@@");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
+                    Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
+                    call.cancel();
+                }
+            });
         });
         adapterInitialized = true;
 
-        api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
-            @Override
-            public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
-                if (response.isSuccessful()) {
-                    List<ProductsResDto> responseData = response.body();
-                    if (responseData != null) {
-                        for (ProductsResDto product : responseData) {
-                            Log.v("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
-                call.cancel();
-            }
-        });
         // 설정 버튼
         ImageButton settingBtn = v.findViewById(R.id.SettingBtn);
         settingBtn.setOnClickListener(view -> {
@@ -166,7 +167,6 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
-
         return v;
     }
 
@@ -198,9 +198,11 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
             productList = new ArrayList<>();
         }
     }
+
     public ProductAdapter getProductAdapter() {
         return productAdapter;
     }
+
     /* @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -24,6 +24,14 @@ public class TokenManger {
         prefsEditor = prefs.edit();
     }
 
+    // Singleton method to get the instance of TokenManger
+    public static synchronized TokenManger getInstance(Context context) {
+        if (instance == null) {
+            instance = new TokenManger(context);
+        }
+        return instance;
+    }
+
     // Access Token 저장
     public static void setAccessToken(String value) {
         prefsEditor.putString(Access_Token, value).commit();
