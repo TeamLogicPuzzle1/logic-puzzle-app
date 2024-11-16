@@ -45,6 +45,11 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 @SuppressWarnings("deprecation")
 public class CamBarcode extends AppCompatActivity {
     Intent intent;
@@ -63,8 +68,7 @@ public class CamBarcode extends AppCompatActivity {
         cameraBarcodePreviewView = findViewById(R.id.CameraBarcodePreviewView);
         BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(
-                        Barcode.FORMAT_QR_CODE,
-                        Barcode.FORMAT_CODE_128
+                        Barcode.FORMAT_ALL_FORMATS // 모든 바코드 형식을 허용
                 ).build();
         barcodeScanner = BarcodeScanning.getClient(options);
 
@@ -147,7 +151,7 @@ public class CamBarcode extends AppCompatActivity {
                 preview.setSurfaceProvider(cameraBarcodePreviewView.getSurfaceProvider());
 
                 cameraProvider.unbindAll(); // 기존 카메라 바인딩 해제
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview); // 카메라 바인딩
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis); // 카메라 바인딩
             } catch (ExecutionException | InterruptedException e) {
                 Log.e("CamBarcode", "Camera initialization failed: " + e.getMessage());
             }
@@ -165,6 +169,9 @@ public class CamBarcode extends AppCompatActivity {
                     for (Barcode barcode : barcodes) {
                         String rawValue = barcode.getRawValue();
                         Log.d("CamBarcode", "바코드 인식: " + rawValue);
+
+                        // Open-API 호출
+                        fetchBarcodeData(rawValue);
 
                         // 바코드 처리 로직 (예: 스캔 후 이동)
                         intent = new Intent(getApplicationContext(), CamExpirationdate.class);
@@ -192,6 +199,48 @@ public class CamBarcode extends AppCompatActivity {
             }
         }
     }
+    private void fetchBarcodeData(String barcode) {
+        // OPEN API 요청 URL 구성
+        String keyId = "c1b0d2cc4219416e9ff3";  // Open-API에서 발급받은 인증키 입력
+        String serviceId = "C005";  // 서비스 ID
+        String dataType = "json";   // 응답 데이터 형식
+        int startIdx = 1;   // 시작 인덱스
+        int endIdx = 5;     // 종료 인덱스
+        String apiUrl = String.format(
+                "http://openapi.foodsafetykorea.go.kr/api/%s/%s/%s/%d/%d/BAR_CD=%s",
+                keyId, serviceId, dataType, startIdx, endIdx, barcode
+        );
 
+        // OkHttp 클라이언트 생성
+        OkHttpClient client = new OkHttpClient();
 
+        // 요청 생성
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .build();
+
+        // 비동기 요청사항
+        new Thread(() -> {
+            try {
+                Response response = client.newCall(request).execute();
+                if(response.isSuccessful()) {
+                    // API 응답 처리
+                    String responseBody = response.body().string();
+                    Log.d("CamBarcode", "API 응답: " + responseBody);
+
+                    // UI 업데이트 (예: 데이터를 화면에 표시)
+                    runOnUiThread(() -> {
+                        // 데이터 피싱후 처리 로직 추가
+                        Toast.makeText(CamBarcode.this, "API 호출 성공", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    Log.e("CamBarcode", "API 호출 실패: " + response.message());
+                }
+            }catch (Exception e) {
+                Log.e("CamBarcode", "API 호출 중 오류 발생: " + e.getMessage());
+            }
+
+        }).start();
+    }
 }
+

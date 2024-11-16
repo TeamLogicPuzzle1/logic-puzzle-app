@@ -45,16 +45,11 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
     private String productName;
     private String memo;
     private Uri imageUri;
-    private boolean isEditMode = false; // 추가 모드(기본값)인지 수정 모드인지 구분
-
-
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();
         return addItemDialog;
-
-
     }
 
     public void setInputData(String inputText, String selectedDate) {
@@ -94,10 +89,10 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         }
     }
     /*
-    * v(xml파일과 연결)
-    * spinClasssification(아이템분류를 선택하는 스피너)
-    * spinStorage(저장위치를 선택하는 스피너)
-    * backIvBtn(이전버튼)*/
+     * v(xml파일과 연결)
+     * spinClasssification(아이템분류를 선택하는 스피너)
+     * spinStorage(저장위치를 선택하는 스피너)
+     * backIvBtn(이전버튼)*/
 
     @Nullable
     @Override
@@ -143,7 +138,6 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         });
         EditText textNameEdt = v.findViewById(R.id.TextNameEdt);
         Button dateTimePickerBtn = v.findViewById(R.id.DateTimePickerBtn);
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             // selectedDate 가져오기
@@ -163,16 +157,16 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                    DatePickerDialogFragment datePickerDialog = new DatePickerDialogFragment();
-                    datePickerDialog.setOnDateSetListener((year, month, day) -> {
-                        // 선택한 날짜를 버튼 텍스트에 표시
-                        Button dateTimePickerBtn = getView().findViewById(R.id.DateTimePickerBtn);
-                        String selectedDate = year + "." + month + "." + day;
-                        dateTimePickerBtn.setText(selectedDate);
-                    });
+                DatePickerDialogFragment datePickerDialog = new DatePickerDialogFragment();
+                datePickerDialog.setOnDateSetListener((year, month, day) -> {
+                    // 선택한 날짜를 버튼 텍스트에 표시
+                    Button dateTimePickerBtn = getView().findViewById(R.id.DateTimePickerBtn);
+                    String selectedDate = year + "." + month + "." + day;
+                    dateTimePickerBtn.setText(selectedDate);
+                });
 
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    datePickerDialog.show(fragmentManager, "datePicker");
+                FragmentManager fragmentManager = getParentFragmentManager();
+                datePickerDialog.show(fragmentManager, "datePicker");
 
 
             }

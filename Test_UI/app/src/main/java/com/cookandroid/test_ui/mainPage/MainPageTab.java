@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener {
+public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener, EditItemDialog.OnProductEditedListener {
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
     private VPadapter vpAdapter;
@@ -34,6 +34,14 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     private ProductAdapter productAdapter;
     Intent intent;
     private ProductViewModel productViewModel;
+
+    @Override
+    public void onProductEdited(Product product) {
+        // Product가 수정되었을 때 수행할 작업을 여기에 추가합니다.
+        // 예를 들어, ViewModel을 통해 업데이트하거나 어댑터에 알릴 수 있습니다.
+        productViewModel.updateProduct(product); // ViewModel에 업데이트
+    }
+
     @Override
     public void onDataPass(String name, String classification, String storage, String date, int quantity,  Uri imageUri, String memo) {
         Product product = new Product(name, classification, storage, quantity, date, imageUri, memo);
@@ -61,7 +69,7 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
 
         productViewModel.getProductList().observe(this, products -> {
             if (mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
-                mainPageFrag.updateProductList(products);
+                mainPageFrag.getProductAdapter().updateProducts(products);
             }
         });
 
@@ -99,6 +107,17 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
                 mainPageFrag.updateProductList(products);
             }
         });
+        // onItemClickListener가 null이 아닌지 확인 후 설정
+        /* if (productAdapter != null) {
+            productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Product product) {
+                    // 아이템 클릭 처리 로직
+                    EditItemDialog editItemDialog = EditItemDialog.newInstance(product);
+                    editItemDialog.show(getSupportFragmentManager(), "EditItemDialog");
+                }
+            });
+        } */
 
     }
 

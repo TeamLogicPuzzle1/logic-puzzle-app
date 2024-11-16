@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener{
+public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener{
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
@@ -45,6 +45,13 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
 
     AppCompatButton recipeProductButton;
     AppCompatButton deleteProductButton;
+
+    @Override
+    public void onProductEdited(Product product) {
+        //ViewModel의 리스트에서 수정된 항목을 갱신
+        productViewModel.updateProduct(product);
+        productAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,8 +140,9 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(productAdapter, requireContext()));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-
-
+        productAdapter.setOnItemClickListener(product -> {
+            showEditItemDialog(product);
+        });
         return v;
     }
 
@@ -196,5 +204,18 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         Log.d("MainPageFrag", "Product removed at position: " + position);
     }
 
+    // EditItemDialog를 표시하는 메서드
+    private void showEditItemDialog(Product product) {
 
+        EditItemDialog editItemDialog = new EditItemDialog();
+
+        // 데이터를 전달하기 위해 Bundle 사용
+        Bundle args = new Bundle();
+        args.putParcelable("product", product);
+        editItemDialog.setArguments(args);
+
+        // DialogFragment를 표시
+        FragmentManager fragmentManager = getParentFragmentManager();
+        editItemDialog.show(fragmentManager, "EditItemDialog");
+    }
 }

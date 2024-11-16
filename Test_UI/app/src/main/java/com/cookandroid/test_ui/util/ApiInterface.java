@@ -3,12 +3,15 @@ package com.cookandroid.test_ui.util;
 import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
 import com.cookandroid.test_ui.DTO.UserCheckDto;
 import com.cookandroid.test_ui.DTO.UserSignupDto;
+import com.cookandroid.test_ui.DTO.ProductionDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface
@@ -21,5 +24,9 @@ public interface ApiInterface
 
     @POST("api/v1/auth/login")
     Call<AuthResLoginDto> authLoginDto(@Body AuthReqLoginDto authReqDto);
+
+    @Multipart
+    @POST("api/v1/production/products/create-with-image/")
+    Call<ProductionDto> productionDto(@Part ProductionDto productionDto);
 
 }

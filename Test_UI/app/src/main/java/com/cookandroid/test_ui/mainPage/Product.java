@@ -77,6 +77,38 @@ public class Product implements Parcelable {
     public Uri getImageUri() { return imageUri; }
     public String getMemo() {return memo; }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
+    public void setStorageLocation(String storageLocation) {
+        this.storageLocation = storageLocation;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
     public boolean isSelected() {
         return isSelected;
     }
