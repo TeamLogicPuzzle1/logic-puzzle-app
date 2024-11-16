@@ -19,13 +19,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.cookandroid.test_ui.DTO.UserCheckDto;
 import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.mainPage.MainPageTab;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.LogMsgOutput;
+import com.cookandroid.test_ui.util.TokenManger;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -50,8 +50,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login);
-
-        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -93,19 +91,33 @@ public class Login extends AppCompatActivity {
                 authReqLoginDto.setMemberId(1);
                 authReqLoginDto.setPinNum(774900);
 
+                api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+
                 api.authLoginDto(authReqLoginDto).enqueue(new Callback<AuthResLoginDto>() {
                       @Override
                       public void onResponse(Call<AuthResLoginDto> call, Response<AuthResLoginDto> response) {
+                          AuthResLoginDto responseData = response.body();
                           if(response.isSuccessful()){
-                              AuthResLoginDto responseData = response.body();
                               LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공");
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData));
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
+
+                              TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
+
+                              tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
+                              tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
+
+                              RetrofitClient.setAccessToken(TokenManger.getAccessToken());
+                          } else{
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공 @@@@");
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess()));
                           }
                       }
 
                       @Override
                       public void onFailure(Call<AuthResLoginDto> call, Throwable t) {
-
+                          LogMsgOutput.logPrintOut(getApplicationContext(), "통신실패");
+                          LogMsgOutput.logPrintOut(getApplicationContext(), "Throwable : " + t.getMessage());
+                          call.cancel();
                       }
                 });
 

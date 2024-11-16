@@ -25,11 +25,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
+import com.cookandroid.test_ui.util.ApiInterface;
+import com.cookandroid.test_ui.util.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
 public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener{
@@ -40,7 +47,8 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     private ProductFileManager productFileManager;
     private boolean adapterInitialized = false;
     private static final int REQUEST_CODE_PAGE_2 = 1;
-
+    ApiInterface api;
+    RetrofitClient RetrofitClient;
     private Intent intent;
 
     AppCompatButton recipeProductButton;
@@ -80,7 +88,52 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
 
+        // 뒤로가기 버튼을 막는 코드 추가
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+            }
+        });
+
+        // RecyclerView 초기화
+        recyclerView = v.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // ProductAdapter 생성 및 RecyclerView에 설정
+        productAdapter = new ProductAdapter(new ArrayList<>(productList), this, productViewModel);
+        recyclerView.setAdapter(productAdapter);
+
+        // ViewModel 옵저버 설정
+        productViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
+            Log.d("MainPageFrag", "Observer triggered - Product count: " + products.size());
+            productAdapter.updateProducts(products);
+
+            ProductsResDto productsResDto = new ProductsResDto();
+
+            api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
+                @Override
+                public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
+                    if (response.isSuccessful()) {
+                        List<ProductsResDto> responseData = response.body();
+                        if (responseData != null) {
+                            for (ProductsResDto product : responseData) {
+                                Log.d("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
+                            }
+                        }
+                    } else {
+                        Log.d("@@@@@@@@@@@@@@@@@@ = ", "통신성공 @@@@");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
+                    Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
+                    call.cancel();
+                }
+            });
+        });
         // 뒤로가기 버튼을 막는 코드 추가
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
@@ -219,3 +272,4 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         editItemDialog.show(fragmentManager, "EditItemDialog");
     }
 }
+
