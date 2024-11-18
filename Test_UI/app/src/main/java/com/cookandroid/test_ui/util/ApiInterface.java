@@ -2,11 +2,11 @@ package com.cookandroid.test_ui.util;
 
 import com.cookandroid.test_ui.DTO.common.TokenDto;
 import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
-import com.cookandroid.test_ui.DTO.ProductionDto;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.DTO.request.UserSignupDto;
+import com.cookandroid.test_ui.mainPage.Product;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public interface ApiInterface
 
     @Multipart
     @POST("api/v1/production/products/create-with-image/")
-    Call<ProductionDto> productionDto(@Part ProductionDto productionDto);
+    Call<Product> productionDto(@Part Product productionDto);
 
     @GET("api/v1/production/products")
     Call<List<ProductsResDto>> productsListDto();

@@ -133,6 +133,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
                     call.cancel();
                 }
             });
+
         });
         // 뒤로가기 버튼을 막는 코드 추가
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {

@@ -57,6 +57,7 @@ public class CamBarcode extends AppCompatActivity {
     private PreviewView cameraBarcodePreviewView;
     private BarcodeScanner barcodeScanner;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
+    private boolean isActivityStarted = false;  // 중복 실행 방지 플래그 추가
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,10 +174,6 @@ public class CamBarcode extends AppCompatActivity {
                         // Open-API 호출
                         fetchBarcodeData(rawValue);
 
-                        // 바코드 처리 로직 (예: 스캔 후 이동)
-                        intent = new Intent(getApplicationContext(), CamExpirationdate.class);
-                        intent.putExtra("barcode", rawValue);
-                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -230,7 +227,18 @@ public class CamBarcode extends AppCompatActivity {
 
                     // UI 업데이트 (예: 데이터를 화면에 표시)
                     runOnUiThread(() -> {
-                        // 데이터 피싱후 처리 로직 추가
+                        if (!isActivityStarted) {
+                            isActivityStarted = true; // 플래그 설정
+
+                            // Open-API 응답 데이터를 Intent로 전달
+                            Intent intent = new Intent(getApplicationContext(), CamExpirationdate.class);
+                            intent.putExtra("barcode", barcode);
+                            intent.putExtra("apiResponse", responseBody);
+                            startActivity(intent);
+
+                            Toast.makeText(CamBarcode.this, "API 호출 성공", Toast.LENGTH_SHORT).show();
+                        }
+
                         Toast.makeText(CamBarcode.this, "API 호출 성공", Toast.LENGTH_SHORT).show();
                     });
                 } else {
@@ -241,6 +249,12 @@ public class CamBarcode extends AppCompatActivity {
             }
 
         }).start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActivityStarted = false; // 플래그 초기화
     }
 }
 

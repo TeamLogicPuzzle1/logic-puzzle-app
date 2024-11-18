@@ -1,12 +1,13 @@
 package com.cookandroid.test_ui.DTO;
 
-import com.google.gson.annotations.Expose;
+/*import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductionDto{
     @Expose
     @SerializedName("id") private Integer id;
-    @SerializedName("image") private String image;
+    @SerializedName("name") private String name;
+    @SerializedName("image") private String image;  // 보류
     @SerializedName("expiration_date") private String expirationDate;
     @SerializedName("category") private String category;
     @SerializedName("location") private String location;
@@ -77,4 +78,6 @@ public class ProductionDto{
     public void setId(Integer id) {
         this.id = id;
     }
-}
+
+
+} */

@@ -176,10 +176,13 @@ public class EditItemDialog extends DialogFragment implements View.OnClickListen
                 product.setName(editTextNameEdt.getText().toString());
                 product.setMemo(editMemoEditText.getText().toString());
                 product.setQuantity(Integer.parseInt(editCounterTextView.getText().toString()));
-                product.setExpirationDate(selectedDate);
-                product.setClassification(editSpinClassification.getSelectedItem().toString());
-                product.setStorageLocation(editSpinStorage.getSelectedItem().toString());
+                if(selectedDate != null) {
+                    product.setExpirationDate(selectedDate);
+                }
+                product.setCategory(editSpinClassification.getSelectedItem().toString());
+                product.setLocation(editSpinStorage.getSelectedItem().toString());
                 product.setImageUri(imageUri);
+
 
                 // 리스너를 사용하여 변경된 product 전달
                 if (productEditedListener != null) {
@@ -205,18 +208,22 @@ public class EditItemDialog extends DialogFragment implements View.OnClickListen
         editDateTimePickerBtn.setText(product.getExpirationDate());
         editCounterTextView.setText(String.valueOf(product.getQuantity()));
 
+        // 선택된 날짜 초기화
+        selectedDate = product.getExpirationDate(); // 기존 소비기한으로 초기화
+
         // 분류 스피너 값 설정
         int classificationPosition = ((ArrayAdapter) editSpinClassification.getAdapter())
-                .getPosition(product.getClassification());
+                .getPosition(product.getCategory());
         editSpinClassification.setSelection(classificationPosition);
 
         // 저장 위치 스피너 값 설정
         int storagePosition = ((ArrayAdapter) editSpinStorage.getAdapter())
-                .getPosition(product.getStorageLocation());
+                .getPosition(product.getLocation());
         editSpinStorage.setSelection(storagePosition);
 
         // 이미지 설정
         if (product.getImageUri() != null) {
+            imageUri = product.getImageUri(); // 기존 이미지 URI 초기화
             editResourceImage.setImageURI(product.getImageUri());
         } else {
             editResourceImage.setImageResource(R.drawable.default_image);

@@ -155,12 +155,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             if (product.getImageUri() != null) {
                 itemImageView.setImageURI(product.getImageUri());
             } else {
-                itemImageView.setImageResource(R.drawable.default_image);
+                itemImageView.setImageURI(product.getImageUri());
             }
 
             nameTextView.setText(product.getName());
-            classificationTextView.setText("분류: " + product.getClassification());
-            storageTextView.setText("위치: " + product.getStorageLocation());
+            classificationTextView.setText("분류: " + product.getCategory());
+            storageTextView.setText("위치: " + product.getLocation());
             quantityTextView.setText("수량: " + product.getQuantity());
             dateTextView.setText("소비기한: " + product.getExpirationDate());
             memoTextView.setText(product.getMemo());

@@ -49,6 +49,20 @@ public class CamExpirationdate extends AppCompatActivity {
         setContentView(R.layout.cam_expirationdate);
         intent = getIntent();
         inputText = intent.getStringExtra("inputText");
+        String barcode = intent.getStringExtra("barcode");
+        String apiResponse = intent.getStringExtra("apiResponse");
+
+        // 바코드와 API 응답 데이터 확인
+        Log.d("CamExpirationdate", "받은 바코드: " + barcode);
+        Log.d("CamExpirationdate", "API 응답 데이터: " + apiResponse);
+
+        // API 응답 데이터를 파싱하여 UI 업데이트
+        if (apiResponse != null) {
+            // JSON 파싱 로직 추가 (예: Gson 또는 org.json 사용)
+            // UI에 데이터 표시
+        } else {
+            Toast.makeText(this, "API 데이터가 없습니다.", Toast.LENGTH_SHORT).show();
+        }
 
         expirationdateView = (View) findViewById(R.id.ExpirationdateView);
         expirationdateInputTextView = (View) findViewById(R.id.ExpirationdateInputTextView);
