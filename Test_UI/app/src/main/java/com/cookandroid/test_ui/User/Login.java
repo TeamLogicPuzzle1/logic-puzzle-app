@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
                               RetrofitClient.setAccessToken(TokenManger.getAccessToken());
                           } else{
                               LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공 @@@@");
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess()));
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
                           }
                       }
 

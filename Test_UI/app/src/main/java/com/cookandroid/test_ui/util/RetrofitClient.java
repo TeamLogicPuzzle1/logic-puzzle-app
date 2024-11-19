@@ -79,11 +79,11 @@ public class RetrofitClient {
                     .addInterceptor(authInterceptor)
                     .build();
 
-            Retrofit.Builder builder = new Retrofit.Builder();
-            builder.baseUrl(BASE_URL);
-            builder.addConverterFactory(GsonConverterFactory.create());
-
-            retrofit = builder.build();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
         }
         return retrofit;
     }
@@ -101,8 +101,7 @@ public class RetrofitClient {
                 return true;
             }
         } catch (IOException e) {
-            Log.d("==========", "token error");
-            e.printStackTrace();
+            Log.e("RetrofitClient", "Error refreshing token", e);
         }
         return false;
     }
