@@ -13,15 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 
 import java.text.ParseException;
@@ -29,11 +27,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private ArrayList<Product> productList;
+    private ArrayList<Product> productList;  // 전체 리스트
+    private ArrayList<Product> filteredList; // 필터링된 리스트
     private boolean isSelectionMode = false;    // 선택 모드인지 여부
     private List<Integer> selectedItems = new ArrayList<>();   // 선택된 항목의 인덱스
     SelectionModeListener selectionModeListener;
@@ -59,13 +59,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.productList = initialProductList != null ? initialProductList : new ArrayList<>(); // 전달된 리스트가 null이 아닐 때만 사용
         this.selectionModeListener = listener;
         this.productViewModel = viewModel;
+
+        this.filteredList = new ArrayList<>(productList); // 초기에는 전체 리스트로 설정
     }
 
     // 새 상품 추가
     public void addProduct(Product product) {
         productList.add(product);
         Log.d("ProductAdapter", "아이템 추가됨: " + product.getName());
-        notifyItemInserted(productList.size() - 1); // 리스트에 새 항목 추가
+        notifyItemInserted(filteredList.size() - 1); // 리스트에 새 항목 추가
     }
     // 선택 모드 설정 메서드
     public void setSelectionMode(boolean selectionMode) {
@@ -81,7 +83,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
-
+    // 필터 메소드
+    public void filter(String query) {
+        filteredList.clear();
+        if(query.isEmpty()) {
+            filteredList.addAll(productList);   //  검색어가 없으면 전체 리스트 표시
+        } else {
+            for (Product product : productList) {
+                if(product.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+        }
+        notifyDataSetChanged(); // RecyclerView 업데이트
+    }
 
 
     @NonNull
@@ -93,20 +108,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.bind(productList.get(position), position); // bind 메서드를 통해 데이터 설정
+        holder.bind(filteredList.get(position), position); // bind 메서드를 통해 데이터 설정
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return filteredList.size();
     }
 
     public void updateProducts(List<Product> products) {
         productList.clear();
         productList.addAll(products);
-        notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
+        filter("");
+        //notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
     }
 
+    // 어댑터에 냉장고 필터 조건을 처리하는 메서드
+    public void filterByMultipleCriteria(Set<String> filters) {
+        filteredList.clear();
+        if (filters.isEmpty()) {
+            filteredList.addAll(productList); // 필터가 없으면 전체 리스트 표시
+        } else {
+            for (Product product : productList) {
+                if (filters.contains(product.getLocation()) || filters.contains(product.getCategory())) {
+                    filteredList.add(product); // 위치나 분류가 필터에 포함되면 추가
+                }
+            }
+        }
+        notifyDataSetChanged(); // RecyclerView 업데이트
+    }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, classificationTextView, storageTextView, quantityTextView, dateTextView, memoTextView, dDayTextView;

@@ -44,6 +44,9 @@ import com.google.mlkit.vision.common.InputImage;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 
 import okhttp3.OkHttpClient;
@@ -58,6 +61,7 @@ public class CamBarcode extends AppCompatActivity {
     private BarcodeScanner barcodeScanner;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private boolean isActivityStarted = false;  // 중복 실행 방지 플래그 추가
+    private boolean isApiCallInProgress = false; // API 호출 중인지 상태 플래그
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,57 +201,67 @@ public class CamBarcode extends AppCompatActivity {
         }
     }
     private void fetchBarcodeData(String barcode) {
-        // OPEN API 요청 URL 구성
-        String keyId = "c1b0d2cc4219416e9ff3";  // Open-API에서 발급받은 인증키 입력
-        String serviceId = "C005";  // 서비스 ID
-        String dataType = "json";   // 응답 데이터 형식
-        int startIdx = 1;   // 시작 인덱스
-        int endIdx = 5;     // 종료 인덱스
+        if (isApiCallInProgress) {
+            Log.d("CamBarcode", "이미 API 호출 중입니다.");
+            return;
+        }
+        isApiCallInProgress = true;
+
+        String keyId = "c1b0d2cc4219416e9ff3";
+        String serviceId = "C005";
+        String dataType = "json";
+        int startIdx = 1;
+        int endIdx = 5;
         String apiUrl = String.format(
                 "http://openapi.foodsafetykorea.go.kr/api/%s/%s/%s/%d/%d/BAR_CD=%s",
                 keyId, serviceId, dataType, startIdx, endIdx, barcode
         );
 
-        // OkHttp 클라이언트 생성
         OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl).build();
 
-        // 요청 생성
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .build();
-
-        // 비동기 요청사항
         new Thread(() -> {
             try {
                 Response response = client.newCall(request).execute();
-                if(response.isSuccessful()) {
-                    // API 응답 처리
+                isApiCallInProgress = false; // API 호출 종료
+                if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     Log.d("CamBarcode", "API 응답: " + responseBody);
 
-                    // UI 업데이트 (예: 데이터를 화면에 표시)
-                    runOnUiThread(() -> {
-                        if (!isActivityStarted) {
-                            isActivityStarted = true; // 플래그 설정
+                    String productName = null;
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        JSONObject c005Object = jsonObject.getJSONObject("C005");
+                        JSONArray rowArray = c005Object.getJSONArray("row");
 
-                            // Open-API 응답 데이터를 Intent로 전달
+                        if (rowArray.length() > 0) {
+                            JSONObject firstRow = rowArray.getJSONObject(0);
+                            productName = firstRow.optString("PRDLST_NM", "상품 이름 없음");
+                        }
+                    } catch (Exception e) {
+                        Log.e("CamBarcode", "JSON 파싱 오류: " + e.getMessage());
+                    }
+
+                    String finalProductName = productName != null ? productName : "상품 이름 없음";
+
+                    runOnUiThread(() -> {
+                        if (!isActivityStarted) { // 인텐트 실행 방지 조건
+                            isActivityStarted = true;
                             Intent intent = new Intent(getApplicationContext(), CamExpirationdate.class);
                             intent.putExtra("barcode", barcode);
                             intent.putExtra("apiResponse", responseBody);
+                            intent.putExtra("productName", finalProductName); // 상품 이름 전달
                             startActivity(intent);
-
-                            Toast.makeText(CamBarcode.this, "API 호출 성공", Toast.LENGTH_SHORT).show();
                         }
-
-                        Toast.makeText(CamBarcode.this, "API 호출 성공", Toast.LENGTH_SHORT).show();
                     });
                 } else {
+                    isApiCallInProgress = false; // API 호출 실패 시 플래그 초기화
                     Log.e("CamBarcode", "API 호출 실패: " + response.message());
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
+                isApiCallInProgress = false; // 예외 발생 시 플래그 초기화
                 Log.e("CamBarcode", "API 호출 중 오류 발생: " + e.getMessage());
             }
-
         }).start();
     }
 

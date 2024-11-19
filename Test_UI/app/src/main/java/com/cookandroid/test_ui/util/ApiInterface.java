@@ -6,7 +6,7 @@ import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.DTO.request.UserSignupDto;
-import com.cookandroid.test_ui.mainPage.Product;
+import com.cookandroid.test_ui.DTO.request.Product;
 
 import java.util.List;
 
@@ -36,7 +36,8 @@ public interface ApiInterface
     @POST("api/v1/production/products/create-with-image/")
     Call<Product> productionDto(@Part Product productionDto);
 
-    @GET("api/v1/production/products")
-    Call<List<ProductsResDto>> productsListDto();
+    @GET("api/v1/production/products/")
+    Call<List<ProductsResDto>> productsListDto(@Query("user_id") String userId, @Query("name") String name, @Query("category") Integer category, @Query("location") Integer location);
+
 }
 

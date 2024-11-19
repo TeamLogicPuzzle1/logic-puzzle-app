@@ -19,12 +19,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
@@ -33,13 +38,14 @@ import com.cookandroid.test_ui.util.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
-public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener{
+public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener, RefrigeratorFoodFilterDialog.OnFilterAppliedListener{
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
@@ -49,10 +55,11 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     private static final int REQUEST_CODE_PAGE_2 = 1;
     ApiInterface api;
     RetrofitClient RetrofitClient;
-    private Intent intent;
+    private Intent intent;      // 인텐트 선언
 
-    AppCompatButton recipeProductButton;
-    AppCompatButton deleteProductButton;
+
+    private AppCompatButton recipeProductButton, deleteProductButton;
+    private EditText productSearch;
 
     @Override
     public void onProductEdited(Product product) {
@@ -60,7 +67,21 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         productViewModel.updateProduct(product);
         productAdapter.notifyDataSetChanged();
     }
+    // 냉장고 필터
+    @Override
+    public void onFiltersApplied(Set<String> filters) {
+        Log.d("MainPageFrag", "Filters Applied: " + filters.toString());
+        // RecyclerView에서 필터링 수행
+        if(productAdapter != null) {
+            productAdapter.filterByMultipleCriteria(filters); // 어댑터의 냉장고 필터 메서드 호출
+        }
+    }
 
+    private void showFilterDialog() {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        RefrigeratorFoodFilterDialog filterDialog = new RefrigeratorFoodFilterDialog();
+        filterDialog.show(fragmentManager, "RefrigeratorFoodFilterDialog");
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +133,8 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
 
             ProductsResDto productsResDto = new ProductsResDto();
 
-            api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
+            // 지우지 말것
+            /* api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
                 @Override
                 public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
                     if (response.isSuccessful()) {
@@ -123,7 +145,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
                             }
                         }
                     } else {
-                        Log.d("@@@@@@@@@@@@@@@@@@ = ", "통신성공 @@@@");
+                        Log.d("=@@@@@@@@@@@@@@@@@@  ", "통신성공 @@@@");
                     }
                 }
 
@@ -132,7 +154,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
                     Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
                     call.cancel();
                 }
-            });
+            }); */
 
         });
         // 뒤로가기 버튼을 막는 코드 추가
@@ -174,10 +196,29 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         // 냉장고 필터 버튼
         ImageButton refrigeratorFoodFilterCheck = v.findViewById(R.id.RefrigeratorFoodFilterCheck);
         refrigeratorFoodFilterCheck.setOnClickListener(view -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
-            refrigeratorFoodFilterDialog.show(fragmentManager, null);
+            showFilterDialog();
         });
+
+        // 상품 검색(조회)창
+        productSearch = v.findViewById(R.id.ProductSearch);
+        productSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 입력값 변경 시 필터링 호출
+                productAdapter.filter(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         // 버튼 초기화
         recipeProductButton = v.findViewById(R.id.RecipeProductButton);
         deleteProductButton = v.findViewById(R.id.DeleteProductButton);
@@ -231,6 +272,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     public ProductAdapter getProductAdapter() {
         return productAdapter;
     }
+    // 지워도 될것
     /* @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -67,6 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/ProductSearch"
         android:layout_width="360dp"
         android:layout_height="40dp"
         android:layout_marginStart="3dp"

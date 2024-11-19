@@ -32,6 +32,10 @@ import androidx.core.content.ContextCompat;
 import com.cookandroid.test_ui.R;
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
@@ -40,7 +44,7 @@ public class CamExpirationdate extends AppCompatActivity {
     Intent intent;
     private PreviewView cameraExpirationdatePreviewView;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
-    private String inputText;
+    private String inputText, barcode, productName;
     private static final int REQUEST_CODE_PAGE_2 = 1;
 
     @Override
@@ -48,22 +52,40 @@ public class CamExpirationdate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_expirationdate);
         intent = getIntent();
+
         inputText = intent.getStringExtra("inputText");
-        String barcode = intent.getStringExtra("barcode");
+        barcode = intent.getStringExtra("barcode");
+        productName = intent.getStringExtra("productName");
         String apiResponse = intent.getStringExtra("apiResponse");
 
         // 바코드와 API 응답 데이터 확인
         Log.d("CamExpirationdate", "받은 바코드: " + barcode);
         Log.d("CamExpirationdate", "API 응답 데이터: " + apiResponse);
 
+        // 상품 이름이 없는 경우 기본값 설정
+        if (productName == null || productName.isEmpty()) {
+            productName = "상품 이름 없음";
+        }
+
+
         // API 응답 데이터를 파싱하여 UI 업데이트
         if (apiResponse != null) {
-            // JSON 파싱 로직 추가 (예: Gson 또는 org.json 사용)
-            // UI에 데이터 표시
+           try {
+               JSONObject jsonObject = new JSONObject(apiResponse);
+               JSONObject c005Object = jsonObject.getJSONObject("C005");
+               JSONArray rowArray = c005Object.getJSONArray("row");
+
+               // 첫 번째 상품의 이름 가져오기
+               if(rowArray.length() > 0) {
+                   JSONObject firstRow = rowArray.getJSONObject(0);
+                   inputText = firstRow.optString("PRDLST_NM", inputText); // PRDLST_NM이 없으면 기존 inputText 유지
+               }
+           } catch (JSONException e) {
+               Log.e("CamExpirationdate", "JSON 파싱 오류: " + e.getMessage());
+           }
         } else {
             Toast.makeText(this, "API 데이터가 없습니다.", Toast.LENGTH_SHORT).show();
         }
-
         expirationdateView = (View) findViewById(R.id.ExpirationdateView);
         expirationdateInputTextView = (View) findViewById(R.id.ExpirationdateInputTextView);
 
@@ -109,8 +131,9 @@ public class CamExpirationdate extends AppCompatActivity {
 
                 // main_page_tab으로 이동하고 AddItem 팝업창 띄우기
                 intent = new Intent(getApplicationContext(), MainPageTab.class);
-                intent.putExtra("selectedDate", selectedDate);  // 선택한 날짜 전달
-                intent.putExtra("inputText", inputText);
+
+                intent.putExtra("selectedDate", selectedDate);  // 날짜 전달
+                intent.putExtra("inputText", inputText); // 최종 설정된 inputText 전달
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);

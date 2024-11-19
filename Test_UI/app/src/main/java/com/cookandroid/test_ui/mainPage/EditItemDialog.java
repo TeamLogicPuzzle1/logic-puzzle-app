@@ -3,11 +3,9 @@ package com.cookandroid.test_ui.mainPage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class EditItemDialog extends DialogFragment implements View.OnClickListener{
     public EditItemDialog() {}

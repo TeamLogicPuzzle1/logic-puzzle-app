@@ -5,7 +5,7 @@
  * 수정일: 2024-11-02
  * 버전: 0.0.4
  * */
-package com.cookandroid.test_ui.mainPage;
+package com.cookandroid.test_ui.DTO.request;
 
 import android.net.Uri;
 import android.os.Parcel;

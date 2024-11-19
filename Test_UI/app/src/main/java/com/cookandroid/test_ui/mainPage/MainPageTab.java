@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -128,6 +129,9 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
         // 필요한 데이터 처리
         String selectedDate = intent.getStringExtra("selectedDate");
         String inputText = intent.getStringExtra("inputText");
+
+        Log.d("MainPageTab", "selectedDate: " + selectedDate);
+        Log.d("MainPageTab", "inputText: " + inputText);
 
         if (selectedDate != null && inputText != null) {
             // AddItemDialog를 호출하여 다이얼로그 표시

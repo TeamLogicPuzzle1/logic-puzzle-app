@@ -12,6 +12,9 @@ package com.cookandroid.test_ui.mainPage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.cookandroid.test_ui.DTO.request.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
