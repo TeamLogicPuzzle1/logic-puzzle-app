@@ -20,10 +20,12 @@ import android.widget.ImageButton;
 
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
+import com.cookandroid.test_ui.util.ApiInterface;
 
 
 public class MainPageFrag3 extends Fragment {
     Intent intent;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

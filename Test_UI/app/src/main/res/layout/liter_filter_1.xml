@@ -124,7 +124,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/CancelFilterBtn1"
+            android:id="@+id/CancelFoodWasteBag"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="150dp"
@@ -140,6 +140,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/AddFoodWasteBag"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="270dp"
