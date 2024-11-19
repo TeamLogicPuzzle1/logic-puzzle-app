@@ -3,7 +3,9 @@
 build/
 
 # Local configuration file (sdk path, etc)
-local.properties
+./local.properties
+
+app/local.properties
 
 # Log/OS Files
 *.log
@@ -32,3 +34,5 @@ google-services.json
 # Android Profiling
 *.hprof
 /.idea/
+!/local.properties
+!/local.properties
