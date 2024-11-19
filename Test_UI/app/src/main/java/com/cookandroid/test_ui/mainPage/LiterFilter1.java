@@ -69,13 +69,14 @@ public class LiterFilter1 extends DialogFragment implements View.OnClickListener
 
                 FoodWasteReqAdd foodWasteReqAdd = new FoodWasteReqAdd();
                 foodWasteReqAdd.setUserId("39");
-                foodWasteReqAdd.setQuantity(1);
+                foodWasteReqAdd.setQuantity(2);
 
                 api = RetrofitClient.getRetrofit().create(ApiInterface.class);
 
-                api.foodWasteCreateDto(foodWasteReqAdd).enqueue(new Callback<FoodWasteReqAdd>() {
+                String accessToken = TokenManger.getAccessToken();
+                String authorizationHeader = "Bearer " + accessToken;
 
-
+                api.foodWasteCreateDto(authorizationHeader, foodWasteReqAdd).enqueue(new Callback<FoodWasteReqAdd>() {
                     @Override
                     public void onResponse(Call<FoodWasteReqAdd> call, Response<FoodWasteReqAdd> response) {
                         FoodWasteReqAdd responseData = response.body();

@@ -8,6 +8,7 @@ import com.google.android.gms.common.logging.Logger;
 
 import java.io.IOException;
 
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
@@ -42,9 +43,20 @@ public class RetrofitClient {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request originalRequest = chain.request();
+                    Headers headers = originalRequest.headers();
                     Request.Builder builder = originalRequest.newBuilder();
 
+                    Log.d("Interceptor", "Headers: " + headers);
+
                     // Only add token if it exists
+                    if (originalRequest.header("Auth") != null && originalRequest.header("Auth").equals("false")) {
+                        Request newRequest = originalRequest.newBuilder()
+                                .removeHeader("Auth")
+                                .build();
+                        Log.d("Headers", "login");
+                        return chain.proceed(newRequest);
+                    }
+
                     if (!ACCESS_TOKEN.isEmpty()) {
                         builder.header("Authorization", "Bearer " + ACCESS_TOKEN);
                     } else {
