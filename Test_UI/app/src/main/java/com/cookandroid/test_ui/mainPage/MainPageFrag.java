@@ -29,12 +29,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.cookandroid.test_ui.DTO.reponse.ProductsResListDto;
 import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.RetrofitClient;
+import com.cookandroid.test_ui.util.TokenManger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -58,11 +60,11 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     RetrofitClient RetrofitClient;
     private Intent intent;      // 인텐트 선언
 
-
     private AppCompatButton recipeProductButton, deleteProductButton;
     private EditText productSearch;
     // 필터 다이얼로그 호출코드 수정
     private Set<String> currentFilters = new HashSet<>();
+
 
     @Override
     public void onProductEdited(Product product) {
@@ -78,7 +80,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         applyFilters(filters);
     }
 
-
+    // 적용된 필더 데이터를
     private void applyFilters(Set<String> filters) {
         Log.d("MainPageFrag", "적용된 필터: " + filters);
 
@@ -165,13 +167,18 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
 
         // ViewModel 옵저버 설정
         productViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
-            Log.d("MainPageFrag", "Observer triggered - Product count: " + products.size());
             productAdapter.updateProducts(products);
 
-            ProductsResDto productsResDto = new ProductsResDto();
+            RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
 
-            // 지우지 말것
-            /* api.productsListDto().enqueue(new Callback<List<ProductsResDto>>() {
+
+
+            String accessToken = TokenManger.getAccessToken();
+            String authorizationHeader = "Bearer " + accessToken;
+
+
+
+            /* api.productsListDto(authorizationHeader).enqueue(new Callback<List<ProductsResDto>>() {
                 @Override
                 public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
                     if (response.isSuccessful()) {
@@ -234,8 +241,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         ImageButton refrigeratorFoodFilterCheck = v.findViewById(R.id.RefrigeratorFoodFilterCheck);
         refrigeratorFoodFilterCheck.setOnClickListener(view -> {
 
-            // RefrigeratorFoodFilterDialog filterDialog = new RefrigeratorFoodFilterDialog();
-            // filterDialog.show(getChildFragmentManager(), "RefrigeratorFoodFilterDialog");
+
             showFilterDialog();
         });
 

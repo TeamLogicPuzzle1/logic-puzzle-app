@@ -13,13 +13,23 @@
     import androidx.appcompat.widget.AppCompatButton;
     import androidx.fragment.app.DialogFragment;
 
+    import com.cookandroid.test_ui.DTO.reponse.ProductsResDataDto;
+    import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
+    import com.cookandroid.test_ui.DTO.reponse.ProductsResListDto;
     import com.cookandroid.test_ui.R;
+    import com.cookandroid.test_ui.util.ApiInterface;
+    import com.cookandroid.test_ui.util.TokenManger;
 
     import java.util.HashSet;
+    import java.util.List;
     import java.util.Set;
 
-    public class RefrigeratorFoodFilterDialog extends DialogFragment implements View.OnClickListener {
+    import retrofit2.Call;
+    import retrofit2.Callback;
+    import retrofit2.Response;
 
+    public class RefrigeratorFoodFilterDialog extends DialogFragment implements View.OnClickListener {
+        ApiInterface api;
 
         public interface OnFilterAppliedListener {
             void onFiltersApplied(Set<String> filters);
@@ -115,6 +125,7 @@
             checkFilterBtn = v.findViewById(R.id.CheckFilterBtn);
             // 확인 버튼에서 데이터 전달
             checkFilterBtn.setOnClickListener(view -> {
+
                 if (filterAppliedListener != null) {
                     Set<String> combinedFilters = new HashSet<>();
                     combinedFilters.addAll(selectedLocations);
@@ -126,6 +137,50 @@
                         // 전체 데이터를 표시하기 위해 특별한 값을 전달
                         filterAppliedListener.onFiltersApplied(new HashSet<>()); // 빈 필터를 전달
                     } else {
+
+                        ProductsResListDto productsResListDto = new ProductsResListDto();
+
+                        ProductsResDataDto productsResDataDto = new ProductsResDataDto();
+                        productsResDataDto.getExpired();
+                        productsResDataDto.getImminent();
+
+                        ProductsResDto productsResDto = new ProductsResDto();
+                        productsResDto.getProductId();
+                        productsResDto.getName();
+                        productsResDto.getExpirationDate();
+                        productsResDto.getCategory();
+                        productsResDto.getLocation();
+                        productsResDto.getQuantity();
+                        productsResDto.getMemo();
+                        productsResDto.getImage();
+                        productsResDto.getExpirationStatus();
+
+                        productsResListDto.setProductsResDataDto(productsResDataDto);
+
+                        String accessToken = TokenManger.getAccessToken();
+                        String authorizationHeader = "Bearer " + accessToken;
+
+                        /* api.productsListDto(authorizationHeader ).enqueue(new Callback<List<ProductsResDto>>() {
+                            @Override
+                            public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
+                                if (response.isSuccessful()) {
+                                    List<ProductsResDto> responseData = response.body();
+                                    if (responseData != null) {
+                                        for (ProductsResDto product : responseData) {
+                                            Log.d("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
+                                        }
+                                    }
+                                } else {
+                                    Log.d("=@@@@@@@@@@@@@@@@@@  ", "통신성공 @@@@");
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
+                                Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
+                                call.cancel();
+                            }
+                        }); */
                         Log.d("SelectedLocations", "Locations: " + selectedLocations);
                         Log.d("SelectedCategories", "Categories: " + selectedCategories);
                         filterAppliedListener.onFiltersApplied(combinedFilters);

@@ -5,22 +5,26 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProductsResDto {
     @Expose
-    @SerializedName("id") private Integer productId;
-    @SerializedName("image") private String image;
+    @SerializedName("product_id") private Integer productId;
     @SerializedName("name") private String name;
     @SerializedName("expiration_date") private String expirationDate;
-    @SerializedName("category") private String category;
-    @SerializedName("location") private String location;
+    @SerializedName("category") private Integer category;
+    @SerializedName("location") private Integer location;
     @SerializedName("quantity") private Integer quantity;
     @SerializedName("memo") private String memo;
-    @SerializedName("user") private Integer userId;
+    @SerializedName("image") private String image;
+    @SerializedName("expiration_status") private Integer expirationStatus;
 
     public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public Integer getExpirationStatus() {
+        return expirationStatus;
+    }
+
+    public void setExpirationStatus(Integer expirationStatus) {
+        this.expirationStatus = expirationStatus;
     }
 
     public String getImage() {
@@ -31,36 +35,12 @@ public class ProductsResDto {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getMemo() {
+        return memo;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     public Integer getQuantity() {
@@ -71,19 +51,39 @@ public class ProductsResDto {
         this.quantity = quantity;
     }
 
-    public String getMemo() {
-        return memo;
+    public Integer getLocation() {
+        return location;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setLocation(Integer location) {
+        this.location = location;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getCategory() {
+        return category;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 }
