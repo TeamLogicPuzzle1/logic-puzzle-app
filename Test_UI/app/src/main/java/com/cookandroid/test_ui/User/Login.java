@@ -27,6 +27,7 @@ import com.cookandroid.test_ui.mainPage.MainPageTab;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.LogMsgOutput;
 import com.cookandroid.test_ui.util.TokenManger;
+import com.cookandroid.test_ui.util.UserManger;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -103,12 +104,20 @@ public class Login extends AppCompatActivity {
                               //LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
                               LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
 
+                              UserManger userManger = UserManger.getInstance(getApplicationContext());
+
+                              userManger.setId(responseData.getUserInfoDto().getId());
+                              userManger.setUserId(responseData.getUserInfoDto().getUserId());
+                              userManger.setProfileName(responseData.getUserInfoDto().getProfileName());
+                              userManger.setLeaderYn(responseData.getUserInfoDto().getLeaderYn());
+
                               TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
 
                               tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
                               tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
 
                               Log.d("AccessToken = ", "accessToken : " + TokenManger.getAccessToken());
+                              Log.d("UserId = ", "userId : " + UserManger.getUserId());
                               RetrofitClient.setAccessToken(TokenManger.getAccessToken());
                           } else{
                               LogMsgOutput.logPrintOut(getApplicationContext(), "login fail @@@");
