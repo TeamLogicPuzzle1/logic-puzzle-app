@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
+            android:id="@+id/ImminentExpirationDate"
             android:layout_width="205dp"
             android:layout_height="43dp"
             android:layout_marginStart="3dp"

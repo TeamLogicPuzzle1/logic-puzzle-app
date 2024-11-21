@@ -138,49 +138,6 @@
                         filterAppliedListener.onFiltersApplied(new HashSet<>()); // 빈 필터를 전달
                     } else {
 
-                        ProductsResListDto productsResListDto = new ProductsResListDto();
-
-                        ProductsResDataDto productsResDataDto = new ProductsResDataDto();
-                        productsResDataDto.getExpired();
-                        productsResDataDto.getImminent();
-
-                        ProductsResDto productsResDto = new ProductsResDto();
-                        productsResDto.getProductId();
-                        productsResDto.getName();
-                        productsResDto.getExpirationDate();
-                        productsResDto.getCategory();
-                        productsResDto.getLocation();
-                        productsResDto.getQuantity();
-                        productsResDto.getMemo();
-                        productsResDto.getImage();
-                        productsResDto.getExpirationStatus();
-
-                        productsResListDto.setProductsResDataDto(productsResDataDto);
-
-                        String accessToken = TokenManger.getAccessToken();
-                        String authorizationHeader = "Bearer " + accessToken;
-
-                        /* api.productsListDto(authorizationHeader ).enqueue(new Callback<List<ProductsResDto>>() {
-                            @Override
-                            public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
-                                if (response.isSuccessful()) {
-                                    List<ProductsResDto> responseData = response.body();
-                                    if (responseData != null) {
-                                        for (ProductsResDto product : responseData) {
-                                            Log.d("@@@@@@@@@@@@@@@@@@", "@@@@@@@@@@@@@@@@@@" + product);
-                                        }
-                                    }
-                                } else {
-                                    Log.d("=@@@@@@@@@@@@@@@@@@  ", "통신성공 @@@@");
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<List<ProductsResDto>> call, Throwable t) {
-                                Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
-                                call.cancel();
-                            }
-                        }); */
                         Log.d("SelectedLocations", "Locations: " + selectedLocations);
                         Log.d("SelectedCategories", "Categories: " + selectedCategories);
                         filterAppliedListener.onFiltersApplied(combinedFilters);

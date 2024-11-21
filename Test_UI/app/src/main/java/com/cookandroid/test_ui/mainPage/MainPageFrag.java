@@ -37,6 +37,7 @@ import com.cookandroid.test_ui.setting.SettingLeaderVer;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.RetrofitClient;
 import com.cookandroid.test_ui.util.TokenManger;
+import com.cookandroid.test_ui.util.UserManger;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -169,16 +170,19 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         productViewModel.getProductList().observe(getViewLifecycleOwner(), products -> {
             productAdapter.updateProducts(products);
 
-            RefrigeratorFoodFilterDialog refrigeratorFoodFilterDialog = new RefrigeratorFoodFilterDialog();
+            Product product = new Product();
 
 
 
             String accessToken = TokenManger.getAccessToken();
             String authorizationHeader = "Bearer " + accessToken;
 
+            String userId = UserManger.getUserId();
 
+            // xml에서 데이터 값 가져오기
+            String name = product.getName();
 
-            /* api.productsListDto(authorizationHeader).enqueue(new Callback<List<ProductsResDto>>() {
+            api.productsListDto(authorizationHeader, userId).enqueue(new Callback<List<ProductsResDto>>() {
                 @Override
                 public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
                     if (response.isSuccessful()) {
@@ -198,7 +202,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
                     Log.d("통신 실패 : ", "@@@@@@@@@@@@@@@@@@");
                     call.cancel();
                 }
-            }); */
+            });
 
         });
         // 뒤로가기 버튼을 막는 코드 추가
@@ -257,6 +261,8 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // 입력값 변경 시 필터링 호출
                 productAdapter.filter(charSequence.toString());
+
+
             }
 
             @Override

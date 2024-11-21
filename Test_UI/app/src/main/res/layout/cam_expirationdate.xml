@@ -29,6 +29,7 @@
         android:layout_marginBottom="320dp" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/CameraExpirationDateBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"

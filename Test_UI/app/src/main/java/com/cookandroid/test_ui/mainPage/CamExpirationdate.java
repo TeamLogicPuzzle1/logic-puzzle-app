@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -23,6 +24,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
@@ -36,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
@@ -46,7 +50,9 @@ public class CamExpirationdate extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private String inputText, barcode, productName;
     private static final int REQUEST_CODE_PAGE_2 = 1;
+    private AppCompatButton cameraExpirationDateBtn, inputDateBtn, returnCamBarcode;
 
+    private ImageCapture imageCapture;  // 이미지 캡쳐 객체 추가
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +102,19 @@ public class CamExpirationdate extends AppCompatActivity {
             startCameraPreview();
         }
 
+        // 유통기한 버튼
+        cameraExpirationDateBtn = (AppCompatButton) findViewById(R.id.CameraExpirationDateBtn);
+        cameraExpirationDateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        AppCompatButton inputDateBtn = (AppCompatButton) findViewById(R.id.InputDateBtn);
+                captureImage();
+            }
+        });
+
+
+        // 직접 입력
+        inputDateBtn = (AppCompatButton) findViewById(R.id.InputDateBtn);
         inputDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +123,9 @@ public class CamExpirationdate extends AppCompatActivity {
                 showDatePickerDialog();
             }
         });
-        AppCompatButton returnCamBarcode = (AppCompatButton) findViewById(R.id.ReturnCamBarcodeBtn);
+
+        // 취소
+        returnCamBarcode = (AppCompatButton) findViewById(R.id.ReturnCamBarcodeBtn);
         returnCamBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,14 +182,48 @@ public class CamExpirationdate extends AppCompatActivity {
                         .requireLensFacing(CameraSelector.LENS_FACING_BACK) // 후면 카메라
                         .build();
 
+                // 이미지 캡처 설정
+                imageCapture = new ImageCapture.Builder()
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                        .build();
+
                 preview.setSurfaceProvider(cameraExpirationdatePreviewView.getSurfaceProvider());
 
-                cameraProvider.unbindAll(); // 기존 카메라 바인딩 해제
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview); // 카메라 바인딩
+                // 기존 카메라 바인딩 해제 후 새로 바인딩
+                cameraProvider.unbindAll();
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture); // 이미지 캡처 추가
             } catch (ExecutionException | InterruptedException e) {
                 Log.e("CameraActivity", "Camera initialization failed: " + e.getMessage());
             }
         }, ContextCompat.getMainExecutor(this));
+    }
+
+    private void captureImage() {
+        if (imageCapture == null) {
+            Log.e("CamExpirationdate", "ImageCapture is not initialized");
+            return;
+        }
+
+        // 저장할 파일 생성
+        File photoFile = new File(getExternalFilesDir(null), "captured_image_" + System.currentTimeMillis() + ".jpg");
+
+        // 출력 옵션 설정
+        ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
+
+        // 이미지 캡처 및 저장
+        imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), new ImageCapture.OnImageSavedCallback() {
+            @Override
+            public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                Log.d("CamExpirationdate", "Image saved to: " + photoFile.getAbsolutePath());
+                Toast.makeText(CamExpirationdate.this, "Image Saved: " + photoFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(@NonNull ImageCaptureException exception) {
+                Log.e("CamExpirationdate", "Image capture failed: " + exception.getMessage());
+                Toast.makeText(CamExpirationdate.this, "Image capture failed", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

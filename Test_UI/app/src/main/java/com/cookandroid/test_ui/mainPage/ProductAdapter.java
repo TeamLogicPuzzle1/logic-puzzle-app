@@ -122,7 +122,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void updateProducts(List<Product> products) {
         productList.clear();
         productList.addAll(products);
-        filter("");
+        filter("");     // filter가 넘겨야 하는 name
         notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
     }
 

@@ -162,6 +162,8 @@ public class CamBarcode extends AppCompatActivity {
             }
         }, ContextCompat.getMainExecutor(this));
     }
+
+
     @OptIn(markerClass = androidx.camera.core.ExperimentalGetImage.class)
     private void processImageProxy(ImageProxy imageProxy) {
         @SuppressLint("UnsafeOptInUsageError")
