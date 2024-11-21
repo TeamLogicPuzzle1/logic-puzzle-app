@@ -69,6 +69,6 @@ public class UserManger {
 
     // LEADER_YN 가져오기
     public static Boolean getLeaderYn() {
-        return prefs.getBoolean(PROFILE_NAME, DEFAULT_VALUE_BOOLEAN);
+        return prefs.getBoolean("LEADER_YN", DEFAULT_VALUE_BOOLEAN);
     }
 }

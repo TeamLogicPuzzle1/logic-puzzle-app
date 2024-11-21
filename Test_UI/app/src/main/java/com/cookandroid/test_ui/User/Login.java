@@ -40,8 +40,7 @@ public class Login extends AppCompatActivity {
      * idFindBtn(아이디 찾기 버튼)
      * pwFindBtn(비밀번호 찾기 버튼)
      * loginBtn(로그인 버튼)
-     * */
-    ApiInterface api;
+     * */ ApiInterface api;
     com.cookandroid.test_ui.util.RetrofitClient RetrofitClient;
     AppCompatButton signUpBtn, idFindBtn, pwFindBtn;
     Button loginBtn;
@@ -111,13 +110,18 @@ public class Login extends AppCompatActivity {
                             userManger.setProfileName(responseData.getUserInfoDto().getProfileName());
                             userManger.setLeaderYn(responseData.getUserInfoDto().getLeaderYn());
 
+                            Log.d("Id = ", "Id : " + UserManger.getId());
+                            Log.d("UserId = ", "userId : " + UserManger.getUserId());
+                            Log.d("ProfileName = ", "profileName : " + UserManger.getProfileName());
+                            Log.d("LeaderYn = ", "leaderYn : " + UserManger.getLeaderYn());
+
                             TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
 
                             tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
                             tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
 
                             Log.d("AccessToken = ", "accessToken : " + TokenManger.getAccessToken());
-                            Log.d("UserId = ", "userId : " + UserManger.getUserId());
+
                             RetrofitClient.setAccessToken(TokenManger.getAccessToken());
                         } else {
                             LogMsgOutput.logPrintOut(getApplicationContext(), "login fail @@@");
