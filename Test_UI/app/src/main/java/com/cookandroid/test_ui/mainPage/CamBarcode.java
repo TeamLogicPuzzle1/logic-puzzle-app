@@ -44,7 +44,15 @@ import com.google.mlkit.vision.common.InputImage;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 @SuppressWarnings("deprecation")
 public class CamBarcode extends AppCompatActivity {
     Intent intent;
@@ -52,6 +60,8 @@ public class CamBarcode extends AppCompatActivity {
     private PreviewView cameraBarcodePreviewView;
     private BarcodeScanner barcodeScanner;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
+    private boolean isActivityStarted = false;  // 중복 실행 방지 플래그 추가
+    private boolean isApiCallInProgress = false; // API 호출 중인지 상태 플래그
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +73,7 @@ public class CamBarcode extends AppCompatActivity {
         cameraBarcodePreviewView = findViewById(R.id.CameraBarcodePreviewView);
         BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
                 .setBarcodeFormats(
-                        Barcode.FORMAT_QR_CODE,
-                        Barcode.FORMAT_CODE_128
+                        Barcode.FORMAT_ALL_FORMATS // 모든 바코드 형식을 허용
                 ).build();
         barcodeScanner = BarcodeScanning.getClient(options);
 
@@ -147,12 +156,14 @@ public class CamBarcode extends AppCompatActivity {
                 preview.setSurfaceProvider(cameraBarcodePreviewView.getSurfaceProvider());
 
                 cameraProvider.unbindAll(); // 기존 카메라 바인딩 해제
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview); // 카메라 바인딩
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalysis); // 카메라 바인딩
             } catch (ExecutionException | InterruptedException e) {
                 Log.e("CamBarcode", "Camera initialization failed: " + e.getMessage());
             }
         }, ContextCompat.getMainExecutor(this));
     }
+
+
     @OptIn(markerClass = androidx.camera.core.ExperimentalGetImage.class)
     private void processImageProxy(ImageProxy imageProxy) {
         @SuppressLint("UnsafeOptInUsageError")
@@ -166,10 +177,9 @@ public class CamBarcode extends AppCompatActivity {
                         String rawValue = barcode.getRawValue();
                         Log.d("CamBarcode", "바코드 인식: " + rawValue);
 
-                        // 바코드 처리 로직 (예: 스캔 후 이동)
-                        intent = new Intent(getApplicationContext(), CamExpirationdate.class);
-                        intent.putExtra("barcode", rawValue);
-                        startActivity(intent);
+                        // Open-API 호출
+                        fetchBarcodeData(rawValue);
+
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -192,6 +202,75 @@ public class CamBarcode extends AppCompatActivity {
             }
         }
     }
+    private void fetchBarcodeData(String barcode) {
+        if (isApiCallInProgress) {
+            Log.d("CamBarcode", "이미 API 호출 중입니다.");
+            return;
+        }
+        isApiCallInProgress = true;
 
+        String keyId = "c1b0d2cc4219416e9ff3";
+        String serviceId = "C005";
+        String dataType = "json";
+        int startIdx = 1;
+        int endIdx = 5;
+        String apiUrl = String.format(
+                "http://openapi.foodsafetykorea.go.kr/api/%s/%s/%s/%d/%d/BAR_CD=%s",
+                keyId, serviceId, dataType, startIdx, endIdx, barcode
+        );
 
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl).build();
+
+        new Thread(() -> {
+            try {
+                Response response = client.newCall(request).execute();
+                isApiCallInProgress = false; // API 호출 종료
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    Log.d("CamBarcode", "API 응답: " + responseBody);
+
+                    String productName = null;
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        JSONObject c005Object = jsonObject.getJSONObject("C005");
+                        JSONArray rowArray = c005Object.getJSONArray("row");
+
+                        if (rowArray.length() > 0) {
+                            JSONObject firstRow = rowArray.getJSONObject(0);
+                            productName = firstRow.optString("PRDLST_NM", "상품 이름 없음");
+                        }
+                    } catch (Exception e) {
+                        Log.e("CamBarcode", "JSON 파싱 오류: " + e.getMessage());
+                    }
+
+                    String finalProductName = productName != null ? productName : "상품 이름 없음";
+
+                    runOnUiThread(() -> {
+                        if (!isActivityStarted) { // 인텐트 실행 방지 조건
+                            isActivityStarted = true;
+                            Intent intent = new Intent(getApplicationContext(), CamExpirationdate.class);
+                            intent.putExtra("barcode", barcode);
+                            intent.putExtra("apiResponse", responseBody);
+                            intent.putExtra("productName", finalProductName); // 상품 이름 전달
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    isApiCallInProgress = false; // API 호출 실패 시 플래그 초기화
+                    Log.e("CamBarcode", "API 호출 실패: " + response.message());
+                }
+            } catch (Exception e) {
+                isApiCallInProgress = false; // 예외 발생 시 플래그 초기화
+                Log.e("CamBarcode", "API 호출 중 오류 발생: " + e.getMessage());
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isActivityStarted = false; // 플래그 초기화
+    }
 }
+

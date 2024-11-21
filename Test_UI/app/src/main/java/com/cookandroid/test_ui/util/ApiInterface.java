@@ -36,7 +36,11 @@ public interface ApiInterface
     Call<TokenDto> authRefreshDto(@Body TokenDto tokenDto);
 
     @GET("api/v1/production/products")
-    Call<List<ProductsResDto>> productsListDto();
+    @Headers("Auth: true")
+    Call<List<ProductsResDto>> productsListDto(@Header("Authorization") String authorization,
+                                               @Query("user_id") String userId, @Query("name") String name,
+                                               @Query("category") Integer category,
+                                               @Query("location") Integer location, @Query("filter_type") String filterType);
 
     @POST("api/v1/foodWaste/food-waste/reduce/")
     @Headers("Auth: true")
