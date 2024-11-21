@@ -9,6 +9,7 @@ package com.cookandroid.test_ui.User;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -98,24 +99,26 @@ public class Login extends AppCompatActivity {
                       public void onResponse(Call<AuthResLoginDto> call, Response<AuthResLoginDto> response) {
                           AuthResLoginDto responseData = response.body();
                           if(response.isSuccessful()){
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공");
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "login success");
+                              //LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
 
                               TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
 
                               tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
                               tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
 
+                              Log.d("AccessToken = ", "accessToken : " + TokenManger.getAccessToken());
                               RetrofitClient.setAccessToken(TokenManger.getAccessToken());
                           } else{
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "통신성공 @@@@");
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess()));
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "login fail @@@");
+                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
                           }
                       }
 
                       @Override
                       public void onFailure(Call<AuthResLoginDto> call, Throwable t) {
-                          LogMsgOutput.logPrintOut(getApplicationContext(), "통신실패");
+                          LogMsgOutput.logPrintOut(getApplicationContext(), "login fail === ");
                           LogMsgOutput.logPrintOut(getApplicationContext(), "Throwable : " + t.getMessage());
                           call.cancel();
                       }

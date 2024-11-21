@@ -51,7 +51,9 @@ public class LiterFilter1 extends DialogFragment implements View.OnClickListener
     private int wasteaddLiter = 0;
 
     // 메소드명 작성
-    public LiterFilter1(){}
+    public LiterFilter1() {
+    }
+
     public LiterFilter1 getInstance(Context context) {
         LiterFilter1 literFiter1 = new LiterFilter1();
         return literFiter1;
@@ -67,9 +69,10 @@ public class LiterFilter1 extends DialogFragment implements View.OnClickListener
                              @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.liter_filter_1, container, false);
         // 둥근 팝업창 만들기 위해 필요한 코드 없을시 직사각형으로 배치
-        if(getDialog() != null && getDialog().getWindow() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
+
         // 추가창 L에 맞게 연결후 wasteaddbuttons 리스트에 넣음(작성자:박시형)
         wasteaddbuttons.add(v.findViewById(R.id.wasteadd1L));
         wasteaddbuttons.add(v.findViewById(R.id.wasteadd2L));
@@ -118,21 +121,22 @@ public class LiterFilter1 extends DialogFragment implements View.OnClickListener
             }
         });
         Button addFoodWasteBag = v.findViewById(R.id.AddFoodWasteBag);
-        addFoodWasteBag.setOnClickListener(new View.OnClickListener(){
+        addFoodWasteBag.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                if(selectedButton!=null) {
+            public void onClick(View view) {
+                if (selectedButton != null) {
                     FoodWasteReqAdd foodWasteReqAdd = new FoodWasteReqAdd();
                     //유저아이디 매칭시키는거 연결해야함(작성자:박시형)
                     foodWasteReqAdd.setUserId("39");
                     //0=1L/1=2L/2=3L/3=5L/4=10L/5=20L
-                    foodWasteReqAdd.setQuantity(wasteaddLiter - 1);
+                    foodWasteReqAdd.setQuantity(wasteaddLiter-1);
 
                     api = RetrofitClient.getRetrofit().create(ApiInterface.class);
 
-                    api.foodWasteCreateDto(foodWasteReqAdd).enqueue(new Callback<FoodWasteReqAdd>() {
+                    String accessToken = TokenManger.getAccessToken();
+                    String authorizationHeader = "Bearer " + accessToken;
 
-
+                    api.foodWasteCreateDto(authorizationHeader, foodWasteReqAdd).enqueue(new Callback<FoodWasteReqAdd>() {
                         @Override
                         public void onResponse(Call<FoodWasteReqAdd> call, Response<FoodWasteReqAdd> response) {
                             FoodWasteReqAdd responseData = response.body();
@@ -156,6 +160,7 @@ public class LiterFilter1 extends DialogFragment implements View.OnClickListener
         });
         return v;
     }
+
     @Override
     public void onClick(View view) {
 

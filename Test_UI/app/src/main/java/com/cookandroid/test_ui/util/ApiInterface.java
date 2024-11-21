@@ -15,6 +15,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -27,6 +29,7 @@ public interface ApiInterface
     Call<UserCheckDto> userCheckDto(@Query("id") String id);
 
     @POST("api/v1/auth/login")
+    @Headers("Auth: false")
     Call<AuthResLoginDto> authLoginDto(@Body AuthReqLoginDto authReqDto);
 
     @POST("api/v1/auth/refresh")
@@ -35,9 +38,12 @@ public interface ApiInterface
     @GET("api/v1/production/products")
     Call<List<ProductsResDto>> productsListDto();
 
-    @POST("api/v1/foodWaste/food-waste/")
-    Call<FoodWasteReqAdd> foodWasteCreateDto(@Body FoodWasteReqAdd foodWasteReqAdd);
-
     @POST("api/v1/foodWaste/food-waste/reduce/")
-    Call<FoodWasteReqDel> foodWasteDelDto(@Body FoodWasteReqDel foodWasteReqDel);
+    @Headers("Auth: true")
+    Call<FoodWasteReqDel> foodWasteDelDto(@Header("Authorization") String authorization, @Body FoodWasteReqDel foodWasteReqDel);
+
+    @POST("api/v1/foodWaste/food-waste/")
+    @Headers("Auth: true")
+    Call<FoodWasteReqAdd> foodWasteCreateDto(@Header("Authorization") String authorization, @Body FoodWasteReqAdd foodWasteReqAdd);
+
 }

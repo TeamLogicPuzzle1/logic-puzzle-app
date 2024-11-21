@@ -26,6 +26,7 @@ import com.cookandroid.test_ui.DTO.request.FoodWasteReqAdd;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqDel;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.util.ApiInterface;
+import com.cookandroid.test_ui.util.TokenManger;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -119,8 +120,10 @@ public class LiterFilter2 extends DialogFragment implements View.OnClickListener
                     foodWasteReqDel.setQuantity(wastedelLiter - 1);
 
                     api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+                    String accessToken = TokenManger.getAccessToken();
+                    String authorizationHeader = "Bearer " + accessToken;
 
-                    api.foodWasteDelDto(foodWasteReqDel).enqueue(new Callback<FoodWasteReqDel>() {
+                    api.foodWasteDelDto(authorizationHeader, foodWasteReqDel).enqueue(new Callback<FoodWasteReqDel>() {
 
 
                         @Override
