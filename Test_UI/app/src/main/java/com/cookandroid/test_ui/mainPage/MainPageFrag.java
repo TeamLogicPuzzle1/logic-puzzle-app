@@ -10,6 +10,15 @@ package com.cookandroid.test_ui.mainPage;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -20,18 +29,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
-
-import com.cookandroid.test_ui.DTO.reponse.ProductsResListDto;
-import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
 import com.cookandroid.test_ui.util.ApiInterface;
@@ -49,7 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
-public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener, RefrigeratorFoodFilterDialog.OnFilterAppliedListener{
+public class MainPageFrag extends Fragment implements ProductAdapter.SelectionModeListener, EditItemDialog.OnProductEditedListener, RefrigeratorFoodFilterDialog.OnFilterAppliedListener {
     private RecyclerView recyclerView;
     private ProductAdapter productAdapter;
     private ProductViewModel productViewModel;
@@ -73,6 +72,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         productViewModel.updateProduct(product);
         productAdapter.notifyDataSetChanged();
     }
+
     // 냉장고 필터
     @Override
     public void onFiltersApplied(Set<String> filters) {
@@ -144,12 +144,14 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     }
 
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_page_frag, container, false);
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+
+        UserManger.init(requireContext().getApplicationContext());
+        TokenManger.init(requireContext().getApplicationContext());
 
         // 뒤로가기 버튼을 막는 코드 추가
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -171,8 +173,6 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
             productAdapter.updateProducts(products);
 
             Product product = new Product();
-
-
 
             String accessToken = TokenManger.getAccessToken();
             String authorizationHeader = "Bearer " + accessToken;
@@ -321,9 +321,11 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
             productList = new ArrayList<>();
         }
     }
+
     public ProductAdapter getProductAdapter() {
         return productAdapter;
     }
+
     // 지워도 될것
     /* @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
