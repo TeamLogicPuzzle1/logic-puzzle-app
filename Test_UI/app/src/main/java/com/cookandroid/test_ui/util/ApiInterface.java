@@ -5,6 +5,7 @@ import com.cookandroid.test_ui.DTO.common.TokenDto;
 import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqAdd;
+import com.cookandroid.test_ui.DTO.request.FoodWasteReqDel;
 import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.DTO.request.UserSignupDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
@@ -37,7 +38,12 @@ public interface ApiInterface
     @GET("api/v1/production/products")
     Call<List<ProductsResDto>> productsListDto();
 
+    @POST("api/v1/foodWaste/food-waste/reduce/")
+    @Headers("Auth: true")
+    Call<FoodWasteReqDel> foodWasteDelDto(@Header("Authorization") String authorization, @Body FoodWasteReqDel foodWasteReqDel);
+
     @POST("api/v1/foodWaste/food-waste/")
     @Headers("Auth: true")
     Call<FoodWasteReqAdd> foodWasteCreateDto(@Header("Authorization") String authorization, @Body FoodWasteReqAdd foodWasteReqAdd);
+
 }
