@@ -182,7 +182,7 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
             // xml에서 데이터 값 가져오기
             String name = product.getName();
 
-            api.productsListDto(authorizationHeader, userId).enqueue(new Callback<List<ProductsResDto>>() {
+            api.productsListDto(authorizationHeader, userId, null, null, null, null).enqueue(new Callback<List<ProductsResDto>>() {
                 @Override
                 public void onResponse(Call<List<ProductsResDto>> call, Response<List<ProductsResDto>> response) {
                     if (response.isSuccessful()) {
