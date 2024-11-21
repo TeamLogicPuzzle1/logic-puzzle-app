@@ -30,7 +30,7 @@ public class SettingAnnounce extends AppCompatActivity {
         returnSettingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(getApplicationContext(), SettingAnnounce.class);
+                intent = new Intent(getApplicationContext(), SettingLeaderVer.class);
                 startActivity(intent);
             }
         });

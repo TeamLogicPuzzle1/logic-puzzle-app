@@ -37,6 +37,7 @@ import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.RetrofitClient;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,6 +61,8 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
 
     private AppCompatButton recipeProductButton, deleteProductButton;
     private EditText productSearch;
+    // 필터 다이얼로그 호출코드 수정
+    private Set<String> currentFilters = new HashSet<>();
 
     @Override
     public void onProductEdited(Product product) {
@@ -70,18 +73,52 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
     // 냉장고 필터
     @Override
     public void onFiltersApplied(Set<String> filters) {
-        Log.d("MainPageFrag", "Filters Applied: " + filters.toString());
-        // RecyclerView에서 필터링 수행
-        if(productAdapter != null) {
-            productAdapter.filterByMultipleCriteria(filters); // 어댑터의 냉장고 필터 메서드 호출
-        }
+        Log.d("MainPageFrag", "적용된 필터: " + filters);
+        currentFilters = filters;
+        applyFilters(filters);
     }
 
-    private void showFilterDialog() {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        RefrigeratorFoodFilterDialog filterDialog = new RefrigeratorFoodFilterDialog();
-        filterDialog.show(fragmentManager, "RefrigeratorFoodFilterDialog");
+
+    private void applyFilters(Set<String> filters) {
+        Log.d("MainPageFrag", "적용된 필터: " + filters);
+
+        List<Product> allProducts = productViewModel.getProductList().getValue();
+        if (allProducts == null) return;
+
+        // 필터가 비어 있으면 전체 데이터를 표시
+        if (filters.isEmpty()) {
+            productAdapter.updateProducts(allProducts);
+            Log.d("MainPageFrag", "No filters applied. Displaying all items.");
+            return;
+        }
+
+        List<Product> filteredProducts = new ArrayList<>();
+        for (Product product : allProducts) {
+            Log.d("FilterCheck", "Product Location: " + product.getLocation());
+            Log.d("FilterCheck", "Product Category: " + product.getCategory());
+
+            // 위치와 분류를 각각 확인
+            boolean matchesLocation = false;
+            for (String filter : filters) {
+                if (product.getLocation() != null && product.getLocation().toLowerCase().contains(filter.toLowerCase())) {
+                    matchesLocation = true;
+                    break;
+                }
+            }
+
+            boolean matchesCategory = filters.contains(product.getCategory());
+
+            // 위치와 분류 중 하나라도 매칭되면 추가
+            if (matchesLocation || matchesCategory) {
+                filteredProducts.add(product);
+            }
+        }
+
+        productAdapter.updateProducts(filteredProducts);
+        Log.d("FilterResults", "Filtered items count: " + filteredProducts.size());
     }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,6 +233,9 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         // 냉장고 필터 버튼
         ImageButton refrigeratorFoodFilterCheck = v.findViewById(R.id.RefrigeratorFoodFilterCheck);
         refrigeratorFoodFilterCheck.setOnClickListener(view -> {
+
+            // RefrigeratorFoodFilterDialog filterDialog = new RefrigeratorFoodFilterDialog();
+            // filterDialog.show(getChildFragmentManager(), "RefrigeratorFoodFilterDialog");
             showFilterDialog();
         });
 
@@ -313,6 +353,16 @@ public class MainPageFrag extends Fragment implements ProductAdapter.SelectionMo
         // DialogFragment를 표시
         FragmentManager fragmentManager = getParentFragmentManager();
         editItemDialog.show(fragmentManager, "EditItemDialog");
+    }
+
+    private void showFilterDialog() {
+        RefrigeratorFoodFilterDialog filterDialog = new RefrigeratorFoodFilterDialog();
+
+        // 현재 필터값 전달
+        filterDialog.setSelectedFilters(currentFilters);
+
+        // 다이얼로그 표시
+        filterDialog.show(getChildFragmentManager(), "RefrigeratorFoodFilterDialog");
     }
 }
 

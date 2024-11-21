@@ -25,9 +25,10 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("deprecation")
-public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener, EditItemDialog.OnProductEditedListener {
+public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener, EditItemDialog.OnProductEditedListener{
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
     private VPadapter vpAdapter;
@@ -51,6 +52,7 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
             mainPageFrag.getProductAdapter().addProduct(product);
         }
     }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

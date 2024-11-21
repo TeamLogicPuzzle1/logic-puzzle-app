@@ -84,19 +84,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     // 필터 메소드
+    // ProductAdapter.java
     public void filter(String query) {
-        filteredList.clear();
-        if(query.isEmpty()) {
-            filteredList.addAll(productList);   //  검색어가 없으면 전체 리스트 표시
+        filteredList.clear(); // 필터링된 리스트 초기화
+        if (query.isEmpty()) {
+            filteredList.addAll(productList); // 검색어가 비어있으면 전체 리스트 표시
         } else {
             for (Product product : productList) {
-                if(product.getName().toLowerCase().contains(query.toLowerCase())) {
+                // 상품명으로 필터링
+                if (product.getName() != null && product.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredList.add(product);
                 }
             }
         }
-        notifyDataSetChanged(); // RecyclerView 업데이트
+        notifyDataSetChanged(); // RecyclerView를 업데이트
     }
+
 
 
     @NonNull
@@ -120,7 +123,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         productList.clear();
         productList.addAll(products);
         filter("");
-        //notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
+        notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
     }
 
     // 어댑터에 냉장고 필터 조건을 처리하는 메서드
