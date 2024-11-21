@@ -3,8 +3,6 @@ package com.cookandroid.test_ui.util;
 import android.util.Log;
 
 import com.cookandroid.test_ui.DTO.common.TokenDto;
-import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
-import com.google.android.gms.common.logging.Logger;
 
 import java.io.IOException;
 
@@ -17,7 +15,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -55,12 +52,12 @@ public class RetrofitClient {
                                 .build();
                         Log.d("Headers", "login");
                         return chain.proceed(newRequest);
-                    }
-
-                    if (!ACCESS_TOKEN.isEmpty()) {
-                        builder.header("Authorization", "Bearer " + ACCESS_TOKEN);
                     } else {
-                        return errorResponse(originalRequest);
+                        if (!ACCESS_TOKEN.isEmpty()) {
+                            builder.header("Authorization", "Bearer " + ACCESS_TOKEN);
+                        } else {
+                            return errorResponse(originalRequest);
+                        }
                     }
 
                     Request requestWithAuth = builder.build();
@@ -117,6 +114,7 @@ public class RetrofitClient {
         }
         return false;
     }
+
     private static Response errorResponse(Request request) {
         return new Response.Builder()
                 .request(request)

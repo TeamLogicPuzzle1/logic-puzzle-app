@@ -15,14 +15,13 @@ public class UserManger {
     private static UserManger instance;
 
     public static synchronized UserManger init(Context context) {
-        if(instance == null)
-            instance = new UserManger(context);
+        if (instance == null) instance = new UserManger(context);
         return instance;
     }
 
     private UserManger(Context context) {
         mContext = context;
-        prefs = mContext.getSharedPreferences(PREFS,Context.MODE_PRIVATE);
+        prefs = mContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         prefsEditor = prefs.edit();
     }
 
@@ -53,22 +52,22 @@ public class UserManger {
         return prefs.getString(USER_ID, null);
     }
 
-    // USER_ID 저장
+    // PROFILE_NAME 저장
     public static void setProfileName(String value) {
         prefsEditor.putString(PROFILE_NAME, value).commit();
     }
 
-    // USER_ID 가져오기
+    // PROFILE_NAME 가져오기
     public static String getProfileName() {
         return prefs.getString(PROFILE_NAME, null);
     }
 
-    // USER_ID 저장
+    // LEADER_YN 저장
     public static void setLeaderYn(Boolean value) {
         prefsEditor.putBoolean("LEADER_YN", value).commit();
     }
 
-    // USER_ID 가져오기
+    // LEADER_YN 가져오기
     public static Boolean getLeaderYn() {
         return prefs.getBoolean(PROFILE_NAME, DEFAULT_VALUE_BOOLEAN);
     }
