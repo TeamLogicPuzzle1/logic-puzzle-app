@@ -13,14 +13,13 @@ public class TokenManger {
     private static TokenManger instance;
 
     public static synchronized TokenManger init(Context context) {
-        if(instance == null)
-            instance = new TokenManger(context);
+        if (instance == null) instance = new TokenManger(context);
         return instance;
     }
 
     private TokenManger(Context context) {
         mContext = context;
-        prefs = mContext.getSharedPreferences(PREFS,Context.MODE_PRIVATE);
+        prefs = mContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         prefsEditor = prefs.edit();
     }
 
