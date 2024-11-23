@@ -137,34 +137,43 @@ public class CamExpirationdate extends AppCompatActivity {
 
                     // API 요청을 위한 파일 준비
                     MultipartBody.Part imagePart = prepareFilePart(imagePath);
-                    api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+                    if (imagePart == null) {
+                        Toast.makeText(CamExpirationdate.this, "파일 준비 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (api == null) {
+                        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+                    }
 
                     String accessToken = TokenManger.getAccessToken();
                     String authorizationHeader = "Bearer " + accessToken;
-
 
                     api.productsExpircationDateResDto(authorizationHeader, imagePart).enqueue(new Callback<ProductsExpirationDateResDto>() {
                         @Override
                         public void onResponse(Call<ProductsExpirationDateResDto> call, Response<ProductsExpirationDateResDto> response) {
                             if (response.isSuccessful() && response.body() != null) {
                                 String expirationDate = response.body().getExpirationDate();
-                                Log.d("API 요청 성공. 응답 코드: " , "@@@@@@@@@@@@@@@@@@@@@@@@@@@@="+ response.code());
-                                Toast.makeText(CamExpirationdate.this, "유통기한: " + expirationDate, Toast.LENGTH_LONG).show();
-                                intent.putExtra("expirationDate", expirationDate);
+                                Log.d("API 요청 성공", "유통기한: " + expirationDate);
+
+                                // Intent로 MainPageTab에 데이터 전달
+                                Intent intent = new Intent(CamExpirationdate.this, MainPageTab.class);
+                                intent.putExtra("inputText", inputText); // 최종 설정된 inputText 전달
+                                intent.putExtra("expirationDate", expirationDate); // 유통기한 데이터 전달
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // 기존 액티비티 재사용
+                                startActivity(intent);
                             } else {
-                                Log.d("API 요청 실패. 응답 코드: " , "@@@@@@@@@@@@@@@@@@@@@@@@@@@@="+ response.code());
+                                Log.e("API 요청 실패", "응답 코드: " + response.code());
                                 Toast.makeText(CamExpirationdate.this, "API 요청 실패. 응답 코드: " + response.code(), Toast.LENGTH_SHORT).show();
                             }
-                            startActivity(intent);
                         }
 
                         @Override
                         public void onFailure(Call<ProductsExpirationDateResDto> call, Throwable t) {
+                            Log.e("API 요청 실패", "네트워크 오류: " + t.getMessage());
                             Toast.makeText(CamExpirationdate.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                            startActivity(intent);
                         }
                     });
-
                 }
 
                 @Override
@@ -174,6 +183,7 @@ public class CamExpirationdate extends AppCompatActivity {
                 }
             });
         });
+
 
 
 
@@ -235,7 +245,8 @@ public class CamExpirationdate extends AppCompatActivity {
         datePickerDialog.show();
     }
     private void startCameraPreview() {
-        // 카메라 제공자 가져오기
+        cameraExpirationDateBtn = findViewById(R.id.CameraExpirationDateBtn);
+        cameraExpirationDateBtn.setEnabled(true); // 초기 상태에서 버튼 비활성화
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
 
         cameraProviderFuture.addListener(() -> {
@@ -244,26 +255,26 @@ public class CamExpirationdate extends AppCompatActivity {
 
                 Preview preview = new Preview.Builder().build();
                 CameraSelector cameraSelector = new CameraSelector.Builder()
-                        .requireLensFacing(CameraSelector.LENS_FACING_BACK) // 후면 카메라
+                        .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                         .build();
 
-                // 이미지 캡처 설정
                 imageCapture = new ImageCapture.Builder()
                         .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .build();
 
                 preview.setSurfaceProvider(cameraExpirationdatePreviewView.getSurfaceProvider());
 
-                // 기존 카메라 바인딩 해제 후 새로 바인딩
                 cameraProvider.unbindAll();
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture); // 이미지 캡처 추가
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture);
+
+                Log.d("CameraActivity", "Camera preview started.");
+                cameraExpirationDateBtn.setEnabled(true); // 초기화 완료 후 버튼 활성화
             } catch (ExecutionException | InterruptedException e) {
                 Log.e("CameraActivity", "Camera initialization failed: " + e.getMessage());
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
-    // captureImage 메서드 수정
     private void captureImage(@NonNull ImageCaptureCallback callback) {
         if (imageCapture == null) {
             Log.e("CamExpirationdate", "ImageCapture is not initialized");
@@ -271,7 +282,7 @@ public class CamExpirationdate extends AppCompatActivity {
             return;
         }
 
-        // 이미지를 저장할 파일 생성
+        // 이미지 저장 파일 생성
         File photoFile = new File(getExternalFilesDir(null), "captured_image_" + System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
 
@@ -279,19 +290,23 @@ public class CamExpirationdate extends AppCompatActivity {
         imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this), new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                String imagePath = photoFile.getAbsolutePath();
-                Log.d("CamExpirationdate", "Image saved to: " + imagePath);
-                callback.onImageSaved(imagePath); // 결과 콜백 전달
+                if (photoFile.exists()) {
+                    Log.d("CamExpirationdate", "Image saved to: " + photoFile.getAbsolutePath());
+                    callback.onImageSaved(photoFile.getAbsolutePath()); // 성공 콜백
+                } else {
+                    Log.e("CamExpirationdate", "Image file does not exist after saving.");
+                    callback.onError("Image file does not exist after saving.");
+                }
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
-                String errorMessage = "Image capture failed: " + exception.getMessage();
-                Log.e("CamExpirationdate", errorMessage);
-                callback.onError(errorMessage); // 에러 콜백 전달
+                Log.e("CamExpirationdate", "Image capture failed: " + exception.getMessage());
+                callback.onError("Image capture failed: " + exception.getMessage());
             }
         });
     }
+
 
 
 

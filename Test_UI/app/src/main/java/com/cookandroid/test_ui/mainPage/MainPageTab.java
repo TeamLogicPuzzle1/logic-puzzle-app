@@ -102,7 +102,6 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
         intent = getIntent();
         String selectedDate = intent.getStringExtra("selectedDate");
         String inputText = intent.getStringExtra("inputText");
-
         // Debug log to check received values
         Log.d("MainPageTab", "selectedDate: " + selectedDate);
         Log.d("MainPageTab", "inputText: " + inputText);
@@ -134,20 +133,28 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent); // 새로운 Intent로 업데이트
-        // 필요한 데이터 처리
-        String selectedDate = intent.getStringExtra("selectedDate");
-        String inputText = intent.getStringExtra("inputText");
 
-        Log.d("MainPageTab", "selectedDate: " + selectedDate);
+        // 필요한 데이터 처리
+        String selectedDate = intent.getStringExtra("selectedDate"); // 유통기한 직접 입력
+        String expirationDate = intent.getStringExtra("expirationDate"); // 유통기한 인식
+        String inputText = intent.getStringExtra("inputText"); // 상품 이름
+
+        Log.d("MainPageTab", "selectedDate (직접입력): " + selectedDate);
+        Log.d("MainPageTab", "expirationDate (인식): " + expirationDate);
         Log.d("MainPageTab", "inputText: " + inputText);
 
-        if (selectedDate != null && inputText != null) {
-            // AddItemDialog를 호출하여 다이얼로그 표시
+        // 조건에 따른 상품추가창 출력
+        if (selectedDate != null) {
+            // 직접입력으로 유통기한 설정
             showAddItemDialog(selectedDate, inputText);
+        } else if (expirationDate != null) {
+            // 유통기한 인식 결과로 설정
+            showAddItemDialog(expirationDate, inputText);
+        } else {
+            // 두 값이 모두 없는 경우 기본 동작 설정
+            Log.e("MainPageTab", "유통기한 정보가 없습니다.");
         }
-
     }
-
 
 
     @Override
@@ -161,17 +168,19 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     private void showAddItemDialog(String selectedDate, String inputText) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         AddItemDialog addItemDialog = AddItemDialog.getInstance(this);
-        // Bundle을 사용하여 AddItemDialog에 데이터 전달
+
+        // 데이터 전달
         Bundle bundle = new Bundle();
-        bundle.putString("inputText", inputText);
         bundle.putString("selectedDate", selectedDate);
+        bundle.putString("inputText", inputText);
         addItemDialog.setArguments(bundle);
 
-        // 다이얼로그가 이미 열려 있는지 확인 후 표시
+        // 다이얼로그 표시
         if (fragmentManager.findFragmentByTag("AddItemDialog") == null) {
-            addItemDialog.show(getSupportFragmentManager(), "AddItemDialog");
+            addItemDialog.show(fragmentManager, "AddItemDialog");
         }
     }
+
 
 
 }

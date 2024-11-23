@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -40,7 +41,7 @@ import java.io.IOException;
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
     Bundle args;
     private ImageView resourceImage;
-    private int counter = 0;
+    private int counter = 1;
     private String inputText;
     private String selectedDate;
     private String productName;
@@ -129,19 +130,32 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
 
         TextView counterTextViwe = v.findViewById(R.id.CounterTextView);
         ImageButton counterPlusBtn = v.findViewById(R.id.CounterPlusBtn);
+        ImageButton counterMinusBtn = v.findViewById(R.id.CounterMinusBtn);
+
+// 초기 수량 설정
+        counterTextViwe.setText(String.valueOf(counter));
+
         counterPlusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counterTextViwe.setText(String.valueOf(counter++));
+                counter++;
+                counterTextViwe.setText(String.valueOf(counter));
             }
         });
-        ImageButton counterMinusBtn = v.findViewById(R.id.CounterMinusBtn);
+
         counterMinusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counterTextViwe.setText(String.valueOf(counter--));
+                // 수량이 0보다 작아지지 않도록 조건 추가
+                if (counter > 0) {
+                    counter--;
+                    counterTextViwe.setText(String.valueOf(counter));
+                } else {
+                    Toast.makeText(view.getContext(), "수량은 0보다 작을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
         ImageButton backIvBtn = v.findViewById(R.id.BackIvBtn);
         backIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
