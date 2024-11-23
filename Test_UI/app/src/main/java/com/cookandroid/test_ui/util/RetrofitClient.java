@@ -5,6 +5,7 @@ import android.util.Log;
 import com.cookandroid.test_ui.DTO.common.TokenDto;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -86,6 +87,9 @@ public class RetrofitClient {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .addInterceptor(authInterceptor)
+                    .connectTimeout(10, TimeUnit.SECONDS) // 연결 시간 제한
+                    .readTimeout(10, TimeUnit.SECONDS)   // 읽기 시간 제한
+                    .writeTimeout(10, TimeUnit.SECONDS) // 쓰기 시간 제한
                     .build();
 
             retrofit = new Retrofit.Builder()

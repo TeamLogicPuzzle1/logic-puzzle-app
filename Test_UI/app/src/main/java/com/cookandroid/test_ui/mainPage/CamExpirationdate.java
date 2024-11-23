@@ -142,9 +142,9 @@ public class CamExpirationdate extends AppCompatActivity {
                         return;
                     }
 
-                    if (api == null) {
+
                         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-                    }
+
 
                     String accessToken = TokenManger.getAccessToken();
                     String authorizationHeader = "Bearer " + accessToken;
