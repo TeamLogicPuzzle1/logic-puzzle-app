@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -32,7 +33,7 @@ import java.io.IOException;
 public class EditItemDialog extends DialogFragment implements View.OnClickListener{
     public EditItemDialog() {}
     private Uri imageUri;
-    private int counter = 0;
+    private int counter = 1;
 
     private ImageView editResourceImage;
     private EditText editTextNameEdt, editMemoEditText;
@@ -140,7 +141,12 @@ public class EditItemDialog extends DialogFragment implements View.OnClickListen
         editCounterMinusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editCounterTextView.setText(String.valueOf(counter--));
+                if (counter > 1) {
+                    counter--;
+                   editCounterTextView.setText(String.valueOf(counter));
+                } else {
+                    Toast.makeText(view.getContext(), "수량은 1보다 작을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

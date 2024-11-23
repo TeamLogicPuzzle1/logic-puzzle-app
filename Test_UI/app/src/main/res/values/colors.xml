@@ -5,4 +5,8 @@
     <color name="your_color">#BED9A0</color>
     <color name="selected_color">#d9d9d9</color> <!-- 초록색 -->
     <color name="default_color">#FFFFFF</color> <!-- 흰색 -->
+
+    <color name="selected_expiration_date">#9e9e9e</color> <!-- 선택된 유통기한 색-->
+    <color name="defalut_expiration_date">#d9d9d9</color>
+
 </resources>

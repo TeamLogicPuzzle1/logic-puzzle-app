@@ -8,7 +8,7 @@ import java.util.List;
 public class ProductsResListDto {
     @Expose
     @SerializedName("data") private ProductsResDataDto productsResDataDto;
-    @SerializedName("List") private List<ProductsResDto> productsResListDto;
+    @SerializedName("list") private List<ProductsResDto> productsResListDto;
 
     public ProductsResDataDto getProductsResDataDto() {
         return productsResDataDto;
