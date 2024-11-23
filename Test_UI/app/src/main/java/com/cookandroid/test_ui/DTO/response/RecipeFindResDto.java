@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RecipeFindResDto {
     @Expose
-    @SerializedName("recipes") private ArrayList<RecipeListDto> productsResListDto;
+    @SerializedName("data") private ArrayList<RecipeListDto> productsResListDto;
 
     public ArrayList<RecipeListDto> getProductsResListDto() {
         return productsResListDto;

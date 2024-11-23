@@ -1,12 +1,13 @@
 /*
- * 간략: 메인페이지 1번 상품 등록 및 조회 창
+ * 간략: 레시피 조회 화면
  * 최초 작성자: 홍진기
  * 작성일: 2024-09-27
  * 수정일: 2024-11-23
  * 수정자: 박시형
  * 수정이유: 내부 로직 전부 추가
  * 버전: 0.2.0
- * */
+ */
+
 package com.cookandroid.test_ui.mainPage;
 
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.cookandroid.test_ui.util.TokenManger;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -89,23 +91,24 @@ public class MainPageFrag2 extends Fragment {
             return;
         }
 
-        api.recipeFindDto(authorizationHeader, productNames).enqueue(new Callback<RecipeFindResDto>() {
+        String joinedProductNames = String.join(",", productNames);
+
+        api.recipeFindDto(authorizationHeader, Collections.singletonList(joinedProductNames)).enqueue(new Callback<RecipeFindResDto>() {
             @Override
             public void onResponse(Call<RecipeFindResDto> call, Response<RecipeFindResDto> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     RecipeFindResDto responseData = response.body();
                     Log.d("통신성공", "responseData : " + new Gson().toJson(responseData));
 
-                    // 레시피 데이터를 RecyclerView에 반영
+                    // RecyclerView 데이터 반영
                     recipeList.clear();
                     for (RecipeListDto dto : responseData.getProductsResListDto()) {
-                        // 재료 리스트를 문자열로 변환
                         String ingredients = dto.getIngredients() != null
                                 ? String.join(", ", dto.getIngredients())
                                 : "재료 없음";
                         recipeList.add(new Recipe_item(dto.getRecipeName(), ingredients));
                     }
-                    adapter.notifyDataSetChanged(); // RecyclerView 업데이트
+                    adapter.notifyDataSetChanged();
                 } else {
                     Log.e("통신실패@", "Error Code: " + response.code() + ", responseData: " + response.raw());
                 }
@@ -117,7 +120,20 @@ public class MainPageFrag2 extends Fragment {
                 call.cancel();
             }
         });
-
-
+    }
+    public void updateRecipeData() {
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            ArrayList<String> productNames = arguments.getStringArrayList("productNames");
+            if (productNames != null && !productNames.isEmpty()) {
+                String authorizationHeader = "Bearer " + TokenManger.getAccessToken();
+                fetchRecipes(productNames, authorizationHeader);
+            } else {
+                Log.d("MainPageFrag2", "상품 이름 리스트가 비어있습니다.");
+            }
+        } else {
+            Log.d("MainPageFrag2", "전달된 데이터가 없습니다.");
+        }
     }
 }
+

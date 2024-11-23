@@ -23,8 +23,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_item_layout, parent, false);
+        // 정확한 레이아웃 파일을 inflate
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_item_layout, parent, false);
         return new RecipeViewHolder(view);
     }
 
@@ -47,9 +47,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
+            // CardView 및 하위 뷰 초기화
+            cardView = itemView.findViewById(R.id.cardView);
             recipeNameText = itemView.findViewById(R.id.RecipeNameText);
             recipeIngredientText = itemView.findViewById(R.id.RecipeIngredientNameText);
-            cardView = itemView.findViewById(R.id.AddItemLayout);
         }
     }
 }

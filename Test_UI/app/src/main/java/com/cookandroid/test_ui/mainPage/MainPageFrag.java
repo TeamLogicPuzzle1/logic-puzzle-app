@@ -34,6 +34,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
@@ -73,6 +74,7 @@ AddItemDialog.OnDataPassListener{
     private boolean isImminentSelected = false; // 처음 임박상품과 만료상품의 초기 상태
     private boolean isConsumptionSelected = false;
     private static boolean isThreeTenABPInitialized = false;
+
 
     @Override
     public void onDataPass(String name, String category, String location, int quantity, String expirationDate, Uri imageUri, String memo) {
@@ -155,23 +157,36 @@ AddItemDialog.OnDataPassListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        productFileManager = new ProductFileManager(requireContext());
 
-        // ViewModel 초기화
+        // FileManager 및 ViewModel 초기화
+        productFileManager = new ProductFileManager(requireContext());
         productViewModel = new ViewModelProvider(requireActivity()).get(ProductViewModel.class);
 
-        // ViewModel에 저장된 데이터가 비어있는 경우에만 파일에서 불러오기
-        if (productViewModel.getProductList().getValue() == null || productViewModel.getProductList().getValue().isEmpty()) {
-            List<Product> loadedProductList = productFileManager.loadProductList();
-            if (loadedProductList != null) {
-                productViewModel.restoreProductList(loadedProductList);
-                productList.addAll(loadedProductList); // productList에 로드된 데이터 추가
-            }
-        } else {
-            productList.addAll(productViewModel.getProductList().getValue());
-        }
+        // ViewModel 데이터 로드 또는 초기화
+        loadProductData();
 
     }
+
+
+    private void loadProductData() {
+        List<Product> loadedProductList;
+
+        // ViewModel에 데이터가 없을 경우 파일에서 로드
+        if (productViewModel.getProductList().getValue() == null || productViewModel.getProductList().getValue().isEmpty()) {
+            loadedProductList = productFileManager.loadProductList();
+            if (loadedProductList != null) {
+                productViewModel.restoreProductList(loadedProductList);
+            }
+        } else {
+            loadedProductList = productViewModel.getProductList().getValue();
+        }
+
+        // 로드된 데이터를 productList에 추가
+        if (loadedProductList != null) {
+            productList.addAll(loadedProductList);
+        }
+    }
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -182,6 +197,9 @@ AddItemDialog.OnDataPassListener{
 
         UserManger.init(requireContext().getApplicationContext());
         TokenManger.init(requireContext().getApplicationContext());
+
+
+
 
         // 뒤로가기 버튼을 막는 코드 추가
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -370,7 +388,6 @@ AddItemDialog.OnDataPassListener{
                         Bundle bundle = new Bundle();
                         bundle.putStringArrayList("productNames", productNames);
                         recipeFragment.setArguments(bundle);
-
                         // Fragment 전환
                         requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
@@ -463,17 +480,17 @@ AddItemDialog.OnDataPassListener{
         return productAdapter;
     }
 
-    // 지워도 될것
-    /* @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == REQUEST_CODE_PAGE_2 && resultCode == RESULT_OK && data != null) {
-            String newProductData = data.getStringExtra("productList");
-            if(newProductData != null) {
-                productAdapter.notifyItemInserted(productList.size() -1);
+        // 지워도 될것
+        /* @Override
+        public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if(resultCode == REQUEST_CODE_PAGE_2 && resultCode == RESULT_OK && data != null) {
+                String newProductData = data.getStringExtra("productList");
+                if(newProductData != null) {
+                    productAdapter.notifyItemInserted(productList.size() -1);
+                }
             }
-        }
-    } */
+        } */
     @Override
     public void onSelectionModeChanged(boolean isSelectionMode) {
         // 선택 모드일 때만 버튼 표시

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RecipeListDto {
-    @SerializedName("recipe_name") private String recipeName;
+    @SerializedName("recipeName") private String recipeName;
     @SerializedName("ingredients") private List<String> ingredients;
 
     public String getRecipeName() {
