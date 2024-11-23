@@ -45,6 +45,7 @@ import com.google.mlkit.vision.common.InputImage;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
@@ -66,6 +67,7 @@ public class CamBarcode extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cam_barcode);
+
         AppCompatButton inputTextBtn = (AppCompatButton) findViewById(R.id.InputTextBtn);
         View barCodeView, barCodeInputTextView;
 
@@ -225,34 +227,51 @@ public class CamBarcode extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Response response = client.newCall(request).execute();
-                isApiCallInProgress = false; // API 호출 종료
+                isApiCallInProgress = false;
+
                 if (response.isSuccessful()) {
                     String responseBody = response.body().string();
                     Log.d("CamBarcode", "API 응답: " + responseBody);
 
-                    String productName = null;
+                    // 기본값 설정
+                    String productName = "상품 이름 없음";
+                    boolean hasData = false;
+
                     try {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         JSONObject c005Object = jsonObject.getJSONObject("C005");
-                        JSONArray rowArray = c005Object.getJSONArray("row");
 
-                        if (rowArray.length() > 0) {
-                            JSONObject firstRow = rowArray.getJSONObject(0);
-                            productName = firstRow.optString("PRDLST_NM", "상품 이름 없음");
+                        if (c005Object.has("row")) {
+                            JSONArray rowArray = c005Object.getJSONArray("row");
+
+                            if (rowArray.length() > 0) {
+                                hasData = true;
+                                JSONObject firstRow = rowArray.getJSONObject(0);
+                                productName = firstRow.optString("PRDLST_NM", "상품 이름 없음");
+                            }
                         }
-                    } catch (Exception e) {
+                    } catch (JSONException e) {
                         Log.e("CamBarcode", "JSON 파싱 오류: " + e.getMessage());
                     }
 
-                    String finalProductName = productName != null ? productName : "상품 이름 없음";
+                    // 최종 변수 전달
+                    String finalProductName = productName;
+                    boolean finalHasData = hasData;
 
                     runOnUiThread(() -> {
-                        if (!isActivityStarted) { // 인텐트 실행 방지 조건
+                        if (!isActivityStarted) {
                             isActivityStarted = true;
+
                             Intent intent = new Intent(getApplicationContext(), CamExpirationdate.class);
                             intent.putExtra("barcode", barcode);
                             intent.putExtra("apiResponse", responseBody);
-                            intent.putExtra("productName", finalProductName); // 상품 이름 전달
+                            intent.putExtra("productName", finalProductName);
+
+                            // 데이터가 없는 경우 로그 메시지 출력
+                            if (!finalHasData) {
+                                Log.d("CamBarcode", "API 결과: 데이터 없음, 기본값으로 이동");
+                            }
+
                             startActivity(intent);
                         }
                     });
@@ -265,7 +284,9 @@ public class CamBarcode extends AppCompatActivity {
                 Log.e("CamBarcode", "API 호출 중 오류 발생: " + e.getMessage());
             }
         }).start();
+
     }
+
 
     @Override
     protected void onResume() {

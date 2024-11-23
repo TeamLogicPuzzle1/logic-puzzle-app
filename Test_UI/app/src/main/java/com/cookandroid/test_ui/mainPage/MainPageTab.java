@@ -45,13 +45,16 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     }
 
     @Override
-    public void onDataPass(String name, String classification, String storage, String date, int quantity,  Uri imageUri, String memo) {
-        Product product = new Product(name, classification, storage, quantity, date, imageUri, memo);
-        productViewModel.addProduct(product); // ViewModel에 Product 추가
-        if(mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
-            mainPageFrag.getProductAdapter().addProduct(product);
+    public void onDataPass(String name, String category, String location, int quantity, String expirationDate, Uri imageUri, String memo) {
+        Product newProduct = new Product(name, category, location, quantity, expirationDate, imageUri, memo);
+        productViewModel.addProduct(newProduct); // ViewModel에 Product 추가
+
+        if (mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
+            mainPageFrag.getProductAdapter().addProduct(newProduct);
+            mainPageFrag.updateImminentExpirationCount(); // 임박상품 카운트 업데이트
         }
     }
+
 
 
     @Override
@@ -59,6 +62,9 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page_tab_layout);
 
+        if (mainPageFrag != null) {
+            mainPageFrag.updateImminentExpirationCount(); // 초기 임박상품 카운트 설정
+        }
         // ViewModel 초기화
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         // 상태가 복원될 경우, ViewModel에 저장된 리스트를 복원
@@ -142,6 +148,8 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
 
     }
 
+
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -164,4 +172,6 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
             addItemDialog.show(getSupportFragmentManager(), "AddItemDialog");
         }
     }
+
+
 }

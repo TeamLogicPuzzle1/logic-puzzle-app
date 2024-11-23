@@ -183,6 +183,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         }
 
+        // 날짜 문자열 보정 메서드 추가
+        private String normalizeDate(String dateStr) {
+            String[] parts = dateStr.split("\\.");
+            if (parts.length == 3) {
+                String year = parts[0];
+                String month = parts[1].length() == 1 ? "0" + parts[1] : parts[1];
+                String day = parts[2].length() == 1 ? "0" + parts[2] : parts[2];
+                return year + "." + month + "." + day;
+            }
+            return dateStr; // 형식이 맞지 않을 경우 그대로 반환
+        }
+
         public void bind(Product product, int position) {
             // 이미지가 있을 경우 ImageView에 표시
             if (product.getImageUri() != null) {
@@ -200,14 +212,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             // RGB 색상을 이용하여 ColorStateList 생성
             ColorStateList redColorState = ColorStateList.valueOf(Color.rgb(216, 67, 21));
-            ColorStateList yellowColorState = ColorStateList.valueOf(Color.rgb(251,192,45));
+            ColorStateList yellowColorState = ColorStateList.valueOf(Color.rgb(251, 192, 45));
             ColorStateList greenColorState = ColorStateList.valueOf(Color.rgb(124, 179, 66));
 
             // Date parsing and D-Day calculation
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
             if (product.getExpirationDate() != null) {
                 try {
-                    Date expirationDate = formatter.parse(product.getExpirationDate());
+                    // 날짜 문자열을 보정 후 파싱
+                    String normalizedDate = normalizeDate(product.getExpirationDate());
+                    Date expirationDate = formatter.parse(normalizedDate);
                     Date today = new Date();
 
                     long diffInMillis = expirationDate.getTime() - today.getTime();
@@ -231,6 +245,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     dDayTextView.setText(dDayText);
                 } catch (ParseException e) {
                     dDayTextView.setText("날짜 오류");
+                    Log.e("DateParseError", "날짜 파싱 실패: " + product.getExpirationDate(), e);
                 }
             } else {
                 dDayTextView.setText("날짜 없음");
