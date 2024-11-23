@@ -13,20 +13,11 @@
     import androidx.appcompat.widget.AppCompatButton;
     import androidx.fragment.app.DialogFragment;
 
-    import com.cookandroid.test_ui.DTO.reponse.ProductsResDataDto;
-    import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
-    import com.cookandroid.test_ui.DTO.reponse.ProductsResListDto;
     import com.cookandroid.test_ui.R;
     import com.cookandroid.test_ui.util.ApiInterface;
-    import com.cookandroid.test_ui.util.TokenManger;
 
     import java.util.HashSet;
-    import java.util.List;
     import java.util.Set;
-
-    import retrofit2.Call;
-    import retrofit2.Callback;
-    import retrofit2.Response;
 
     public class RefrigeratorFoodFilterDialog extends DialogFragment implements View.OnClickListener {
         ApiInterface api;

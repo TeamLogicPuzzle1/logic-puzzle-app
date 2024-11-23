@@ -1,8 +1,6 @@
-package com.cookandroid.test_ui.DTO.reponse;
+package com.cookandroid.test_ui.DTO.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.File;
 
 public class ProductsExpirationDateResDto {
     @Expose

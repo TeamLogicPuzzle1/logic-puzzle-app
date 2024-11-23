@@ -2,8 +2,10 @@
  * 간략: 메인페이지 1번 상품 등록 및 조회 창
  * 최초 작성자: 홍진기
  * 작성일: 2024-09-27
- * 수정일: 2024-11-09
- * 버전: 0.1.0
+ * 수정일: 2024-11-23
+ * 수정자: 박시형
+ * 수정이유: 레시피추천시 로직 추가
+ * 버전: 0.2.0
  * */
 package com.cookandroid.test_ui.mainPage;
 
@@ -27,12 +29,12 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.setting.SettingLeaderVer;
@@ -42,17 +44,10 @@ import com.cookandroid.test_ui.util.TokenManger;
 import com.cookandroid.test_ui.util.UserManger;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @SuppressWarnings("deprecation")
 
@@ -343,21 +338,51 @@ AddItemDialog.OnDataPassListener{
         });
 
         recipeProductButton.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("레시피 찾기")
                     .setMessage("선택하신 상품에 대한 레시피를 찾겠습니까?")
                     .setNegativeButton("취소", (dialog, which) -> {
                         // 취소 버튼 클릭 시 실행할 코드
-
                     })
                     .setPositiveButton("확인", (dialog, which) -> {
-                        // 확인 버튼 클릭 시 실행할 코드
-                        // 이부분 수행해 주시면 됩니다. To.박시형씨께 ()
+                        // 선택한 상품 이름 가져오기
+                        List<Product> selectedProducts = productAdapter.getSelectedItems();
+                        if (selectedProducts.isEmpty()) {
+                            AlertDialog noSelectionAlert = new AlertDialog.Builder(requireContext())
+                                    .setTitle("알림")
+                                    .setMessage("상품을 선택해주세요.")
+                                    .setPositiveButton("확인", null)
+                                    .create();
+                            noSelectionAlert.show();
+                            return;
+                        }
+
+                        // 선택된 상품 이름 리스트 생성
+                        ArrayList<String> productNames = new ArrayList<>();
+                        for (Product product : selectedProducts) {
+                            productNames.add(product.getName());
+                        }
+
+                        // 레시피 프래그먼트로 이동
+                        Fragment recipeFragment = new MainPageFrag2();
+
+                        // 데이터 전달을 위한 Bundle 생성
+                        Bundle bundle = new Bundle();
+                        bundle.putStringArrayList("productNames", productNames);
+                        recipeFragment.setArguments(bundle);
+
+                        // Fragment 전환
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, recipeFragment) // fragment_container는 Activity의 컨테이너 ID
+                                .addToBackStack(null) // 이전 화면으로 돌아가기 위한 백스택 추가
+                                .commit();
                     });
 
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(productAdapter, requireContext()));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 

@@ -15,7 +15,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -32,7 +31,7 @@ import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.cookandroid.test_ui.DTO.reponse.ProductsExpirationDateResDto;
+import com.cookandroid.test_ui.DTO.response.ProductsExpirationDateResDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.RetrofitClient;

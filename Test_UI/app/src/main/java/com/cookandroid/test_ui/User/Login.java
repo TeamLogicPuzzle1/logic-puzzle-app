@@ -20,7 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
+import com.cookandroid.test_ui.DTO.response.AuthResLoginDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.mainPage.MainPageTab;

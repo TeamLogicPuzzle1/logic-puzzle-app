@@ -1,20 +1,21 @@
 package com.cookandroid.test_ui.util;
 
-import com.cookandroid.test_ui.DTO.common.BooleanResDto;
 import com.cookandroid.test_ui.DTO.common.TokenDto;
-import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
-import com.cookandroid.test_ui.DTO.reponse.ProductsExpirationDateResDto;
-import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
+import com.cookandroid.test_ui.DTO.response.AuthResLoginDto;
+import com.cookandroid.test_ui.DTO.response.ProductsExpirationDateResDto;
+import com.cookandroid.test_ui.DTO.response.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqAdd;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqDel;
-import com.cookandroid.test_ui.DTO.request.ProductsExpirationDateReqDto;
 import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.DTO.request.UserSignupDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
+import com.cookandroid.test_ui.DTO.response.RecipeFindResDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -59,5 +60,10 @@ public interface ApiInterface
     @POST("api/v1/foodWaste/food-waste/")
     @Headers("Auth: true")
     Call<FoodWasteReqAdd> foodWasteCreateDto(@Header("Authorization") String authorization, @Body FoodWasteReqAdd foodWasteReqAdd);
+
+    @GET("api/v1/recipe/recipes")
+    @Headers("Auth: true")
+    Call<RecipeFindResDto> recipeFindDto(@Header("Authorization") String authorization, @Query("prodNames") List<String> prodNames );
+
 
 }

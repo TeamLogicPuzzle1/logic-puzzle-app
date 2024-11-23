@@ -294,6 +294,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return itemsToRemove; // 삭제된 항목 리스트 반환
     }
 
+    // 선택된 상품 리스트 반환 메서드
+    public List<Product> getSelectedItems() {
+        List<Product> selectedProducts = new ArrayList<>();
+        for (int position : selectedItems) {
+            if (position >= 0 && position < productList.size()) {
+                selectedProducts.add(productList.get(position));
+            }
+        }
+        return selectedProducts;
+    }
+
     public void removeItem(int position) {
         Product removedProduct = productList.get(position);
 

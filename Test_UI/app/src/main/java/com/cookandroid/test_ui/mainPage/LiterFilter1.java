@@ -17,29 +17,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.cookandroid.test_ui.DTO.common.BooleanResDto;
-import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqAdd;
 import com.cookandroid.test_ui.R;
 import com.cookandroid.test_ui.util.ApiInterface;
-import com.cookandroid.test_ui.util.LogMsgOutput;
 import com.cookandroid.test_ui.util.TokenManger;
 import com.google.gson.Gson;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 public class LiterFilter1 extends DialogFragment implements View.OnClickListener {
     //api연결을 위해 api관련 변수 및 api선언(작성자:박시형)

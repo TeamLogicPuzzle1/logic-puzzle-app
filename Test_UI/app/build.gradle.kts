@@ -85,4 +85,6 @@ dependencies {
 
     implementation("com.jakewharton.threetenabp:threetenabp:1.3.1")
     implementation("org.threeten:threetenbp:1.6.6:no-tzdb") // ThreeTen-Backport 라이브러리를 활용
+
+    implementation("com.google.mlkit:text-recognition:16.0.0")
 }
