@@ -11,6 +11,8 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +39,10 @@ import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.RetrofitClient;
 import com.cookandroid.test_ui.util.TokenManger;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,7 +135,7 @@ public class CamExpirationdate extends AppCompatActivity {
         // 유통기한 버튼
         cameraExpirationDateBtn = (AppCompatButton) findViewById(R.id.CameraExpirationDateBtn);
         cameraExpirationDateBtn.setOnClickListener(view -> {
-            captureImage(new ImageCaptureCallback() {
+            /*captureImage(new ImageCaptureCallback() {
                 @Override
                 public void onImageSaved(String imagePath) {
                     Log.d("Image Capture", "Captured image path: " + imagePath);
@@ -180,7 +186,28 @@ public class CamExpirationdate extends AppCompatActivity {
                     Log.e("ImageCapture", "Image capture failed: " + errorMessage);
                     Toast.makeText(CamExpirationdate.this, "Image capture failed", Toast.LENGTH_SHORT).show();
                 }
+            }); */
+            captureImage(new ImageCaptureCallback() {
+                @Override
+                public void onImageSaved(String imagePath) {
+                    Log.d("Image Capture", "Captured image path: " + imagePath);
+
+                    // 이미지 파일에서 Bitmap 생성
+                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                    if (bitmap != null) {
+                        performOCR(bitmap); // OCR 수행
+                    } else {
+                        Toast.makeText(CamExpirationdate.this, "이미지를 로드할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    Log.e("ImageCapture", "Image capture failed: " + errorMessage);
+                    Toast.makeText(CamExpirationdate.this, "이미지 캡처 실패!", Toast.LENGTH_SHORT).show();
+                }
             });
+
         });
 
 
@@ -333,6 +360,49 @@ public class CamExpirationdate extends AppCompatActivity {
 
         RequestBody requestFile = RequestBody.create(file, okhttp3.MediaType.parse("image/jpeg"));
         return MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+    }
+
+    private void performOCR(Bitmap bitmap) {
+        // TextRecognizer 초기화
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+
+        InputImage image = InputImage.fromBitmap(bitmap, 0);
+
+        recognizer.process(image)
+                .addOnSuccessListener(result -> {
+                    String extractedText = result.getText();
+                    Log.d("OCR Result", "Extracted Text: " + extractedText);
+
+                    if (extractedText.isEmpty()) {
+                        Toast.makeText(this, "OCR 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String expirationDate = parseExpirationDate(extractedText);
+
+                        // Intent로 MainPageTab에 데이터 전달
+                        Intent intent = new Intent(CamExpirationdate.this, MainPageTab.class);
+                        intent.putExtra("inputText", inputText); // 최종 설정된 inputText 전달
+                        intent.putExtra("expirationDate", expirationDate); // 유통기한 데이터 전달
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); // 기존 액티비티 재사용
+                        startActivity(intent);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("OCR Error", "Failed to process image", e);
+                    Toast.makeText(this, "OCR 실패!", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    // 유통기한 파싱
+    private String parseExpirationDate(String text) {
+        // 날짜 형식을 탐지하는 정규식
+        String regex = "\\b(\\d{4}[.-]\\d{1,2}[.-]\\d{1,2})\\b|\\b(\\d{1,2}[.-]\\d{1,2}[.-]\\d{4})\\b";
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(regex);
+        java.util.regex.Matcher matcher = pattern.matcher(text);
+
+        if (matcher.find()) {
+            return matcher.group(); // 첫 번째 매칭된 날짜 반환
+        }
+        return "유통기한을 찾을 수 없습니다.";
     }
 
 
