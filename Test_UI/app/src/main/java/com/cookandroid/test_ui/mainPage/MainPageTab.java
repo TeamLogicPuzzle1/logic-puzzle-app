@@ -19,14 +19,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings("deprecation")
-public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener {
+public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDataPassListener, EditItemDialog.OnProductEditedListener{
     private TabLayout storeFragmentTablayout;
     private ViewPager viewPager;
     private VPadapter vpAdapter;
@@ -34,20 +36,35 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     private ProductAdapter productAdapter;
     Intent intent;
     private ProductViewModel productViewModel;
+
     @Override
-    public void onDataPass(String name, String classification, String storage, String date, int quantity,  Uri imageUri, String memo) {
-        Product product = new Product(name, classification, storage, quantity, date, imageUri, memo);
-        productViewModel.addProduct(product); // ViewModel에 Product 추가
-        if(mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
-            mainPageFrag.getProductAdapter().addProduct(product);
+    public void onProductEdited(Product product) {
+        // Product가 수정되었을 때 수행할 작업을 여기에 추가합니다.
+        // 예를 들어, ViewModel을 통해 업데이트하거나 어댑터에 알릴 수 있습니다.
+        productViewModel.updateProduct(product); // ViewModel에 업데이트
+    }
+
+    @Override
+    public void onDataPass(String name, String category, String location, int quantity, String expirationDate, Uri imageUri, String memo) {
+        Product newProduct = new Product(name, category, location, quantity, expirationDate, imageUri, memo);
+        productViewModel.addProduct(newProduct); // ViewModel에 Product 추가
+
+        if (mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
+            mainPageFrag.getProductAdapter().addProduct(newProduct);
+            mainPageFrag.updateImminentExpirationCount(); // 임박상품 카운트 업데이트
         }
     }
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page_tab_layout);
 
+        if (mainPageFrag != null) {
+            mainPageFrag.updateImminentExpirationCount(); // 초기 임박상품 카운트 설정
+        }
         // ViewModel 초기화
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         // 상태가 복원될 경우, ViewModel에 저장된 리스트를 복원
@@ -61,7 +78,7 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
 
         productViewModel.getProductList().observe(this, products -> {
             if (mainPageFrag != null && mainPageFrag.isAdapterInitialized()) {
-                mainPageFrag.updateProductList(products);
+                mainPageFrag.getProductAdapter().updateProducts(products);
             }
         });
 
@@ -85,7 +102,6 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
         intent = getIntent();
         String selectedDate = intent.getStringExtra("selectedDate");
         String inputText = intent.getStringExtra("inputText");
-
         // Debug log to check received values
         Log.d("MainPageTab", "selectedDate: " + selectedDate);
         Log.d("MainPageTab", "inputText: " + inputText);
@@ -99,6 +115,17 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
                 mainPageFrag.updateProductList(products);
             }
         });
+        // onItemClickListener가 null이 아닌지 확인 후 설정
+        /* if (productAdapter != null) {
+            productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Product product) {
+                    // 아이템 클릭 처리 로직
+                    EditItemDialog editItemDialog = EditItemDialog.newInstance(product);
+                    editItemDialog.show(getSupportFragmentManager(), "EditItemDialog");
+                }
+            });
+        } */
 
     }
 
@@ -106,16 +133,29 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent); // 새로운 Intent로 업데이트
+
         // 필요한 데이터 처리
-        String selectedDate = intent.getStringExtra("selectedDate");
-        String inputText = intent.getStringExtra("inputText");
+        String selectedDate = intent.getStringExtra("selectedDate"); // 유통기한 직접 입력
+        String expirationDate = intent.getStringExtra("expirationDate"); // 유통기한 인식
+        String inputText = intent.getStringExtra("inputText"); // 상품 이름
 
-        if (selectedDate != null && inputText != null) {
-            // AddItemDialog를 호출하여 다이얼로그 표시
+        Log.d("MainPageTab", "selectedDate (직접입력): " + selectedDate);
+        Log.d("MainPageTab", "expirationDate (인식): " + expirationDate);
+        Log.d("MainPageTab", "inputText: " + inputText);
+
+        // 조건에 따른 상품추가창 출력
+        if (selectedDate != null) {
+            // 직접입력으로 유통기한 설정
             showAddItemDialog(selectedDate, inputText);
+        } else if (expirationDate != null) {
+            // 유통기한 인식 결과로 설정
+            showAddItemDialog(expirationDate, inputText);
+        } else {
+            // 두 값이 모두 없는 경우 기본 동작 설정
+            Log.e("MainPageTab", "유통기한 정보가 없습니다.");
         }
-
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -128,15 +168,19 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
     private void showAddItemDialog(String selectedDate, String inputText) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         AddItemDialog addItemDialog = AddItemDialog.getInstance(this);
-        // Bundle을 사용하여 AddItemDialog에 데이터 전달
+
+        // 데이터 전달
         Bundle bundle = new Bundle();
-        bundle.putString("inputText", inputText);
         bundle.putString("selectedDate", selectedDate);
+        bundle.putString("inputText", inputText);
         addItemDialog.setArguments(bundle);
 
-        // 다이얼로그가 이미 열려 있는지 확인 후 표시
+        // 다이얼로그 표시
         if (fragmentManager.findFragmentByTag("AddItemDialog") == null) {
-            addItemDialog.show(getSupportFragmentManager(), "AddItemDialog");
+            addItemDialog.show(fragmentManager, "AddItemDialog");
         }
     }
+
+
+
 }

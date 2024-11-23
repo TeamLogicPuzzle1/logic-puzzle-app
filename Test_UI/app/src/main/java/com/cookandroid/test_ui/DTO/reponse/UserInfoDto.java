@@ -5,14 +5,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInfoDto {
     @Expose
-    @SerializedName("id") private Integer userId;
+    @SerializedName("id") private Integer id;
+    @SerializedName("user_id") private String userId;
     @SerializedName("profile_name") private String profileName;
+    @SerializedName("leaderYn") private Boolean leaderYn;
 
-    public Integer getUserId() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -22,5 +32,13 @@ public class UserInfoDto {
 
     public void setProfileName(String profileName) {
         this.profileName = profileName;
+    }
+
+    public Boolean getLeaderYn() {
+        return leaderYn;
+    }
+
+    public void setLeaderYn(Boolean leaderYn) {
+        this.leaderYn = leaderYn;
     }
 }

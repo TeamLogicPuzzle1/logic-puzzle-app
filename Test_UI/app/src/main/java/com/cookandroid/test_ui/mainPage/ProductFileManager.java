@@ -10,6 +10,7 @@ import static java.lang.Character.getType;
 
 import android.content.Context;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -31,6 +32,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 
 import java.io.IOException;
@@ -39,22 +41,29 @@ import java.io.IOException;
 public class AddItemDialog extends DialogFragment implements View.OnClickListener {
     Bundle args;
     private ImageView resourceImage;
-    private int counter = 0;
+    private int counter = 1;
     private String inputText;
     private String selectedDate;
     private String productName;
     private String memo;
     private Uri imageUri;
-    private boolean isEditMode = false; // 추가 모드(기본값)인지 수정 모드인지 구분
 
-
+    private Product product;
     // 다른 자바창에 연결하기 위한 메소드 작성
     public AddItemDialog() {}
     public static AddItemDialog getInstance(Context context) {
         AddItemDialog addItemDialog = new AddItemDialog();
         return addItemDialog;
+    }
+    // 소비기한 임박상품과, 만료 상품 카운팅을 위한 콜백 인터페이스 정의
+    public interface OnProductAddedListener{
+        void onProductAdded(Product newProduct);
+    }
 
+    private OnProductAddedListener productAddedListener;
 
+    public void setOnProductAddedListener(OnProductAddedListener listener) {
+        this.productAddedListener = listener;
     }
 
     public void setInputData(String inputText, String selectedDate) {
@@ -79,7 +88,7 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             }
     );
     public interface OnDataPassListener{
-        void onDataPass(String name, String classification, String storage, String date, int quantity, Uri imageUri, String memo);
+        void onDataPass(String name, String category, String location, int quantity, String expirationDate, Uri imageUri, String memo);
     }
 
     private OnDataPassListener dataPassListener;
@@ -94,10 +103,10 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         }
     }
     /*
-    * v(xml파일과 연결)
-    * spinClasssification(아이템분류를 선택하는 스피너)
-    * spinStorage(저장위치를 선택하는 스피너)
-    * backIvBtn(이전버튼)*/
+     * v(xml파일과 연결)
+     * spinClasssification(아이템분류를 선택하는 스피너)
+     * spinStorage(저장위치를 선택하는 스피너)
+     * backIvBtn(이전버튼)*/
 
     @Nullable
     @Override
@@ -121,19 +130,32 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
 
         TextView counterTextViwe = v.findViewById(R.id.CounterTextView);
         ImageButton counterPlusBtn = v.findViewById(R.id.CounterPlusBtn);
+        ImageButton counterMinusBtn = v.findViewById(R.id.CounterMinusBtn);
+
+// 초기 수량 설정
+        counterTextViwe.setText(String.valueOf(counter));
+
         counterPlusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counterTextViwe.setText(String.valueOf(counter++));
+                counter++;
+                counterTextViwe.setText(String.valueOf(counter));
             }
         });
-        ImageButton counterMinusBtn = v.findViewById(R.id.CounterMinusBtn);
+
         counterMinusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                counterTextViwe.setText(String.valueOf(counter--));
+                // 수량이 0보다 작아지지 않도록 조건 추가
+                if (counter > 0) {
+                    counter--;
+                    counterTextViwe.setText(String.valueOf(counter));
+                } else {
+                    Toast.makeText(view.getContext(), "수량은 0보다 작을 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
         ImageButton backIvBtn = v.findViewById(R.id.BackIvBtn);
         backIvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +165,6 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         });
         EditText textNameEdt = v.findViewById(R.id.TextNameEdt);
         Button dateTimePickerBtn = v.findViewById(R.id.DateTimePickerBtn);
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             // selectedDate 가져오기
@@ -163,18 +184,18 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
             @Override
             public void onClick(View view) {
 
-                    DatePickerDialogFragment datePickerDialog = new DatePickerDialogFragment();
-                    datePickerDialog.setOnDateSetListener((year, month, day) -> {
-                        // 선택한 날짜를 버튼 텍스트에 표시
-                        Button dateTimePickerBtn = getView().findViewById(R.id.DateTimePickerBtn);
-                        String selectedDate = year + "." + month + "." + day;
-                        dateTimePickerBtn.setText(selectedDate);
-                    });
+                DatePickerDialogFragment datePickerDialog = new DatePickerDialogFragment();
+                datePickerDialog.setOnDateSetListener((year, month, day) -> {
+                    // 선택한 날짜를 버튼 텍스트에 표시
+                    String selectedDateText = year + "." + (month < 10 ? "0" + month : month) + "." + (day < 10 ? "0" + day : day);
+                    dateTimePickerBtn.setText(selectedDateText);
 
-                    FragmentManager fragmentManager = getParentFragmentManager();
-                    datePickerDialog.show(fragmentManager, "datePicker");
+                    // 버튼의 텍스트를 selectedDate에 저장
+                    selectedDate = selectedDateText;
+                });
 
-
+                FragmentManager fragmentManager = getParentFragmentManager();
+                datePickerDialog.show(fragmentManager, "datePicker");
             }
         });
         resourceImage = v.findViewById(R.id.ResourceImage);
@@ -187,27 +208,25 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
 
         EditText memoEditText = v.findViewById(R.id.MemoEditText);
         Button addItemBtn = v.findViewById(R.id.AddItemBtn);
+
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 이름 입력 유효성 검사
                 String name = textNameEdt.getText().toString().trim();
-                String classification = spinClassification.getSelectedItem().toString();
-                String storage = spinStorage.getSelectedItem().toString();
+                String category = spinClassification.getSelectedItem().toString();
+                String location = spinStorage.getSelectedItem().toString();
                 int quantity = Integer.parseInt(counterTextViwe.getText().toString().trim());
                 String memo = memoEditText.getText().toString().trim();
-                String date = selectedDate;
+                String expirationDate = selectedDate;
 
                 if (dataPassListener != null) {
-                    dataPassListener.onDataPass(name, classification, storage, date, quantity, imageUri, memo);
+                    dataPassListener.onDataPass(name, category, location, quantity, expirationDate, imageUri, memo);
                 }
 
                 dismiss();// 팝업 닫기
             }
         });
-
-
-
 
         return v;
     }
@@ -216,10 +235,6 @@ public class AddItemDialog extends DialogFragment implements View.OnClickListene
         intent.setType("image/*");
         imagePickerLauncher.launch(intent);
     }
-
-
-
-
 
 
     @Override

@@ -12,6 +12,9 @@ package com.cookandroid.test_ui.mainPage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.cookandroid.test_ui.DTO.request.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +45,16 @@ public class ProductViewModel extends ViewModel {
 
     public void setProductList(ArrayList<Product> updatedList) {
         productList.setValue(updatedList);
+    }
+    // EditItemDialog 을 위한 수정과 갱신 메서드
+    public void updateProduct(Product updateProduct) {
+        List<Product> currentList = productList.getValue();
+        if(currentList != null) {
+            int index = currentList.indexOf(updateProduct);
+            if(index != -1) {
+                currentList.set(index, updateProduct);
+                productList.setValue(currentList);  // LiveData업데이트
+            }
+        }
     }
 }

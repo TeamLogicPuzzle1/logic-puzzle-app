@@ -3,21 +3,26 @@ package com.cookandroid.test_ui.util;
 import com.cookandroid.test_ui.DTO.common.BooleanResDto;
 import com.cookandroid.test_ui.DTO.common.TokenDto;
 import com.cookandroid.test_ui.DTO.reponse.AuthResLoginDto;
+import com.cookandroid.test_ui.DTO.reponse.ProductsExpirationDateResDto;
 import com.cookandroid.test_ui.DTO.reponse.ProductsResDto;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqAdd;
 import com.cookandroid.test_ui.DTO.request.FoodWasteReqDel;
+import com.cookandroid.test_ui.DTO.request.ProductsExpirationDateReqDto;
 import com.cookandroid.test_ui.DTO.request.UserCheckDto;
 import com.cookandroid.test_ui.DTO.request.UserSignupDto;
 import com.cookandroid.test_ui.DTO.request.AuthReqLoginDto;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface
@@ -36,7 +41,16 @@ public interface ApiInterface
     Call<TokenDto> authRefreshDto(@Body TokenDto tokenDto);
 
     @GET("api/v1/production/products")
-    Call<List<ProductsResDto>> productsListDto();
+    @Headers("Auth: true")
+    Call<List<ProductsResDto>> productsListDto(@Header("Authorization") String authorization,
+                                               @Query("user_id") String userId, @Query("name") String name,
+                                               @Query("category") Integer category,
+                                               @Query("location") Integer location, @Query("filter_type") String filterType);
+
+    @Multipart
+    @POST("api/v1/production/products/extract-expiration-date/")
+    @Headers("Auth: true")
+    Call<ProductsExpirationDateResDto> productsExpircationDateResDto(@Header("Authorization") String authorization, @Part MultipartBody.Part image);
 
     @POST("api/v1/foodWaste/food-waste/reduce/")
     @Headers("Auth: true")

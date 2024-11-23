@@ -27,7 +27,7 @@ import com.cookandroid.test_ui.mainPage.MainPageTab;
 import com.cookandroid.test_ui.util.ApiInterface;
 import com.cookandroid.test_ui.util.LogMsgOutput;
 import com.cookandroid.test_ui.util.TokenManger;
-import com.google.gson.Gson;
+import com.cookandroid.test_ui.util.UserManger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,17 +35,17 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
     /*
-    * 변수명
-    * singUpBtn(회원가입 버튼)
-    * idFindBtn(아이디 찾기 버튼)
-    * pwFindBtn(비밀번호 찾기 버튼)
-    * loginBtn(로그인 버튼)
-    * */
-    ApiInterface api;
+     * 변수명
+     * singUpBtn(회원가입 버튼)
+     * idFindBtn(아이디 찾기 버튼)
+     * pwFindBtn(비밀번호 찾기 버튼)
+     * loginBtn(로그인 버튼)
+     * */ ApiInterface api;
     com.cookandroid.test_ui.util.RetrofitClient RetrofitClient;
     AppCompatButton signUpBtn, idFindBtn, pwFindBtn;
     Button loginBtn;
     Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,33 +95,46 @@ public class Login extends AppCompatActivity {
                 api = RetrofitClient.getRetrofit().create(ApiInterface.class);
 
                 api.authLoginDto(authReqLoginDto).enqueue(new Callback<AuthResLoginDto>() {
-                      @Override
-                      public void onResponse(Call<AuthResLoginDto> call, Response<AuthResLoginDto> response) {
-                          AuthResLoginDto responseData = response.body();
-                          if(response.isSuccessful()){
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "login success");
-                              //LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
+                    @Override
+                    public void onResponse(Call<AuthResLoginDto> call, Response<AuthResLoginDto> response) {
+                        AuthResLoginDto responseData = response.body();
+                        if (response.isSuccessful()) {
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "login success");
+                            //LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + new Gson().toJson(responseData.getTokenDto().getAccess().toString()));
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
 
-                              TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
+                            UserManger userManger = UserManger.getInstance(getApplicationContext());
 
-                              tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
-                              tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
+                            userManger.setId(responseData.getUserInfoDto().getId());
+                            userManger.setUserId(responseData.getUserInfoDto().getUserId());
+                            userManger.setProfileName(responseData.getUserInfoDto().getProfileName());
+                            userManger.setLeaderYn(responseData.getUserInfoDto().getLeaderYn());
 
-                              Log.d("AccessToken = ", "accessToken : " + TokenManger.getAccessToken());
-                              RetrofitClient.setAccessToken(TokenManger.getAccessToken());
-                          } else{
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "login fail @@@");
-                              LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
-                          }
-                      }
+                            Log.d("Id = ", "Id : " + UserManger.getId());
+                            Log.d("UserId = ", "userId : " + UserManger.getUserId());
+                            Log.d("ProfileName = ", "profileName : " + UserManger.getProfileName());
+                            Log.d("LeaderYn = ", "leaderYn : " + UserManger.getLeaderYn());
 
-                      @Override
-                      public void onFailure(Call<AuthResLoginDto> call, Throwable t) {
-                          LogMsgOutput.logPrintOut(getApplicationContext(), "login fail === ");
-                          LogMsgOutput.logPrintOut(getApplicationContext(), "Throwable : " + t.getMessage());
-                          call.cancel();
-                      }
+                            TokenManger tokenManger = TokenManger.getInstance(getApplicationContext());
+
+                            tokenManger.setAccessToken(responseData.getTokenDto().getAccess().toString());
+                            tokenManger.setRefreshToken(responseData.getTokenDto().getRefresh().toString());
+
+                            Log.d("AccessToken = ", "accessToken : " + TokenManger.getAccessToken());
+
+                            RetrofitClient.setAccessToken(TokenManger.getAccessToken());
+                        } else {
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "login fail @@@");
+                            LogMsgOutput.logPrintOut(getApplicationContext(), "responseData : " + response.raw().body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AuthResLoginDto> call, Throwable t) {
+                        LogMsgOutput.logPrintOut(getApplicationContext(), "login fail === ");
+                        LogMsgOutput.logPrintOut(getApplicationContext(), "Throwable : " + t.getMessage());
+                        call.cancel();
+                    }
                 });
 
                 intent = new Intent(getApplicationContext(), MainPageTab.class);

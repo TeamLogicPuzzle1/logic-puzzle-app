@@ -61,14 +61,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnLoc1"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/RefrigeratorBtn"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginStart="132dp"
-            android:layout_marginTop="57dp"
-            android:backgroundTint="#ffffff"
-            android:text="    냉장고    "
+            android:layout_marginTop="59dp"
+            android:background="@drawable/filter_button_background"
+            android:text="냉장고"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,14 +76,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnLoc2"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/FreezerBtn"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginStart="132dp"
-            android:layout_marginTop="107dp"
-            android:backgroundTint="#ffffff"
-            android:text="    냉동고    "
+            android:layout_marginTop="109dp"
+            android:text="냉동고"
+            android:background="@drawable/filter_button_background"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,14 +91,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnLoc3"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/RoomTemperatureBtn"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginStart="132dp"
-            android:layout_marginTop="157dp"
-            android:backgroundTint="#ffffff"
-            android:text="      실온      "
+            android:layout_marginTop="159dp"
+            android:background="@drawable/filter_button_background"
+            android:text="실온"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="2px"
             android:layout_marginHorizontal="13dp"
-            android:layout_marginTop="207dp"
+            android:layout_marginTop="209dp"
             android:background="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -130,14 +130,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit1"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/MeatBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="99dp"
-            android:layout_marginTop="207dp"
-            android:backgroundTint="#ffffff"
-            android:text="   고기   "
+            android:layout_marginTop="209dp"
+            android:background="@drawable/filter_button_background"
+            android:text="고기"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -145,13 +145,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit2"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/SeaFoodBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="99dp"
-            android:layout_marginTop="257dp"
-            android:backgroundTint="#ffffff"
+            android:layout_marginTop="259dp"
+            android:background="@drawable/filter_button_background"
             android:text=" 해산물 "
             android:textColor="#000000"
             android:textSize="20dp"
@@ -160,14 +160,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit3"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/VegetableBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="99dp"
-            android:layout_marginTop="307dp"
-            android:backgroundTint="#ffffff"
-            android:text="   야채   "
+            android:layout_marginTop="309dp"
+            android:background="@drawable/filter_button_background"
+            android:text="야채"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -175,14 +175,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit4"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/FruitBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="99dp"
-            android:layout_marginTop="357dp"
-            android:backgroundTint="#ffffff"
-            android:text="   과일   "
+            android:layout_marginTop="359dp"
+            android:background="@drawable/filter_button_background"
+            android:text="과일"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -190,56 +190,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit5"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/DairyProductBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="214dp"
-            android:layout_marginTop="207dp"
-            android:backgroundTint="#ffffff"
-            android:text=" 유제품 "
+            android:layout_marginTop="209dp"
+            android:background="@drawable/filter_button_background"
+            android:text="유제품"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit6"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/SoftDrinkBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="214dp"
-            android:layout_marginTop="257dp"
-            android:backgroundTint="#ffffff"
-            android:text="   음료   "
+            android:layout_marginTop="259dp"
+            android:background="@drawable/filter_button_background"
+            android:text="음료"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit7"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/EtcBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="214dp"
-            android:layout_marginTop="307dp"
-            android:backgroundTint="#ffffff"
-            android:text="   기타   "
+            android:layout_marginTop="309dp"
+            android:background="@drawable/filter_button_background"
+            android:text="기타"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/BtnFit8"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/UnclassifiedBtn"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginStart="214dp"
-            android:layout_marginTop="357dp"
-            android:backgroundTint="#ffffff"
-            android:text=" 미분류 "
+            android:layout_marginTop="359dp"
+            android:background="@drawable/filter_button_background"
+            android:text="미분류"
             android:textColor="#000000"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -263,6 +263,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/CheckFilterBtn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="423dp"

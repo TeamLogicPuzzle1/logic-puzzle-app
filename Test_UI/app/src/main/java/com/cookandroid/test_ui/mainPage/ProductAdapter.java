@@ -9,18 +9,17 @@ package com.cookandroid.test_ui.mainPage;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cookandroid.test_ui.DTO.request.Product;
 import com.cookandroid.test_ui.R;
 
 import java.text.ParseException;
@@ -28,11 +27,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private ArrayList<Product> productList;
+    private ArrayList<Product> productList;  // 전체 리스트
+    private ArrayList<Product> filteredList; // 필터링된 리스트
     private boolean isSelectionMode = false;    // 선택 모드인지 여부
     private List<Integer> selectedItems = new ArrayList<>();   // 선택된 항목의 인덱스
     SelectionModeListener selectionModeListener;
@@ -58,12 +59,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.productList = initialProductList != null ? initialProductList : new ArrayList<>(); // 전달된 리스트가 null이 아닐 때만 사용
         this.selectionModeListener = listener;
         this.productViewModel = viewModel;
+
+        this.filteredList = new ArrayList<>(productList); // 초기에는 전체 리스트로 설정
     }
 
     // 새 상품 추가
     public void addProduct(Product product) {
         productList.add(product);
-        notifyItemInserted(productList.size() - 1); // 리스트에 새 항목 추가
+        Log.d("ProductAdapter", "아이템 추가됨: " + product.getName());
+        notifyItemInserted(filteredList.size() - 1); // 리스트에 새 항목 추가
     }
     // 선택 모드 설정 메서드
     public void setSelectionMode(boolean selectionMode) {
@@ -79,6 +83,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
+    // 필터 메소드
+    // ProductAdapter.java
+    public void filter(String query) {
+        filteredList.clear(); // 필터링된 리스트 초기화
+        if (query.isEmpty()) {
+            filteredList.addAll(productList); // 검색어가 비어있으면 전체 리스트 표시
+        } else {
+            for (Product product : productList) {
+                // 상품명으로 필터링
+                if (product.getName() != null && product.getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(product);
+                }
+            }
+        }
+        notifyDataSetChanged(); // RecyclerView를 업데이트
+    }
 
 
 
@@ -91,20 +111,35 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        holder.bind(productList.get(position), position); // bind 메서드를 통해 데이터 설정
+        holder.bind(filteredList.get(position), position); // bind 메서드를 통해 데이터 설정
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return filteredList.size();
     }
 
     public void updateProducts(List<Product> products) {
         productList.clear();
         productList.addAll(products);
+        filter("");     // filter가 넘겨야 하는 name
         notifyDataSetChanged(); // 전체 데이터가 갱신되도록 설정
     }
 
+    // 어댑터에 냉장고 필터 조건을 처리하는 메서드
+    public void filterByMultipleCriteria(Set<String> filters) {
+        filteredList.clear();
+        if (filters.isEmpty()) {
+            filteredList.addAll(productList); // 필터가 없으면 전체 리스트 표시
+        } else {
+            for (Product product : productList) {
+                if (filters.contains(product.getLocation()) || filters.contains(product.getCategory())) {
+                    filteredList.add(product); // 위치나 분류가 필터에 포함되면 추가
+                }
+            }
+        }
+        notifyDataSetChanged(); // RecyclerView 업데이트
+    }
 
     class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView, classificationTextView, storageTextView, quantityTextView, dateTextView, memoTextView, dDayTextView;
@@ -145,65 +180,82 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     onItemClickListener.onItemClick(product);  // 클릭 이벤트 전달
                 }
             });
+
+        }
+
+        // 날짜 문자열 보정 메서드 추가
+        private String normalizeDate(String dateStr) {
+            String[] parts = dateStr.split("\\.");
+            if (parts.length == 3) {
+                String year = parts[0];
+                String month = parts[1].length() == 1 ? "0" + parts[1] : parts[1];
+                String day = parts[2].length() == 1 ? "0" + parts[2] : parts[2];
+                return year + "." + month + "." + day;
+            }
+            return dateStr; // 형식이 맞지 않을 경우 그대로 반환
         }
 
         public void bind(Product product, int position) {
+            // 이미지가 있을 경우 ImageView에 표시
+            if (product.getImageUri() != null) {
+                itemImageView.setImageURI(product.getImageUri());
+            } else {
+                itemImageView.setImageURI(product.getImageUri());
+            }
+
             nameTextView.setText(product.getName());
-            classificationTextView.setText("분류: " + product.getClassification());
-            storageTextView.setText("위치: " + product.getStorageLocation());
+            classificationTextView.setText("분류: " + product.getCategory());
+            storageTextView.setText("위치: " + product.getLocation());
             quantityTextView.setText("수량: " + product.getQuantity());
             dateTextView.setText("소비기한: " + product.getExpirationDate());
             memoTextView.setText(product.getMemo());
 
-
-
             // RGB 색상을 이용하여 ColorStateList 생성
             ColorStateList redColorState = ColorStateList.valueOf(Color.rgb(216, 67, 21));
-            ColorStateList yellowColorState = ColorStateList.valueOf(Color.rgb(251,192,45));
+            ColorStateList yellowColorState = ColorStateList.valueOf(Color.rgb(251, 192, 45));
             ColorStateList greenColorState = ColorStateList.valueOf(Color.rgb(124, 179, 66));
 
-            // 이미지가 있을 경우 ImageView에 표시
-            if(product.getImageUri() != null) {
-                itemImageView.setImageURI(product.getImageUri());
-            } else {
-                itemImageView.setImageResource(R.drawable.default_image);
-            }
-
+            // Date parsing and D-Day calculation
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
-            try {
-                Date expirationDate = formatter.parse(product.getExpirationDate());
-                Date today = new Date();
+            if (product.getExpirationDate() != null) {
+                try {
+                    // 날짜 문자열을 보정 후 파싱
+                    String normalizedDate = normalizeDate(product.getExpirationDate());
+                    Date expirationDate = formatter.parse(normalizedDate);
+                    Date today = new Date();
 
-                // 두 날짜 간의 일 수 계산
-                long diffInMillis = expirationDate.getTime() - today.getTime();
-                long daysUntilExpiration = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+                    long diffInMillis = expirationDate.getTime() - today.getTime();
+                    long daysUntilExpiration = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
-                String dDayText;
-                if (daysUntilExpiration > 2) {
-                    dDayText = "D-" + daysUntilExpiration;
-                   dDayTextView.setBackgroundTintList(greenColorState); // 초록색 적용
-                } else if (daysUntilExpiration > 0) {
-                    dDayText = "D-" + daysUntilExpiration;
-                    dDayTextView.setBackgroundTintList(yellowColorState); // 노란색 적용
-                } else if (daysUntilExpiration == 0) {
-                    dDayText = "D-Day";
-                    dDayTextView.setBackgroundTintList(yellowColorState); // 노란색 적용
-                } else {
-                    dDayText = "D+" + Math.abs(daysUntilExpiration); // 만료된 경우
-                    dDayTextView.setBackgroundTintList(redColorState); // 빨간색 적용
+                    String dDayText;
+                    if (daysUntilExpiration > 2) {
+                        dDayText = "D-" + daysUntilExpiration;
+                        dDayTextView.setBackgroundTintList(greenColorState);
+                    } else if (daysUntilExpiration > 0) {
+                        dDayText = "D-" + daysUntilExpiration;
+                        dDayTextView.setBackgroundTintList(yellowColorState);
+                    } else if (daysUntilExpiration == 0) {
+                        dDayText = "D-Day";
+                        dDayTextView.setBackgroundTintList(yellowColorState);
+                    } else {
+                        dDayText = "D+" + Math.abs(daysUntilExpiration);
+                        dDayTextView.setBackgroundTintList(redColorState);
+                    }
+
+                    dDayTextView.setText(dDayText);
+                } catch (ParseException e) {
+                    dDayTextView.setText("날짜 오류");
+                    Log.e("DateParseError", "날짜 파싱 실패: " + product.getExpirationDate(), e);
                 }
-
-                dDayTextView.setText(dDayText);
-            } catch (ParseException e) {
-                dDayTextView.setText("날짜 오류"); // 날짜 형식이 맞지 않는 경우 오류 메시지
+            } else {
+                dDayTextView.setText("날짜 없음");
+                dDayTextView.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY)); // 기본 회색 설정
             }
 
-            // 선택 모드일 때만 체크박스 표시
             checkBox.setVisibility(isSelectionMode ? View.VISIBLE : View.GONE);
-
-            // 선택 상태에 따라 체크박스 상태 설정
             checkBox.setChecked(selectedItems.contains(position));
         }
+
 
         // 선택 상태 변경
         private void toggleSelection(int position) {

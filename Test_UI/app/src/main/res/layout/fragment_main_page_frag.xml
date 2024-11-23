@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,13 +35,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
+            android:id="@+id/ImminentExpirationDate"
             android:layout_width="205dp"
             android:layout_height="43dp"
             android:layout_marginStart="3dp"
             android:layout_marginTop="58dp"
-            android:background="@drawable/rectangle"
-            android:backgroundTint="#dfdfdf"
+            android:background="@drawable/rectangle_default"
             android:gravity="center"
             android:text="소비기한 임박상품  0"
             android:textColor="#000000"
@@ -51,12 +51,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ConsumptionExpirationDate"
         android:layout_width="205dp"
         android:layout_height="43dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="3dp"
-        android:background="@drawable/rectangle"
-        android:backgroundTint="#dfdfdf"
+        android:background="@drawable/rectangle_default"
         android:gravity="center"
         android:textColor="#000000"
         android:text="소비기한 만료상품  0"
@@ -67,6 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/ProductSearch"
         android:layout_width="360dp"
         android:layout_height="40dp"
         android:layout_marginStart="3dp"
@@ -78,6 +79,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <ImageButton
         android:id="@+id/RefrigeratorFoodFilterCheck"
