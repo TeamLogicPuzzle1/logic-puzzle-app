@@ -381,6 +381,12 @@ AddItemDialog.OnDataPassListener{
                             productNames.add(product.getName());
                         }
 
+                        // **선택 상태 초기화**
+                        productAdapter.clearSelection(); // 선택 상태 초기화
+                        Log.d("MainPageFrag", "선택 상태 초기화 완료");
+                        recipeProductButton.setVisibility(View.INVISIBLE);
+                        deleteProductButton.setVisibility(View.INVISIBLE);
+
                         // 레시피 프래그먼트로 이동
                         ViewPager viewPager = requireActivity().findViewById(R.id.ViewPager);
                         viewPager.setCurrentItem(1, true); // 1번 인덱스가 레시피 프래그먼트
@@ -397,6 +403,7 @@ AddItemDialog.OnDataPassListener{
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
 
 
 

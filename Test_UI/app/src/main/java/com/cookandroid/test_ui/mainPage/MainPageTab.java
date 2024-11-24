@@ -46,7 +46,7 @@ public class MainPageTab extends AppCompatActivity implements AddItemDialog.OnDa
         // 프래그먼트 추가
         vpAdapter.addFragment(new MainPageFrag(), "홈");
         vpAdapter.addFragment(new MainPageFrag2(), "레시피");
-        vpAdapter.addFragment(new MainPageFrag3(), "휴지통");
+        vpAdapter.addFragment(new MainPageFrag3(), "폐기물통계");
         Log.d("MainPageTab", "프래그먼트 추가 완료");
 
         // ViewPager와 어댑터 연결

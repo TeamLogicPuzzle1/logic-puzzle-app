@@ -322,5 +322,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             selectionModeListener.onProductRemoved(position);
         }
     }
+    public void clearSelection() {
+        selectedItems.clear(); // 선택 항목 초기화
+        isSelectionMode = false; // 선택 모드 종료
+        notifyDataSetChanged(); // RecyclerView 갱신
+    }
 }
 
