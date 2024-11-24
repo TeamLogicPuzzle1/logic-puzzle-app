@@ -382,23 +382,25 @@ AddItemDialog.OnDataPassListener{
                         }
 
                         // 레시피 프래그먼트로 이동
-                        Fragment recipeFragment = new MainPageFrag2();
+                        ViewPager viewPager = requireActivity().findViewById(R.id.ViewPager);
+                        viewPager.setCurrentItem(1, true); // 1번 인덱스가 레시피 프래그먼트
 
-                        // 데이터 전달을 위한 Bundle 생성
-                        Bundle bundle = new Bundle();
-                        bundle.putStringArrayList("productNames", productNames);
-                        recipeFragment.setArguments(bundle);
-                        // Fragment 전환
-                        requireActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_container, recipeFragment) // fragment_container는 Activity의 컨테이너 ID
-                                .addToBackStack(null) // 이전 화면으로 돌아가기 위한 백스택 추가
-                                .commit();
+                        // 2번째 프래그먼트(MainPageFrag2)에서 데이터 업데이트
+                        VPadapter adapter = (VPadapter) viewPager.getAdapter();
+                        if (adapter != null) {
+                            MainPageFrag2 recipeFragment = (MainPageFrag2) adapter.getItem(1);
+                            recipeFragment.updateRecipeData(productNames); // 데이터를 직접 전달
+                            Log.d("MainPageFrag", "updateRecipeData 호출됨 - 전달된 productNames: " + productNames);
+                        }
                     });
 
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
+
+
+
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(productAdapter, requireContext()));
         itemTouchHelper.attachToRecyclerView(recyclerView);

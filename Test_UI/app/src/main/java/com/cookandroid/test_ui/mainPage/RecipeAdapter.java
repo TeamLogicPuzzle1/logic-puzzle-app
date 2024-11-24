@@ -1,5 +1,6 @@
 package com.cookandroid.test_ui.mainPage;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe_item recipe = recipeList.get(position);
+
         holder.recipeNameText.setText(recipe.getName()); // 요리 이름 설정
         holder.recipeIngredientText.setText(recipe.getIngredients()); // 재료 설정
+
+        // 디버깅용 로그
+        Log.d("RecipeAdapter", "Position: " + position + ", Name: " + recipe.getName() + ", Ingredients: " + recipe.getIngredients());
     }
+
 
     @Override
     public int getItemCount() {

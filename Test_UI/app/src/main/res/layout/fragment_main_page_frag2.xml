@@ -54,7 +54,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/rectangle_circle_layout_background_gray"
         android:layout_marginTop="160dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="40dp"
+        android:scrollbars="vertical">
 
 
     </androidx.recyclerview.widget.RecyclerView>
